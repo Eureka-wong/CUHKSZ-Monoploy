@@ -1,0 +1,3 @@
+/Users/Leviathan/Downloads/CSC3002/Logic/build/CMakeFiles/Logic.dir
+/Users/Leviathan/Downloads/CSC3002/Logic/build/CMakeFiles/edit_cache.dir
+/Users/Leviathan/Downloads/CSC3002/Logic/build/CMakeFiles/rebuild_cache.dir
