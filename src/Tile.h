@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <array>
+#include <memory>
 
 class Player;
 class Game;
