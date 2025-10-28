@@ -8,11 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/Leviathan/Downloads/CSC3002/Logic/src/Board.cpp" "CMakeFiles/Logic.dir/src/Board.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/Board.cpp.o.d"
-  "/Users/Leviathan/Downloads/CSC3002/Logic/src/Game.cpp" "CMakeFiles/Logic.dir/src/Game.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/Game.cpp.o.d"
-  "/Users/Leviathan/Downloads/CSC3002/Logic/src/Player.cpp" "CMakeFiles/Logic.dir/src/Player.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/Player.cpp.o.d"
-  "/Users/Leviathan/Downloads/CSC3002/Logic/src/Tile.cpp" "CMakeFiles/Logic.dir/src/Tile.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/Tile.cpp.o.d"
-  "/Users/Leviathan/Downloads/CSC3002/Logic/src/main.cpp" "CMakeFiles/Logic.dir/src/main.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/main.cpp.o.d"
+  "/workspaces/CUHKSZ-Monoploy/src/Board.cpp" "CMakeFiles/Logic.dir/src/Board.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/Board.cpp.o.d"
+  "/workspaces/CUHKSZ-Monoploy/src/Game.cpp" "CMakeFiles/Logic.dir/src/Game.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/Game.cpp.o.d"
+  "/workspaces/CUHKSZ-Monoploy/src/Player.cpp" "CMakeFiles/Logic.dir/src/Player.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/Player.cpp.o.d"
+  "/workspaces/CUHKSZ-Monoploy/src/Tile.cpp" "CMakeFiles/Logic.dir/src/Tile.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/Tile.cpp.o.d"
+  "/workspaces/CUHKSZ-Monoploy/src/main.cpp" "CMakeFiles/Logic.dir/src/main.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
