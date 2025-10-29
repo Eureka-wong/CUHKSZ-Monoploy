@@ -8,9 +8,9 @@
 
 class Game {
 private:
-    Board board;
-
     int numPlayers;
+    
+    Board board;
     std::vector<Player> players;
 
     int round = 0;

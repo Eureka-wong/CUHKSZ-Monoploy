@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Game::Game() : board(), numPlayers(getNumPlayers()) {
+Game::Game() : numPlayers(getNumPlayers()), board() {
     // -1 if test player is used
     for (int i = 0; i < numPlayers; i++) {
         string name;

@@ -22,7 +22,7 @@ struct TileInfo {
     std::string group;
 
     TileInfo(std::string tileType, std::string name, int index, int price = 0, int housePrice = 0,
-             std::array<int, 6> rent = {0, 0, 0, 0, 0, 0}, std::string colorGroup = "None");
+             std::array<int, 6> rent = std::array<int, 6>{0, 0, 0, 0, 0, 0}, std::string colorGroup = "None");
 };
 
 class Tile {
