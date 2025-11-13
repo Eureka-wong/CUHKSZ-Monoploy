@@ -1,8 +1,10 @@
-I have developed some base logic for the Monopoly game project.
+I have updated some logic for the Monopoly game project.
+
+Parts that have been added:
+- Jail mechanisms.
+- Win and bankruptcy conditions
 
 Parts that have not been implemented:
-- Jail mechanisms
-- Win and bankruptcy conditions
 - Community Chest and Chance tiles
 - Trading mechanisms
 
