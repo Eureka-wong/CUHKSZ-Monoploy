@@ -69,7 +69,7 @@ public:
     void sellBuilding(Player& player, Game& game);
     void mortgageProperty(Player& player);
 
-    // Additional accessors
+    // Accessors
     int getHouses() const;
 
     // Helpers
@@ -79,6 +79,8 @@ public:
     void calculateRent(int step, int& rentDue) const;
     bool ownedByPlayer(Player& player) const;
     bool isStationOrUtility() const;
+    int getValue() const;
+    void transferOwnership(Player& previousOwner, Player* newOwner);
 };
 
 class FreeParkingTile : public Tile {
@@ -94,15 +96,17 @@ public:
     void onLand(Player& player, Game& game, int step) override;
 };
 
+class GoToJailTile : public Tile {
+public:
+    GoToJailTile(const TileInfo& info);
+    void onLand(Player& player, Game& game, int step) override;
+};
+
 class ChanceTile: public Tile {
     
 };
 
 class CommunityChestTile: public Tile {
-
-};
-
-class JailTile : public Tile {
 
 };
 

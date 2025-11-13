@@ -17,7 +17,7 @@ Board::Board() {
         TileInfo("Property", "Brown 1", 1, 60, 50, {{2, 10, 30, 90, 160, 250}}, "Brown"),
         TileInfo("Free Parking", "Community Chest 1", 2),
         TileInfo("Property", "Brown 2", 3, 60, 50, {{4, 20, 60, 180, 320, 450}}, "Brown"),
-        TileInfo("Tax", "Tax 1", 4),
+        TileInfo("Tax", "Tax 1", 4, 200),
         TileInfo("Property", "Station 1", 5, 200, 100, {{25, 50, 100, 200, 0, 0}}, "Station"),
         TileInfo("Property", "Light Blue 1", 6, 100, 50, {{6, 30, 90, 270, 400, 550}}, "Light Blue"),
         TileInfo("Free Parking", "Chance 1", 7),
@@ -40,13 +40,13 @@ Board::Board() {
         TileInfo("Free Parking", "Chance 2", 22),
         TileInfo("Property", "Red 2", 23, 220, 150, {{18, 90, 250, 700, 875, 1050}}, "Red"),
         TileInfo("Property", "Red 3", 24, 240, 150, {{20, 100, 300, 750, 925, 1100}}, "Red"),
-        TileInfo("Property", "Station3", 25, 200, 0, {{25, 50, 100, 200, 0, 0}}, "Station"),
+        TileInfo("Property", "Station 3", 25, 200, 0, {{25, 50, 100, 200, 0, 0}}, "Station"),
         TileInfo("Property", "Yellow 1", 26, 260, 150, {{22, 110, 330, 800, 975, 1150}}, "Yellow"),
         TileInfo("Property", "Yellow 2", 27, 260, 150, {{22 ,110 ,330, 800, 975, 1150}}, "Yellow"),
         TileInfo("Property", "Utilities 2", 28, 150, 0, {{0, 0, 0, 0, 0, 0}}, "Utility"),
         TileInfo("Property", "Yellow 3", 29, 280, 150, {{24, 120, 360, 850, 1025, 1200}}, "Yellow"),
 
-        TileInfo("Free Parking", "Go to Jail", 30),
+        TileInfo("Go to Jail", "Go to Jail", 30),
         TileInfo("Property", "Green 1", 31, 300, 200, {{26, 130, 390, 900, 1100, 1275}}, "Green"),
         TileInfo("Property", "Green 2", 32, 300, 200, {{26, 130, 390, 900, 1100, 1275}}, "Green"),
         TileInfo("Free Parking", "Community Chest 3", 33),
@@ -54,7 +54,7 @@ Board::Board() {
         TileInfo("Property", "Station 4", 35, 200, 0, {{25, 50, 100, 200, 0, 0}}, "Station"),
         TileInfo("Free Parking", "Chance 3", 36),
         TileInfo("Property", "Dark Blue 1", 37, 350, 200, {{35, 175, 500, 1100, 1300, 1500}}, "Dark Blue"),
-        TileInfo("Tax", "Tax 2", 38),
+        TileInfo("Tax", "Tax 2", 38, 100),
         TileInfo("Property", "Dark Blue 2", 39, 400, 200, {{50, 200, 600, 1400, 1700, 2000}}, "Dark Blue")
     };
 
@@ -66,6 +66,8 @@ Board::Board() {
             tiles.push_back(make_unique<FreeParkingTile>(info));
         } else if (info.tileType == "Tax") {
             tiles.push_back(make_unique<TaxTile>(info));
+        } else if (info.tileType == "Go to Jail") {
+            tiles.push_back(make_unique<GoToJailTile>(info));
         }
     }              
 }

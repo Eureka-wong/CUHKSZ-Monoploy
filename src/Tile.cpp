@@ -31,10 +31,10 @@ GoTile::GoTile() :
 
 void GoTile::onLand(Player& player, Game& game, int step) {
     cout << player.getName() << " landed on " << name << " (Go)" << endl;
-    cout << player.getName() << " collects $200 for passing Go!" << endl;
+    cout << player.getName() << " collects $200 for passing Go!" << endl << endl;
+    player.addMoney(200);
     game.showPlayers();
     game.showBoard();
-    player.addMoney(200);
 }
 
 
@@ -48,13 +48,13 @@ void PropertyTile::onLand(Player& player, Game& game, int step) {
     game.showBoard();
 
     if (owner == nullptr) {
-        char choice;
         /*
         Property Purchase Rule: 
            - Players must immediately decide to buy or not buy an unowned property once they land on it.
-           - The decision is final for the turn as no auctions or second chances will be provided. 
+           - The decision is final for the turn, as no auctions or second chances will be provided. 
         */
         cout << name << " is unowned. Do you want to buy it for $" << price << "? (Y/N): ";
+        char choice;
         while (true) {
             cin >> choice;
             cin.ignore(10000, '\n');
@@ -64,11 +64,12 @@ void PropertyTile::onLand(Player& player, Game& game, int step) {
             cout << "Invalid input. Please enter Y or N: ";
             cin.clear();
         }
+        cout << endl;
         if (choice == 'Y') {
             if (player.getCash() >= price) {
                 buyProperty(player);
             } else {
-                cout << player.getName() << " does not have enough money to buy " << name << "." << endl;
+                cout << player.getName() << " does not have enough money to buy " << name << "." << endl << endl;
             }
         }
     } else if (owner != &player && !mortgaged) {
@@ -77,20 +78,32 @@ void PropertyTile::onLand(Player& player, Game& game, int step) {
 
         int rentDue;
         calculateRent(step, rentDue);
+        if (player.getCash() < rentDue) {
+            cout << player.getName() << " does not have enough money to pay the rent of $" << rentDue << "." << endl;
+            if (player.calculateWealth() < rentDue) {
+                player.declareBankruptcy(game, owner);
+                return;
+            }
+            cout << player.getName() << " must raise money by selling or mortgaging properties." << endl << endl;
+            player.forceRaiseMoney(game, rentDue);
+        }
         player.deductMoney(rentDue);
         owner->addMoney(rentDue);
 
-        cout << player.getName() << " paid $" << rentDue << " rent to " << owner->getName() << "." << endl;
+        cout << player.getName() << " paid $" << rentDue << " rent to " << owner->getName() << "." << endl << endl;
     } else if (mortgaged) {
         cout << name << " is owned by " << owner->getName() << "." << endl;
-        cout << name << " is mortgaged. No rent is due." << endl;
+        cout << name << " is mortgaged. No rent is due." << endl << endl;
     }
-    cout << endl;
 }
 
 void PropertyTile::buyProperty(Player &player) {
     if (owner != nullptr) {
         cout << name << " is already owned." << endl;
+        return;
+    }
+    if (player.getCash() < price) {
+        cout << "You do not have enough money to buy " << name << "." << endl;
         return;
     }
 
@@ -100,7 +113,9 @@ void PropertyTile::buyProperty(Player &player) {
     owner = &player;
     player.addProperty(this);
 
-    cout << player.getName() << " bought " << name << " for $" << price << "." << endl;
+    cout << player.getName() << " bought " << name << " for $" << price << "." << endl << endl;
+    player.showPlayer();
+    cout << endl;
 }
 
 void PropertyTile::sellProperty(Player &player) {
@@ -284,6 +299,8 @@ void PropertyTile::calculateRent(int step, int& rentDue) const {
 
 bool PropertyTile::ownedByPlayer(Player& player) const {
     if (owner != &player) {
+        cout << owner->getName() << " vs " << player.getName() << "." << endl;
+        
         cout << "You do not own " << name << "." << endl;
         return false;
     }
@@ -298,13 +315,32 @@ bool PropertyTile::isStationOrUtility() const {
     return false;
 }
 
+int PropertyTile::getValue() const {
+    int value = 0;
+    value += price / 2;
+    value += (houses * housePrice) / 2;
+    return value;
+}
+
+void PropertyTile::transferOwnership(Player& previousOwner, Player* newOwner) {
+    if (newOwner != nullptr) {
+        newOwner->addProperty(this);
+    }
+    owner = newOwner;
+}
+
 
 FreeParkingTile::FreeParkingTile(TileInfo const& info) :
     Tile(info.name, info.index) {}
 
 void FreeParkingTile::onLand(Player &player, Game &game, int step) {
-    cout << player.getName() << " landed on " << name << " (Free Parking)" << endl;
-    cout << "Nothing happens. Enjoy your free parking!" << endl;
+    if (index == 10) {
+        cout << player.getName() << " landed on " << name << " (Just Visiting)" << endl;
+    }
+    else {
+        cout << player.getName() << " landed on " << name << " (Free Parking)" << endl;
+        cout << "Nothing happens. Enjoy your free parking!" << endl << endl;
+    }
     game.showPlayers();
     game.showBoard();
 }
@@ -315,8 +351,27 @@ TaxTile::TaxTile(const TileInfo& info) :
 
 void TaxTile::onLand(Player &player, Game &game, int step) {
     cout << player.getName() << " landed on " << name << " (Tax)" << endl;
-    cout << player.getName() << " must pay $" << tax << " in taxes." << endl;
+    cout << player.getName() << " must pay $" << tax << " in taxes." << endl << endl;
+    if (player.getCash() < tax) {
+        cout << player.getName() << " does not have enough money to pay the tax." << endl;
+        if (player.calculateWealth() < tax) {
+            player.declareBankruptcy(game);
+            return;
+        }
+        cout << player.getName() << " must raise money by selling or mortgaging properties." << endl << endl;
+        player.forceRaiseMoney(game, tax);
+    }
+    player.deductMoney(tax);
     game.showPlayers();
     game.showBoard();
-    player.deductMoney(tax);
+}
+
+GoToJailTile::GoToJailTile(const TileInfo& info) :
+    Tile(info.name, info.index) {}
+
+void GoToJailTile::onLand(Player &player, Game &game, int step) {
+    cout << player.getName() << " landed on " << name << " (Go to Jail)." << endl;
+    cout << player.getName() << " goes to jail." << endl << endl;
+    player.setJailStatus(0);
+    player.setPosition(10);
 }
