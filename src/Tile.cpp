@@ -4,8 +4,9 @@
 #include <cmath>
 
 #include "Tile.h"
-#include "Player.h"
+#include "CardDeck.h"
 #include "Game.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -78,19 +79,12 @@ void PropertyTile::onLand(Player& player, Game& game, int step) {
 
         int rentDue;
         calculateRent(step, rentDue);
-        if (player.getCash() < rentDue) {
-            cout << player.getName() << " does not have enough money to pay the rent of $" << rentDue << "." << endl;
-            if (player.calculateWealth() < rentDue) {
-                player.declareBankruptcy(game, owner);
-                return;
-            }
-            cout << player.getName() << " must raise money by selling or mortgaging properties." << endl << endl;
-            player.forceRaiseMoney(game, rentDue);
-        }
-        player.deductMoney(rentDue);
-        owner->addMoney(rentDue);
 
-        cout << player.getName() << " paid $" << rentDue << " rent to " << owner->getName() << "." << endl << endl;
+        if (game.playerCanPay(player, rentDue, owner)) {
+            player.deductMoney(rentDue);
+            owner->addMoney(rentDue);
+            cout << player.getName() << " paid $" << rentDue << " rent to " << owner->getName() << "." << endl << endl;
+        }
     } else if (mortgaged) {
         cout << name << " is owned by " << owner->getName() << "." << endl;
         cout << name << " is mortgaged. No rent is due." << endl << endl;
@@ -122,6 +116,14 @@ void PropertyTile::sellProperty(Player &player) {
     if (!ownedByPlayer(player)) {
         return;
     }
+    if (!allPropertyInGroupHasNoHouses()) {
+        cout << "You cannot sell if any of the property of the same color group has buildings." << endl;
+        return;
+    }
+    if (mortgaged) {
+        cout << "You cannot sell mortgaged property." << endl;
+        return;
+    }
 
     int sellPrice = price / 2;
     player.addMoney(sellPrice);
@@ -142,7 +144,11 @@ void PropertyTile::buyBuilding(Player &player, Game& game) {
         return;
     }
     if (!ownColorGroup()) {
-        cout << "You must own all properties in the " << group << " group to buy houses." << endl;
+        cout << "You either do not own all properties in the " << group << " group or some of them are mortgaged." << endl;
+        return;
+    }
+    if (mortgaged) {
+        cout << "You cannot buy building on mortgaged property." << endl;
         return;
     }
     if (!allowHouseTransactions(true)) {
@@ -163,10 +169,9 @@ void PropertyTile::buyBuilding(Player &player, Game& game) {
         houses++;
         player.deductMoney(housePrice);
 
+        cout << player.getName() << " built a hotel on " << name << "." << endl;
         game.modifyAvailableBuildings(true, 4);
         game.modifyAvailableBuildings(false, -1);
-
-        cout << player.getName() << " built a hotel on " << name << "." << endl;
     } else {
         if (game.getAvailableBuildings(true) == 0) {
             cout << "No houses are available to build at the moment." << endl;
@@ -176,9 +181,8 @@ void PropertyTile::buyBuilding(Player &player, Game& game) {
         houses++;
         player.deductMoney(housePrice);
 
-        game.modifyAvailableBuildings(true, -1);
-
         cout << player.getName() << " built a house on " << name << ". Total houses: " << houses << "." << endl;
+        game.modifyAvailableBuildings(true, -1);
     }
 }
 
@@ -201,23 +205,26 @@ void PropertyTile::sellBuilding(Player &player, Game& game) {
         int sellPrice = housePrice / 2;
         player.addMoney(sellPrice);
 
+        cout << player.getName() << " reverted a hotel back to 4 houses on " << name << "." << endl;
         game.modifyAvailableBuildings(false, 1);
         game.modifyAvailableBuildings(true, -4);
-
-        cout << player.getName() << " reverted a hotel back to 4 houses on " << name << "." << endl;
     } else {
         houses--;
 
         int sellPrice = housePrice / 2;
         player.addMoney(sellPrice);
 
-        game.modifyAvailableBuildings(true, 1);
         cout << player.getName() << " sold a house on " << name << ". Total houses: " << houses << "." << endl;
+        game.modifyAvailableBuildings(true, 1);
     }
 }
 
 void PropertyTile::mortgageProperty(Player &player) {
     if (!ownedByPlayer(player)) {
+        return;
+    }
+    if (!allPropertyInGroupHasNoHouses()) {
+        cout << "You cannot mortgage if any of the property of the same color group has buildings." << endl;
         return;
     }
 
@@ -239,14 +246,72 @@ void PropertyTile::mortgageProperty(Player &player) {
     }
 }
 
+void PropertyTile::liquidateBuildings(Game& game, Player* creditor) {
+    if (creditor != nullptr) {
+        creditor->addMoney((houses * housePrice) / 2);
+    }
+    if (houses == 5) {
+        game.modifyAvailableBuildings(true, 4);
+        game.modifyAvailableBuildings(false, 1);
+    }
+    else if (houses > 0) {
+        game.modifyAvailableBuildings(true, houses);
+    }
+    houses = 0;
+}
+
+void PropertyTile::transferOwnership(Player& previousOwner, Player* newOwner) {
+    previousOwner.removeProperty(this);
+    if (newOwner != nullptr) {
+        newOwner->addProperty(this);
+        owner = newOwner;
+        cout << newOwner->getName() << " acquired " << name << " from " << previousOwner.getName() << endl;
+        if (this->mortgaged) {
+            int unmortgageCost = static_cast<int>((price / 2) * 1.1);
+            cout << name << " is mortgaged. Do you want to unmortgage it for $" << unmortgageCost << "? (Y/N): ";
+            char choice;
+            while (true) {
+                cin >> choice;
+                cin.ignore(10000, '\n');
+                if (choice == 'Y' || choice == 'N') {
+                    break;
+                }
+                cout << "Invalid input. Please enter Y or N: ";
+                cin.clear();
+            }
+            if (choice == 'Y') {
+                mortgageProperty(*newOwner);
+            }
+        }
+        cout << endl;
+    }
+    else {
+        mortgaged = false;
+        owner = newOwner;
+        cout << name << " has been returned to the bank." << endl << endl;
+    }
+}
+
+int PropertyTile::getPrice() const {
+    return price;
+}
+
 int PropertyTile::getHouses() const {
     return houses;
+}
+
+Player* PropertyTile::getOwner() const {
+    return owner;
+}
+
+bool PropertyTile::isMortgaged() const {
+    return mortgaged;
 }
 
 int PropertyTile::countOwnedPropertiesInGroup() const {
     int count = 0;
     for (const auto& property : owner->getProperties()) {
-        if (property->group == group) {
+        if (property->group == group && !property->isMortgaged()) {
             count++;
         }
     }
@@ -277,6 +342,15 @@ bool PropertyTile::allowHouseTransactions(bool buy) const {
     return true;
 }
 
+bool PropertyTile::allPropertyInGroupHasNoHouses() const {
+    for (const auto& property : owner->getProperties()) {
+        if (property->group == group && property->getHouses() > 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void PropertyTile::calculateRent(int step, int& rentDue) const {
     int ownedPropertiesInGroup = countOwnedPropertiesInGroup();
     if (group == "Station") {
@@ -299,8 +373,6 @@ void PropertyTile::calculateRent(int step, int& rentDue) const {
 
 bool PropertyTile::ownedByPlayer(Player& player) const {
     if (owner != &player) {
-        cout << owner->getName() << " vs " << player.getName() << "." << endl;
-        
         cout << "You do not own " << name << "." << endl;
         return false;
     }
@@ -315,18 +387,11 @@ bool PropertyTile::isStationOrUtility() const {
     return false;
 }
 
-int PropertyTile::getValue() const {
+int PropertyTile::calculateValue() const {
     int value = 0;
     value += price / 2;
     value += (houses * housePrice) / 2;
     return value;
-}
-
-void PropertyTile::transferOwnership(Player& previousOwner, Player* newOwner) {
-    if (newOwner != nullptr) {
-        newOwner->addProperty(this);
-    }
-    owner = newOwner;
 }
 
 
@@ -335,7 +400,7 @@ FreeParkingTile::FreeParkingTile(TileInfo const& info) :
 
 void FreeParkingTile::onLand(Player &player, Game &game, int step) {
     if (index == 10) {
-        cout << player.getName() << " landed on " << name << " (Just Visiting)" << endl;
+        cout << player.getName() << " landed on " << name << " (Just Visiting)" << endl << endl;
     }
     else {
         cout << player.getName() << " landed on " << name << " (Free Parking)" << endl;
@@ -352,18 +417,11 @@ TaxTile::TaxTile(const TileInfo& info) :
 void TaxTile::onLand(Player &player, Game &game, int step) {
     cout << player.getName() << " landed on " << name << " (Tax)" << endl;
     cout << player.getName() << " must pay $" << tax << " in taxes." << endl << endl;
-    if (player.getCash() < tax) {
-        cout << player.getName() << " does not have enough money to pay the tax." << endl;
-        if (player.calculateWealth() < tax) {
-            player.declareBankruptcy(game);
-            return;
-        }
-        cout << player.getName() << " must raise money by selling or mortgaging properties." << endl << endl;
-        player.forceRaiseMoney(game, tax);
+    if (game.playerCanPay(player, tax)) {
+        player.deductMoney(tax);
+        game.showPlayers();
+        game.showBoard();
     }
-    player.deductMoney(tax);
-    game.showPlayers();
-    game.showBoard();
 }
 
 GoToJailTile::GoToJailTile(const TileInfo& info) :
@@ -374,4 +432,20 @@ void GoToJailTile::onLand(Player &player, Game &game, int step) {
     cout << player.getName() << " goes to jail." << endl << endl;
     player.setJailStatus(0);
     player.setPosition(10);
+}
+
+ChanceTile::ChanceTile(const TileInfo& info) :
+    Tile(info.name, info.index) {}
+
+void ChanceTile::onLand(Player &player, Game &game, int step) {
+    cout << player.getName() << " landed on " << name << " (Chance)." << endl;
+    game.drawChanceCard(player);
+}
+
+CommunityChestTile::CommunityChestTile(const TileInfo& info) :
+    Tile(info.name, info.index) {}
+
+void CommunityChestTile::onLand(Player &player, Game &game, int step) {
+    cout << player.getName() << " landed on " << name << " (Community Chest)." << endl;
+    game.drawCommunityChestCard(player);
 }

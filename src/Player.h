@@ -5,8 +5,9 @@
 #include <string>
 #include <algorithm>
 
-class PropertyTile;
+#include "CardDeck.h"
 class Game;
+class PropertyTile;
 
 class Player {
 private:
@@ -15,6 +16,7 @@ private:
     int balance = 0;
     int jailStatus = -1; // -1: not in jail, 0: first turn, 1: second turn, 2: third turn
     bool bankrupt = false;
+    std::vector<Card*> getOutOfJailCard;
 
     std::vector<PropertyTile*> properties;
 public:
@@ -31,15 +33,25 @@ public:
     // Helpers
     void showPlayer() const;
     void setPosition(int newPosition);
+
     void addMoney(int amount);
     void deductMoney(int amount);
+
     void addProperty(PropertyTile* property);
     void removeProperty(PropertyTile* property);
     void manageProperties(Game& game);
+
     void setJailStatus(int status);
     int calculateWealth() const;
+
     void forceRaiseMoney(Game& game, int amount);
     void declareBankruptcy(Game& game, Player* creditor = nullptr);
+
+    void addGetOutOfJailCard(Card* card);
+    bool hasGetOutOfJailCard() const;
+    Card* takeOutGetOutOfJailCard();
+    
+    void getTradeDetails(int& amount, int& playerIndex, bool buyProperty = false);
 };
 
 #endif

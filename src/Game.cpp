@@ -3,12 +3,14 @@
 #include <random>
 
 #include "Game.h"
+#include "CardDeck.h"
 #include "Player.h"
 #include "Tile.h"
 
 using namespace std;
 
-Game::Game() : numPlayers(getNumPlayers()), board() {
+Game::Game() : numPlayers(getNumPlayers()), board(), communityChestDeck("Community Chest"), chanceDeck("Chance") {
+    players.reserve(numPlayers);
     // -n if test player is used
     for (int i = 0; i < numPlayers; i++) {
         string name;
@@ -23,7 +25,7 @@ int Game::getNumPlayers() {
     int num;
     while (true) {
         cout << "Enter number of players: ";
-        if (cin >> num && num >= 0 && num <= 4) {
+        if (cin >> num && num >= 2 && num <= 4) {
             cin.ignore(10000, '\n');
             return num; // +n if test player is used
         }
@@ -35,13 +37,13 @@ int Game::getNumPlayers() {
 }
 
 void Game::addPlayer(string name) {
-    players.emplace_back(Player(name, 0, 1500));
+    players.emplace_back(Player(name, 0, 500));
 }
 
 // For testing purposes, add a player with preset properties
 /**
 void Game::testAddPlayer(string name) {
-    if (name == "Thanos") {
+    if (name == "A") {
         players.emplace_back(Player(name, 0, 1500));
         Player& currentPlayer = players.back();
         int positions[] = {6, 8, 9};
@@ -57,8 +59,8 @@ void Game::testAddPlayer(string name) {
             dynamic_cast<PropertyTile*>(&board.getTile(9))->buyBuilding(currentPlayer, *this);
         }
     }
-    else if (name == "Kratos") {
-        players.emplace_back(Player(name, 0, 120));
+    else if (name == "B") {
+        players.emplace_back(Player(name, 0, 220));
         Player& currentPlayer = players.back();
         int positions[] = {1, 3};    
         for (int pos : positions) {
@@ -67,15 +69,7 @@ void Game::testAddPlayer(string name) {
                 property->buyProperty(currentPlayer);
             }
         }
-    }
-    for (int i = 0; i < 5; i++) {
-        dynamic_cast<PropertyTile*>(&board.getTile(1))->buyBuilding(currentPlayer, *this);
-        dynamic_cast<PropertyTile*>(&board.getTile(3))->buyBuilding(currentPlayer, *this);
-    }
-    for (int i = 0; i < 4; i++) {
-        dynamic_cast<PropertyTile*>(&board.getTile(6))->buyBuilding(currentPlayer, *this);
-        dynamic_cast<PropertyTile*>(&board.getTile(8))->buyBuilding(currentPlayer, *this);
-        dynamic_cast<PropertyTile*>(&board.getTile(9))->buyBuilding(currentPlayer, *this);
+        currentPlayer.addGetOutOfJailCard(new Card("Get Out of Jail Free. This card may be kept until needed or sold.", CardType::GET_OUT_OF_JAIL, 0, -1, 0, "", 0, 0, "Chance"));
     }
 }
 **/
@@ -129,12 +123,8 @@ void Game::normalTurn(Player& currentPlayer, int rolled_twelve) {
         choice = Game::getChoice('R', 'M');
         if (choice == 'R') {
             // Dice roll
-            step = rollDice();
+            int step = rollDice();
             cout << currentPlayer.getName() << " rolled a " << step << "!" << endl << endl;
-
-            // Move the player
-            int newPosition = (currentPlayer.getPosition() + step) % board.getSize();
-            currentPlayer.setPosition(newPosition);
 
             // Send player to jail if they roll a 12 for the third time
             if (step == 12 && rolled_twelve == 2) {
@@ -144,9 +134,7 @@ void Game::normalTurn(Player& currentPlayer, int rolled_twelve) {
                 currentPlayer.setPosition(10);
             }
             else {
-                // Trigger the onLand event for the tile the player landed on
-                Tile& currentTile = board.getTile(currentPlayer.getPosition());
-                currentTile.onLand(currentPlayer, *this, step);
+                movePlayer(currentPlayer, step);
             }
         }
         else if (choice == 'M') {
@@ -154,10 +142,6 @@ void Game::normalTurn(Player& currentPlayer, int rolled_twelve) {
             currentPlayer.manageProperties(*this);
             cout << endl;
         }
-    }
-
-    if (currentPlayer.isBankrupt()) {
-        return;
     }
 
     endTurn(currentPlayer);
@@ -177,7 +161,8 @@ void Game::jailTurn(Player& currentPlayer, int jailStatus) {
 
     • On the 1st and 2nd turns (jailStatus < 2):
         - The player chooses between:
-            'P' → Pay $50 immediately to get out and get to roll the dicee.
+            'C' → Use a "Get out of Jail for Free" card if they have one.
+            'P' → Pay $50 immediately to get out and get to roll the dice.
             'T' → Try to roll a 12 (double six). If successful, they are freed and move 12 on that turn, without additional dice rolls.
                   If not, they stay in jail until their next turn.
             'S' → Stay in jail.
@@ -186,7 +171,7 @@ void Game::jailTurn(Player& currentPlayer, int jailStatus) {
     • On the 3rd turn (jailStatus == 2):
         - The player is required to try and roll a 12.
         - If they succeed, they are freed and move a 12.
-        - If they fail, they must pay $50 to get out, and continue with a normal turn.
+        - If they fail, they must pay $50 or use a "Get out of Jail for Free" card to get out, and continue with a normal turn.
         - If they don't have enough money, they'll be forced to raise money by selling or mortgaging property.
         - If they cannot do so, they are considered bankrupt.
 
@@ -198,6 +183,10 @@ void Game::jailTurn(Player& currentPlayer, int jailStatus) {
         bool chose = false;
         char choice = 'Z';
         while (!chose) {
+            // Player's action options while in jail
+            if (currentPlayer.hasGetOutOfJailCard()) {
+                cout << "Type C if you would like to use a Get Out of Jail Free card." << endl;
+            }
             if (currentPlayer.getCash() >= 50) {
                 cout << "Type P if you would like to pay $50 to get out of jail." << endl;
             }
@@ -205,8 +194,14 @@ void Game::jailTurn(Player& currentPlayer, int jailStatus) {
             cout << "Type S if you would like to stay in jail" << endl;
             cout << "Type M if you would like to manage your properties." << endl << endl;
 
-            // If a player does not have $50, they cannot choose to pay.
-            if (currentPlayer.getCash() >= 50) {
+            // Get player's choice
+            if (currentPlayer.hasGetOutOfJailCard() && currentPlayer.getCash() >= 50) {
+                choice = Game::getChoice('C', 'P', 'T', 'S', 'M');
+            }
+            else if (currentPlayer.hasGetOutOfJailCard()) {
+                choice = Game::getChoice('C', 'T', 'S', 'M');
+            }
+            else if (currentPlayer.getCash() >= 50) {
                 choice = Game::getChoice('P', 'T', 'S', 'M');
             }
             else {
@@ -214,11 +209,15 @@ void Game::jailTurn(Player& currentPlayer, int jailStatus) {
             }
             cout << endl;
 
-            if (choice == 'P' || choice == 'T' || choice == 'S') {
+            if (choice == 'C' || choice == 'P' || choice == 'T' || choice == 'S') {
                 chose = true;
             }
 
-            if (choice == 'P') {
+            // Execute player's choice
+            if (choice == 'C') {
+                useGetOutOfJailCard(currentPlayer);
+            }
+            else if (choice == 'P') {
                 payToGetOutofJail(currentPlayer);
             } else if (choice == 'T') {
                 rollToGetOutofJail(currentPlayer);
@@ -237,21 +236,54 @@ void Game::jailTurn(Player& currentPlayer, int jailStatus) {
         cin.get();
         cout << endl;
 
+        // Player must first attempt to roll a 12.
         rollToGetOutofJail(currentPlayer);
         if (currentPlayer.getJailStatus() != -1) {
-            if (currentPlayer.getCash() < 50) {
-                cout << currentPlayer.getName() << " does not have enough money to pay $50." << endl;
-                if (currentPlayer.calculateWealth() < 50) {
-                    currentPlayer.declareBankruptcy(*this);
-                    return;
+            if (currentPlayer.hasGetOutOfJailCard()) {
+                bool chose = false;
+                char choice = 'Z';
+                while (!chose) {
+                    // Player's action options while in third turn in jail
+                    cout << "Type C if you would like to use a Get Out of Jail Free card." << endl;
+                    if (currentPlayer.getCash() >= 50) {
+                        cout << "Type P if you would like to pay $50 to get out of jail." << endl;
+                    }
+                    cout << "Type M if you would like to manage your properties." << endl << endl;
+
+                    // Get player's choice
+                    if (currentPlayer.getCash() >= 50) {
+                        choice = Game::getChoice('C', 'P', 'M');
+                    }
+                    else {
+                        choice = Game::getChoice('C', 'M');
+                    }
+                    cout << endl;
+
+                    if (choice == 'C' || choice == 'P') {
+                        chose = true;
+                    }
+
+                    // Execute player's choice
+                    if (choice == 'C') {
+                        useGetOutOfJailCard(currentPlayer);
+                    }
+                    else if (choice == 'P') {
+                        payToGetOutofJail(currentPlayer);
+                    }
+                    else {
+                        currentPlayer.manageProperties(*this);
+                        cout << endl;
+                    }
                 }
-                cout << currentPlayer.getName() << " must raise money by selling or mortgaging properties." << endl << endl;
-                currentPlayer.forceRaiseMoney(*this, 50);
             }
-            cout << "Press Enter to pay $50 to get out of jail.";
-            cin.get();
-            cout << endl;
-            payToGetOutofJail(currentPlayer);
+            else {
+                if (playerCanPay(currentPlayer, 50)) {
+                    cout << "Press Enter to pay $50 to get out of jail.";
+                    cin.get();
+                    cout << endl;
+                    payToGetOutofJail(currentPlayer);
+                }
+            }
         }
     }
 }
@@ -265,14 +297,7 @@ void Game::rollToGetOutofJail(Player& currentPlayer) {
         currentPlayer.setJailStatus(-1);
         cout << currentPlayer.getName() << " gets out from jail." << endl << endl;
 
-        // Move the player
-        int newPosition = (currentPlayer.getPosition() + roll) % board.getSize();
-        currentPlayer.setPosition(newPosition);
-
-        // Trigger the onLand event for the tile the player landed on
-        Tile& currentTile = board.getTile(currentPlayer.getPosition());
-        currentTile.onLand(currentPlayer, *this, roll);
-        endTurn(currentPlayer);
+        movePlayer(currentPlayer, 12);
     } else {
         currentPlayer.setJailStatus(currentPlayer.getJailStatus() + 1);
         cout << currentPlayer.getName() << " stays in jail." << endl << endl;
@@ -287,6 +312,10 @@ void Game::payToGetOutofJail(Player& currentPlayer) {
 }
 
 void Game::endTurn(Player& currentPlayer) {
+    // In the end of turn, player can choose to finish their turn or manage their properties.
+    if (currentPlayer.isBankrupt()) {
+        return;
+    }
     char choice = 'Z';
     while (choice != 'C') {
         cout << "Type C to continue." << endl;
@@ -338,6 +367,303 @@ int Game::rollDice() {
     return step;
 }
 
+void Game::movePlayer(Player& currentPlayer, int step) {
+    // Move the player
+    int newPosition = (currentPlayer.getPosition() + step) % board.getSize();
+    currentPlayer.setPosition(newPosition);
+
+    // Trigger the onLand event for the tile the player landed on
+    Tile& currentTile = board.getTile(currentPlayer.getPosition());
+    currentTile.onLand(currentPlayer, *this, step);
+}
+
+bool Game::playerCanPay(Player& payer, int amount, Player* receiver) {
+    if (payer.getCash() < amount) {
+        cout << payer.getName() << " does not have enough money to pay $" << amount << "." << endl;
+        if (payer.calculateWealth() < amount) {
+            payer.declareBankruptcy(*this, receiver);
+            bankruptcyCount++;
+            return false;
+        }
+        payer.forceRaiseMoney(*this, amount);
+    }
+    return true;
+}
+
+void Game::payToPlayers(Player& payer, int amount) {
+    for (auto& player : players) {
+        if (&player != &payer && !player.isBankrupt()) {
+            if (playerCanPay(payer, amount, &player)) {
+                payer.deductMoney(amount);
+                player.addMoney(amount);
+                cout << payer.getName() << " pays $" << amount << " to " << player.getName() << "." << endl;
+            }
+        }
+    }
+    cout << endl;
+}
+
+void Game::receiveFromPlayers(Player& receiver, int amount) {
+    for (auto& player : players) {
+        if (&player != &receiver && !player.isBankrupt()) {
+            if (playerCanPay(player, amount, &receiver)) {
+                player.deductMoney(amount);
+                receiver.addMoney(amount);
+                cout << receiver.getName() << " receives $" << amount << " from " << player.getName() << "." << endl;
+            }
+        }
+    }
+    cout << endl;
+}
+
+int Game::getAvailableBuildings(bool house) const {
+    return house ? availableHouses : availableHotels;
+}
+
+void Game::modifyAvailableBuildings(bool house, int count) {
+    if (house) {
+        availableHouses += count;
+        cout << "Available Houses: " << availableHouses << endl;
+    } else {
+        availableHotels += count;
+        cout << "Available Hotels: " << availableHotels << endl;
+    }
+}
+
+void Game::drawChanceCard(Player& player) {
+    cout << "Press Enter to draw a Chance card...";
+    cin.get();
+    cout << endl;
+    Card card = chanceDeck.draw();
+    card.execute(player, *this);
+    if (card.type != CardType::GET_OUT_OF_JAIL) {
+        chanceDeck.returnCard(card);
+    }
+}
+
+void Game::drawCommunityChestCard(Player& player) {
+    cout << "Press Enter to draw a Community Chest card...";
+    cin.get();
+    cout << endl;
+    Card card = communityChestDeck.draw();
+    card.execute(player, *this);
+    if (card.type != CardType::GET_OUT_OF_JAIL) {
+        communityChestDeck.returnCard(card);
+    }
+}
+
+void Game::useGetOutOfJailCard(Player& player) {
+    Card* card = player.takeOutGetOutOfJailCard();
+    if (card != nullptr) {
+        player.setJailStatus(-1);
+        cout << player.getName() << " used a Get Out of Jail Free card and got out from jail." << endl << endl;
+
+        if (card->sourceDeck == "Chance") {
+            chanceDeck.returnCard(*card);
+        }
+        else if (card->sourceDeck == "Community Chest") {
+            communityChestDeck.returnCard(*card);
+        }
+        normalTurn(player, 0);
+    } else {
+        cout << player.getName() << " does not have a Get Out of Jail Free card." << endl << endl;
+    }
+}
+
+void Game::manageSellTrade(Player& offeringPlayer, int propertyIndex) {
+    // Check if offering player can sell their property.
+    PropertyTile* property = nullptr;
+    if (propertyIndex < 40) {
+        Tile& tile =  board.getTile(propertyIndex);
+        property = dynamic_cast<PropertyTile*>(&tile);
+        if (property) {
+            if (property->getOwner() != &offeringPlayer) {
+                cout << "You do not own " << property->getName() << "." << endl;
+                return;
+            }
+            if (property->getHouses() > 0) {
+                cout << "You cannot trade a property that has buildings." << endl;
+                return;
+            }
+        }
+        else {
+            cout << "Index " << propertyIndex << " is not a property." << endl;
+            return;
+        }
+    }
+
+    Player* targetPlayer = nullptr;
+    int targetIndex, amount;
+
+    cout << endl;
+    showPlayers();
+
+    offeringPlayer.getTradeDetails(targetIndex, amount);
+
+    // Determine target player
+    if (targetIndex < 0 || targetIndex >= numPlayers) {
+        cout << "Invalid player index. Please try again." << endl;
+        return;
+    }
+    targetPlayer = &players[targetIndex];
+
+    if (!validateTradePlayers(&offeringPlayer, targetPlayer, propertyIndex, false)) {
+        return;
+    }
+
+    // Validate trade amount
+    if (amount > targetPlayer->getCash()) {
+        cout << targetPlayer->getName() << " does not own $" << amount << " to trade." << endl;
+        return;
+    }
+    if (amount < 0) {
+        cout << "Amount cannot be negative. Please try again." << endl;
+        return; 
+    }
+
+    askTradeDecision(&offeringPlayer, targetPlayer, amount, propertyIndex, property, false);
+}
+
+void Game::manageBuyTrade(Player& offeringPlayer, int propertyIndex) {
+    // Check if the property can be bought from other player.
+    PropertyTile* property = nullptr;
+    if (propertyIndex < 40) {
+        Tile& tile =  board.getTile(propertyIndex);
+        property = dynamic_cast<PropertyTile*>(&tile);
+        if (property) {
+            if (property->getOwner() == nullptr) {
+                cout << property->getName() << " is not owned by anyone." << endl;
+                return;
+            }
+            if (property->getOwner() == &offeringPlayer) {
+                cout << "You already own the property." << endl;
+                return;
+            }
+            if (property->getHouses() > 0) {
+                cout << "You cannot trade a property that has buildings." << endl;
+                return;
+            }
+        }
+        else {
+            cout << "Index " << propertyIndex << " is not a property." << endl;
+            return;
+        }
+    }
+
+    // Determine target player
+    Player* targetPlayer = nullptr;
+    int amount, targetIndex;
+
+    cout << endl;
+    showPlayers();
+
+    offeringPlayer.getTradeDetails(targetIndex, amount, (propertyIndex < 40));
+
+    // Determine target player
+    if (propertyIndex == 40) {
+        if (targetIndex < 0 || targetIndex >= numPlayers) {
+            cout << "Invalid player index. Please try again." << endl;
+            return;
+        }
+        targetPlayer = &players[targetIndex];
+    }
+    else {
+        targetPlayer = property->getOwner();
+    }
+
+    if (!validateTradePlayers(&offeringPlayer, targetPlayer, propertyIndex, true)) {
+        return;
+    }
+
+    // Validate trade amount
+    if (amount > offeringPlayer.getCash()) {
+        cout << "You do not own $" << amount << " to trade." << endl;
+        return;
+    }
+    if (amount < 0) {
+        cout << "Amount cannot be negative. Please try again." << endl;
+        return; 
+    }
+
+    // Propose trade to target player
+    askTradeDecision(&offeringPlayer, targetPlayer, amount, propertyIndex, property, true);
+}
+
+bool Game::validateTradePlayers(Player* offeringPlayer, Player* targetPlayer, int propertyIndex, bool offerBuy) {
+    if (targetPlayer == offeringPlayer) {
+        cout << "You cannot trade with yourself. Please try again." << endl;
+        return false;
+    }
+    if (targetPlayer->isBankrupt()) {
+        cout << targetPlayer->getName() << " is bankrupt. Cannot trade with them." << endl;
+        return false;
+    }
+    if (propertyIndex == 40) {
+        if (offerBuy && !targetPlayer->hasGetOutOfJailCard()) {
+            cout << targetPlayer->getName() << " does not own a 'Get out of Jail for Free' card." << endl;
+            return false;
+        }
+        else if (!offerBuy && !offeringPlayer->hasGetOutOfJailCard()) {
+            cout << "You do not own a 'Get out of Jail for Free' card." << endl;
+            return false;
+        }
+    }
+    return true;
+}
+
+void Game::askTradeDecision(Player* offeringPlayer, Player* targetPlayer, int amount, int propertyIndex, PropertyTile* property, bool offerBuy) {
+    cout << endl;
+    cout << "---------------------------------------------------------------" << endl;
+    cout << endl;
+
+    cout << targetPlayer->getName() << "'s Screen" << endl << endl;
+
+    if (propertyIndex == 40) {
+        cout << offeringPlayer->getName() << " is proposing to trade a Get Out of Jail Free card for $" << amount << "." << endl;
+    } else {
+        if (property->isMortgaged()) {
+            cout << "Note: " << property->getName() << " is mortgaged." << endl; 
+            amount += static_cast<int>((property->getPrice() / 2) * 1.1);
+        }
+        cout << offeringPlayer->getName() << " is proposing to trade " << property->getName() << " for $" << amount << "." << endl;
+    }
+    cout << "Type Y to accept the trade or N to decline: " << endl;;
+    char tradeChoice = Game::getChoice('Y', 'N');
+
+    cout << endl;
+    if (tradeChoice == 'Y') {
+        if (offerBuy) {
+            executeTrade(offeringPlayer, targetPlayer, amount, propertyIndex, property);
+        }
+        else {
+            executeTrade(targetPlayer, offeringPlayer, amount, propertyIndex, property);
+        }
+    } else {
+        cout << targetPlayer->getName() << " declined the trade." << endl;
+    }
+
+    cout << endl;
+    cout << "---------------------------------------------------------------" << endl;
+}
+
+void Game::executeTrade(Player* buyingPlayer, Player* sellingPlayer, int amount, int propertyIndex, PropertyTile* property) {
+    if (buyingPlayer->getCash() < amount) {
+        cout << buyingPlayer->getName() << " does not have $" << amount << " to trade." << endl;
+        return;
+    }
+    buyingPlayer->deductMoney(amount);
+    sellingPlayer->addMoney(amount);
+    if (propertyIndex == 40) {
+        Card* card = sellingPlayer->takeOutGetOutOfJailCard();
+        buyingPlayer->addGetOutOfJailCard(card);
+        cout << "Trade completed! " << buyingPlayer->getName() << " acquired a Get Out of Jail Free card from " << sellingPlayer->getName() << " for $" << amount << "." << endl;
+    }
+    else {
+        property->transferOwnership(*sellingPlayer, buyingPlayer);
+        cout << "Trade completed! " << buyingPlayer->getName() << " acquired " << property->getName() << " from " << sellingPlayer->getName() << " for $" << amount << "." << endl;
+    }
+}
+
 void Game::showPlayers() const {
     cout << "Players:" << endl;
     for (const auto& player : players) {
@@ -368,43 +694,28 @@ void Game::showBoard() const {
     cout << endl;
 }
 
-int Game::getAvailableBuildings(bool house) const {
-    return house ? availableHouses : availableHotels;
-}
-
-void Game::modifyAvailableBuildings(bool house, int count) {
-    if (house) {
-        availableHouses += count;
-        cout << "Available Houses: " << availableHouses << endl;
-    } else {
-        availableHotels += count;
-        cout << "Available Hotels: " << availableHotels << endl;
-    }
-}
-
-char Game::getChoice(char a, char b, char c, char d) {
+char Game::getChoice(char a, char b, char c, char d, char e) {
     char choice;
     while (true) {
-        if (c == '\0' && d == '\0') {
+        if (c == '\0' && d == '\0' && e == '\0') {
             cout << "Enter " << a << " or " << b << ": " ;
         }
-        else if (d == '\0') {
+        else if (d == '\0' && e == '\0') {
             cout << "Enter " << a << " or " << b << " or " << c << ": " ;
         }
-        else {
+        else if (e == '\0') {
             cout << "Enter " << a << " or " << b << " or " << c << " or " << d << ": " ;
+        }
+        else {
+            cout << "Enter " << a << " or " << b << " or " << c << " or " << d << " or " << e << ": " ;
         }
         cin >> choice;
         cin.ignore(10000, '\n');
-        if (choice == a || choice == b || (c != '\0'  && choice == c) || (d != '\0'  && choice == d)) {
+        if (choice == a || choice == b || (c != '\0'  && choice == c) || (d != '\0'  && choice == d) || (e != '\0'  && choice == e)) {
             break;
         }
         cout << "Invalid input. Please try again." << endl << endl;
         cin.clear();
     }
     return choice;
-}
-
-void Game::addBankruptcyCount() {
-    bankruptcyCount++;
 }

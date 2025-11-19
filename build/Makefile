@@ -153,6 +153,30 @@ src/Board.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/src/Board.cpp.s
 .PHONY : src/Board.cpp.s
 
+src/CardDeck.o: src/CardDeck.cpp.o
+.PHONY : src/CardDeck.o
+
+# target to build an object file
+src/CardDeck.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/src/CardDeck.cpp.o
+.PHONY : src/CardDeck.cpp.o
+
+src/CardDeck.i: src/CardDeck.cpp.i
+.PHONY : src/CardDeck.i
+
+# target to preprocess a source file
+src/CardDeck.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/src/CardDeck.cpp.i
+.PHONY : src/CardDeck.cpp.i
+
+src/CardDeck.s: src/CardDeck.cpp.s
+.PHONY : src/CardDeck.s
+
+# target to generate assembly for a file
+src/CardDeck.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/src/CardDeck.cpp.s
+.PHONY : src/CardDeck.cpp.s
+
 src/Game.o: src/Game.cpp.o
 .PHONY : src/Game.o
 
@@ -261,6 +285,9 @@ help:
 	@echo "... src/Board.o"
 	@echo "... src/Board.i"
 	@echo "... src/Board.s"
+	@echo "... src/CardDeck.o"
+	@echo "... src/CardDeck.i"
+	@echo "... src/CardDeck.s"
 	@echo "... src/Game.o"
 	@echo "... src/Game.i"
 	@echo "... src/Game.s"

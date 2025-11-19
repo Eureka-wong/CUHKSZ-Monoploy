@@ -839,6 +839,8 @@ CMakeFiles/Logic.dir/src/Game.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/student_t_distribution.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/weibull_distribution.h \
   /Users/Leviathan/Downloads/CSC3002/Logic/src/Game.h \
+  /Users/Leviathan/Downloads/CSC3002/Logic/src/Player.h \
+  /Users/Leviathan/Downloads/CSC3002/Logic/src/CardDeck.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/deque \
   /Users/Leviathan/Downloads/CSC3002/Logic/src/Board.h \
-  /Users/Leviathan/Downloads/CSC3002/Logic/src/Tile.h \
-  /Users/Leviathan/Downloads/CSC3002/Logic/src/Player.h
+  /Users/Leviathan/Downloads/CSC3002/Logic/src/Tile.h
