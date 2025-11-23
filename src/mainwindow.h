@@ -1,0 +1,67 @@
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <QMainWindow>
+#include <QPushButton>
+#include <QLabel>
+#include <QListWidget>
+#include <QTextEdit>
+
+class Game;
+class BoardWidget;
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class MainWindow;
+}
+QT_END_NAMESPACE
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+
+private slots:
+    void onRollDiceClicked();
+    void onPropertiesClicked();
+    void onHintClicked();
+    void onChatroomClicked();
+    void onEndTurnClicked();
+
+
+private:
+    Ui::MainWindow *ui;
+    Game* m_game;
+
+    BoardWidget* m_boardWidget;
+
+    QPushButton* m_rollButton;
+    QPushButton* m_propertiesButton;
+    QPushButton* m_endTurnButton;
+    QPushButton* m_chatroomButton;
+    QPushButton* m_hintButton;
+
+    QLabel* m_roundLabel;
+    QLabel* m_cashLabel;
+    QLabel* m_gameLogTitle;
+    QLabel* m_statusLabel;
+
+    QLabel* m_playerInfoLabel;
+
+    QTextEdit* m_gameLog;
+
+    bool handlePurchaseDialog(const std::string& propertyName, int price, const std::string& playerName);
+    void setupPurchaseCallback();
+
+    void setupUI();
+    void updateDisplay();
+
+    void updatePlayerInfo();
+    void updateOtherPlayersInfo();
+    void addGameLog(const QString& message);
+    int getMyPlayerId() const;  // 临时方法，后续替换为网络获取
+};
+#endif // MAINWINDOW_H
