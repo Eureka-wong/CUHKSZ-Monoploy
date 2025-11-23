@@ -21,6 +21,12 @@ Game::Game() : numPlayers(getNumPlayers()), board(), communityChestDeck("Communi
     cout << endl;
 }
 
+//use this constructor for m_game if testing ui
+// Game::Game(): numPlayers(0),board(),communityChestDeck("Community Chest"),chanceDeck("Chance") {
+//     addPlayer("Player 1");
+//     addPlayer("Player 2");
+// }
+
 int Game::getNumPlayers() {
     int num;
     while (true) {
