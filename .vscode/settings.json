@@ -54,6 +54,9 @@
         "vector": "cpp",
         "algorithm": "cpp",
         "__tree": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "execution": "cpp",
+        "memory": "cpp",
+        "print": "cpp"
     }
 }
