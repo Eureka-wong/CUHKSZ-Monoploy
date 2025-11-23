@@ -66,6 +66,28 @@ public:
     void showPlayers() const;
     void showBoard() const;
     static char getChoice(char a, char b, char c = '\0', char d = '\0', char e = '\0');
+
+    //newly added methods
+
+    int getPlayerCount() const { return players.size(); }
+    Player& getPlayer(int index) { return players[index];}
+    int getCurrentPlayerIndex() const { return currentPlayerIndex; }
+
+
+    // 临时测试方法 - 等完善接口后删除
+    void testMethod() { std::cout << "Game test method called" << std::endl; }
+
+    // 添加购买回调函数
+    void setPurchaseCallback(PurchaseCallback callback) { m_purchaseCallback = callback; }
+
+    bool hasPurchaseCallback() const { return static_cast<bool>(m_purchaseCallback); }
+
+    bool executePurchaseCallback(const std::string& propertyName, int price, const std::string& playerName) {
+        if (m_purchaseCallback) {
+            return m_purchaseCallback(propertyName, price, playerName);
+        }
+        return false;
+    }
 };
 
 #endif
