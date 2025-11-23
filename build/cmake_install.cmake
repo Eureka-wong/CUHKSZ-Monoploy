@@ -1,4 +1,4 @@
-# Install script for directory: /Users/Leviathan/Downloads/CSC3002/Logic
+# Install script for directory: /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,7 +40,7 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/Leviathan/Downloads/CSC3002/Logic/build/install_local_manifest.txt"
+  file(WRITE "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -56,6 +56,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/Leviathan/Downloads/CSC3002/Logic/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

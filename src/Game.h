@@ -35,6 +35,7 @@ public:
     void showBoard() const;
     int getAvailableBuildings(bool houses) const;
     void modifyAvailableBuildings(bool house, int count);
+    std::vector<Player>& getPlayers(); 
 };
 
 #endif

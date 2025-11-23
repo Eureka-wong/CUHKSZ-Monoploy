@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Tile.h"
+#include "../strategyEngine/hint.h"
 
 using namespace std;
 
@@ -83,9 +84,11 @@ void Game::startGame() {
             currentTile.onLand(currentPlayer, *this, step);
             currentPlayerIndex = (currentPlayerIndex + 1) % numPlayers;
 
-            // Allow player to manage their properties in their turn
+            // Allow player to manage their properties in their turn 
+            Hint hint(this);
+            hint.getHintResult(currentPlayer);
             currentPlayer.manageProperties(*this);
-
+            
             cout << endl;
             cout << "Press Enter to continue...";
             cin.get();
@@ -149,4 +152,8 @@ void Game::modifyAvailableBuildings(bool house, int count) {
         availableHotels += count;
         cout << "Available Hotels: " << availableHotels << endl;
     }
+}
+
+std::vector<Player>& Game::getPlayers() {
+    return players;
 }

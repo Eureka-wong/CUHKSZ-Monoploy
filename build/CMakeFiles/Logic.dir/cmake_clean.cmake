@@ -1,4 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o"
+  "CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o.d"
+  "CMakeFiles/Logic.dir/hint_ai/hint.cpp.o"
+  "CMakeFiles/Logic.dir/hint_ai/hint.cpp.o.d"
   "CMakeFiles/Logic.dir/src/Board.cpp.o"
   "CMakeFiles/Logic.dir/src/Board.cpp.o.d"
   "CMakeFiles/Logic.dir/src/Game.cpp.o"
