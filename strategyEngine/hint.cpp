@@ -22,31 +22,36 @@ playerstate* Hint::playerGameinfo(const Player& player) const{
     info->playerPos = player.getPosition();
     info->playerCash = player.getCash();
     info->playerprops = player.getProperties();  
+    cout <<"[DEBUG] get player info" << info << endl;
 
     return info;  
 }
 
-vector<possibleActions*> Hint::getActions(const Player& player){
+vector<possibleActions*> Hint::getActions(const Player& player, playerstate* state){
 // list all the possible actions
     vector<possibleActions*> player_actions;
-    playerstate* state = playerGameinfo(player);
-    Board board;
 
     int playerCash = state->playerCash;
     int playerPos = state->playerPos;
     vector<PropertyTile*> playerProps = state->playerprops;
+    Board& board = game->getBoard();
+
 
     // check the tile the player is currently on and offer a "buy" if it's an unowned PropertyTile
     
     if (playerCash > 0){
         Tile& currentTile = board.getTile(playerPos);
-        for (size_t i = 1 ; i < 7; ++i){
-            PropertyTile* possibleprop = dynamic_cast<PropertyTile*>(&currentTile+i);
-            if (possibleprop && possibleprop->getOwner() == nullptr){
-                possibleActions* action = new possibleActions();
-                action->action = "buy";
-                action->property = possibleprop;
-                player_actions.push_back(action);
+        for (size_t i = 1 ; i < 13; i++){
+            int nextIndex = (playerPos + i) % 40;
+            Tile& tile = board.getTile(nextIndex);
+            if (auto* p = dynamic_cast<PropertyTile*>(&tile)){
+                if (p->getOwner() == nullptr){                
+                    possibleActions* action = new possibleActions();
+                    action->action = "buy";
+                    action->property = p;
+                    player_actions.push_back(action);
+                    cout << "[DEBUG] get action " << action->action << "for property " << action->property << endl;
+                }
             }
         }
         
@@ -61,6 +66,7 @@ vector<possibleActions*> Hint::getActions(const Player& player){
             action->action = "sell";
             action->property = property;
             player_actions.push_back(action);
+            cout << "[DEBUG] get sell action" << endl;
         }
         
         // add "mortgage" to possible action if some property is undeveloped
@@ -69,6 +75,7 @@ vector<possibleActions*> Hint::getActions(const Player& player){
             action->action = "mortgage";
             action->property = property;
             player_actions.push_back(action);
+            cout << "[DEBUG] get mortgage action" << endl;
         }
 
         if (property->isMortgaged()){
@@ -76,7 +83,7 @@ vector<possibleActions*> Hint::getActions(const Player& player){
             action->action = "unmortgage";
             action->property = property;
             player_actions.push_back(action);
-
+            cout << "[DEBUG] get unmortgage action" << endl;
         }
 
         bool ownColorGroup = property->ownColorGroup();
@@ -88,6 +95,7 @@ vector<possibleActions*> Hint::getActions(const Player& player){
             action->action = "upgrade";
             action->property = property;
             player_actions.push_back(action);
+            cout << "[DEBUG] get upgrade action" << endl;
         }
 
     }
@@ -122,10 +130,7 @@ vector<possibleActions*> Hint::scoreActions(std::vector<possibleActions*> action
         if (action->action=="buy" || action->action=="unmortgage"){
             actionScore = scoreBuyAction(*action, state);
             action->score = actionScore;
-            cout << "[DEBUG] Scored 'buy': " << actionScore << endl;
         };
-
-
     
     }
 
@@ -273,13 +278,14 @@ int Hint::scoreBuyAction(const possibleActions& action, playerstate* state){
     double score = 0;
     PropertyTile* property = action.property;
     int playerCash = state->playerCash;
-    int propidx = state->playerPos;
+    int propidx = property->getIndex();
     int propPrice = property->getPrice();
 
     Weights& weights = getActionWeights();
     std::vector<double> buyWeights = weights.getBuyWeights();
 
-    
+    if (property == nullptr) return 0;
+  
     // 1. calculate cashScore
     double cashScore = (playerCash - propPrice > 200) ? 1.0 : -1.0;
     score += cashScore * buyWeights[1];
@@ -297,16 +303,22 @@ int Hint::scoreBuyAction(const possibleActions& action, playerstate* state){
 
     // 3. calculate monopolyScore
     double monopolyScore = 0;
-    int numOfPropInGroup = property->countOwnedPropertiesInGroup();
+    int numOfPropInGroup = 0;
+    if (property->getOwner() != nullptr){
+        int numOfPropInGroup = property->countOwnedPropertiesInGroup();
+    }
+    
     string propGroup = property->getGroup();
-    double monopolyPotential;
+    int monopolyPotential = 0;
+    
     if (propGroup == "Brown" || propGroup == "Dark Blue"){
-        double monopolyPotential = numOfPropInGroup / 2;
-    }else{double monopolyPotential = numOfPropInGroup / 3;}
+        monopolyPotential = numOfPropInGroup / 2.0;
+    }else{monopolyPotential = numOfPropInGroup / 3.0;}
+
 
     monopolyScore = (monopolyPotential == 1.0) ? 2.0 : monopolyPotential;
-
     score += monopolyScore * buyWeights[2];
+    cout << "monopolyScore is:" << monopolyScore << endl;
     
     // 4. calculate rentScore 
     double rentScore = 0;
@@ -330,20 +342,45 @@ int Hint::scoreBuyAction(const possibleActions& action, playerstate* state){
 void Hint::getHintResult(const Player& player){
 // Give the best hint based on scores and give explanations
     playerstate* playerinfo = playerGameinfo(player);
-    std::vector<possibleActions*> actions = getActions(player);
+    std::vector<possibleActions*> actions = getActions(player, playerinfo);
     std::vector<possibleActions*> action_with_socres = scoreActions(actions, playerinfo);
-    string best_action;
-    int best_score = 0;
+
+    // enumerate all possibilities for ''buy'' action
+    std::vector<possibleActions*> buyActions;
     for (auto item : action_with_socres){
-        int score = item->score;
-        string action = item->action;
-        if (score > best_score){
-            best_score = score;
-            best_action = action;
+        if (item->action == "buy"){
+            if (item->property == nullptr) continue;
+
+            auto property = item->property;
+            int idx = property->getIndex();
+            int current_idx = player.getPosition();
+            int step = (idx - current_idx + 40) % 40;
+            cout << "Buy " << property->getName()
+                 << " | score = " << item->score
+                 << " | roll = " << step
+                 << endl;
         }
 
     }
+    string best_action = "none";
+    int best_score = -999;
+    PropertyTile* best_property = nullptr;
+    string prop_name = "none";
+    for (auto item : action_with_socres){
+        if (item->action == "buy") continue;
 
-    cout << "best action is" << best_action << endl;
+        if (item->property == nullptr) continue;
+
+        if (item->score > best_score){
+            best_score = item->score;
+            best_action = item->action;
+            best_property = item->property;
+            prop_name = best_property->getName();
+        }
+            
+        
+    }
+
+    cout << "Best action other than 'buy' is: " << best_action << " " << prop_name << " with score " << best_score << endl;
 }
 

@@ -296,6 +296,22 @@ int PropertyTile::getPrice() const {
     return price;
 }
 
+int PropertyTile::getHousePrice() const{
+    return housePrice;
+}
+
+bool PropertyTile::isMortgaged() const{
+    return mortgaged;
+}
+
+std::array<int, 6> PropertyTile::getRent() const{
+    return rent;
+}
+
+string PropertyTile::getGroup() const{
+    return group;
+}
+
 int PropertyTile::getHouses() const {
     return houses;
 }
@@ -304,13 +320,13 @@ Player* PropertyTile::getOwner() const {
     return owner;
 }
 
-bool PropertyTile::isMortgaged() const {
-    return mortgaged;
-}
-
 int PropertyTile::countOwnedPropertiesInGroup() const {
+    if (owner == nullptr){
+        return 0;
+    }
     int count = 0;
     for (const auto& property : owner->getProperties()) {
+        if (property == nullptr) continue;
         if (property->group == group && !property->isMortgaged()) {
             count++;
         }

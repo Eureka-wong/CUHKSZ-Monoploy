@@ -6,6 +6,7 @@
 #include "CardDeck.h"
 #include "Player.h"
 #include "Tile.h"
+#include "../strategyEngine/hint.h"
 
 using namespace std;
 
@@ -119,8 +120,9 @@ void Game::normalTurn(Player& currentPlayer, int rolled_twelve) {
     char choice = 'Z';
     while (choice != 'R') {
         cout << "Type R to roll the dice." << endl;
-        cout << "Type M if you would like to manage your properties." << endl << endl;
-        choice = Game::getChoice('R', 'M');
+        cout << "Type M if you would like to manage your properties." << endl; 
+        cout << "Type s if you would like to use strategy engine." << endl << endl;
+        choice = Game::getChoice('R', 'M', 's');
         if (choice == 'R') {
             // Dice roll
             int step = rollDice();
@@ -141,6 +143,19 @@ void Game::normalTurn(Player& currentPlayer, int rolled_twelve) {
             // Player manages their properties.
             currentPlayer.manageProperties(*this);
             cout << endl;
+        }
+        else if (choice == 's'){
+            if (currentPlayer.getSE() == 0){
+                cout << "You have use no more than 3 chances of using strategy engines in 1 game!" << endl;
+            }
+            else{
+                currentPlayer.deductMoney(30);
+                currentPlayer.deductSE(1);
+                cout << currentPlayer.getName() << " paid $30 for using a strategy engine !" << endl;
+                currentPlayer.showPlayer();
+                Hint hint(this);
+                hint.getHintResult(currentPlayer);
+            }
         }
     }
 
@@ -718,4 +733,12 @@ char Game::getChoice(char a, char b, char c, char d, char e) {
         cin.clear();
     }
     return choice;
+}
+
+std::vector<Player>& Game::getPlayers() {
+    return players;
+}
+
+Board& Game::getBoard() {
+    return board;
 }

@@ -77,8 +77,11 @@ public:
     // Accessors
     int getPrice() const;
     int getHouses() const;
-    Player* getOwner() const;
+    int getHousePrice() const;
     bool isMortgaged() const;
+    std::array<int, 6> getRent() const;
+    std::string getGroup() const;
+    Player* getOwner() const;
 
     // Helpers
     int countOwnedPropertiesInGroup() const;

@@ -35,8 +35,12 @@ int Player::isBankrupt() const {
     return bankrupt;
 }
 
+int Player::getSE() const {
+    return availableSE;
+}
+
 void Player::showPlayer() const {
-    cout << "[ Player: " << name << ", Position: " << position << ", Cash: $" << balance << ", Wealth: $" << this->calculateWealth() << "," << endl;
+    cout << "[ Player: " << name << ", Position: " << position << ", Cash: $" << balance << ", Wealth: $" << this->calculateWealth() << ", Strategy Engines:" << availableSE << "/3 " << endl;
     cout << "  Properties: ";
     if (properties.empty()) {
         cout << "None, ";
@@ -348,4 +352,8 @@ void Player::getTradeDetails(int& playerIndex, int& amount, bool buyProperty) {
             continue;
         }
     }
+}
+
+void Player::deductSE(int SE){
+    availableSE -= SE;
 }

@@ -14,14 +14,14 @@ class Board;
 
 
 struct possibleActions{
-    std::string action; // what to do with the property
-    PropertyTile* property; // information of the property
+    std::string action = "none"; // what to do with the property
+    PropertyTile* property = nullptr; // information of the property
     int score = 0;
 };
 
 struct playerstate{
     int playerPos;
-    int playerCash;
+    int playerCash = 0;
     std::vector<PropertyTile*> playerprops;
 };
 
@@ -36,7 +36,7 @@ private:
 public:
     Hint (Game* g);
     playerstate* playerGameinfo(const Player& player) const;
-    std::vector<possibleActions*> getActions(const Player& player);
+    std::vector<possibleActions*> getActions(const Player& player, playerstate* state);
     Weights& getActionWeights(){return actionWeights;}
     std::vector<possibleActions*> scoreActions(std::vector<possibleActions*> actions, playerstate* state);
     int scoreSellAction(const possibleActions& action, playerstate* state);
