@@ -842,12 +842,13 @@ CMakeFiles/Logic.dir/src/Game.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/uniform_random_bit_generator.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/weibull_distribution.h \
   /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Game.h \
+  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Player.h \
+  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/CardDeck.h \
   /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Board.h \
   /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Tile.h \
-  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Player.h \
-  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/../hint_ai/hint.h \
-  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/../hint_ai/../src/Board.h \
-  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/../hint_ai/../src/Player.h \
-  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/../hint_ai/../src/Game.h \
-  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/../hint_ai/../src/Tile.h \
-  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/../hint_ai/action_weights.h
+  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/../strategyEngine/hint.h \
+  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/../strategyEngine/../src/Board.h \
+  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/../strategyEngine/../src/Player.h \
+  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/../strategyEngine/../src/Game.h \
+  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/../strategyEngine/../src/Tile.h \
+  /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/../strategyEngine/action_weights.h

@@ -1,0 +1,50 @@
+[
+{
+  "directory": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build",
+  "command": "/usr/bin/clang++   -g -std=gnu++17 -arch arm64 -o CMakeFiles/Logic.dir/src/main.cpp.o -c \"/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/main.cpp\"",
+  "file": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/main.cpp",
+  "output": "CMakeFiles/Logic.dir/src/main.cpp.o"
+},
+{
+  "directory": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build",
+  "command": "/usr/bin/clang++   -g -std=gnu++17 -arch arm64 -o CMakeFiles/Logic.dir/src/Game.cpp.o -c \"/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Game.cpp\"",
+  "file": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Game.cpp",
+  "output": "CMakeFiles/Logic.dir/src/Game.cpp.o"
+},
+{
+  "directory": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build",
+  "command": "/usr/bin/clang++   -g -std=gnu++17 -arch arm64 -o CMakeFiles/Logic.dir/src/Board.cpp.o -c \"/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Board.cpp\"",
+  "file": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Board.cpp",
+  "output": "CMakeFiles/Logic.dir/src/Board.cpp.o"
+},
+{
+  "directory": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build",
+  "command": "/usr/bin/clang++   -g -std=gnu++17 -arch arm64 -o CMakeFiles/Logic.dir/src/Tile.cpp.o -c \"/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Tile.cpp\"",
+  "file": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Tile.cpp",
+  "output": "CMakeFiles/Logic.dir/src/Tile.cpp.o"
+},
+{
+  "directory": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build",
+  "command": "/usr/bin/clang++   -g -std=gnu++17 -arch arm64 -o CMakeFiles/Logic.dir/src/Player.cpp.o -c \"/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Player.cpp\"",
+  "file": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Player.cpp",
+  "output": "CMakeFiles/Logic.dir/src/Player.cpp.o"
+},
+{
+  "directory": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build",
+  "command": "/usr/bin/clang++   -g -std=gnu++17 -arch arm64 -o CMakeFiles/Logic.dir/src/CardDeck.cpp.o -c \"/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/CardDeck.cpp\"",
+  "file": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/CardDeck.cpp",
+  "output": "CMakeFiles/Logic.dir/src/CardDeck.cpp.o"
+},
+{
+  "directory": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build",
+  "command": "/usr/bin/clang++   -g -std=gnu++17 -arch arm64 -o CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o -c \"/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/hint.cpp\"",
+  "file": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/hint.cpp",
+  "output": "CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o"
+},
+{
+  "directory": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build",
+  "command": "/usr/bin/clang++   -g -std=gnu++17 -arch arm64 -o CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o -c \"/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/action_weights.cpp\"",
+  "file": "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/action_weights.cpp",
+  "output": "CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o"
+}
+]

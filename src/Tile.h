@@ -65,26 +65,31 @@ public:
     // Property management
     void buyProperty(Player& player);
     void sellProperty(Player& player);
+
     void buyBuilding(Player& player, Game& game);
     void sellBuilding(Player& player, Game& game);
+
     void mortgageProperty(Player& player);
 
-    // Additional accessors
-    int getHouses() const;
+    void liquidateBuildings(Game& game, Player* creditor = nullptr);
+    void transferOwnership(Player& previousOwner, Player* newOwner);
+
+    // Accessors
     int getPrice() const;
-    int getHousePrice() const;
-    bool isMortgaged() const;
-    std::array<int, 6> getRent() const;
-    std::string getGroup() const;
+    int getHouses() const;
     Player* getOwner() const;
+    bool isMortgaged() const;
 
     // Helpers
     int countOwnedPropertiesInGroup() const;
     bool ownColorGroup() const;
     bool allowHouseTransactions(bool buy) const;
+    bool allPropertyInGroupHasNoHouses() const;
+
     void calculateRent(int step, int& rentDue) const;
     bool ownedByPlayer(Player& player) const;
     bool isStationOrUtility() const;
+    int calculateValue() const;
 };
 
 class FreeParkingTile : public Tile {
@@ -100,16 +105,22 @@ public:
     void onLand(Player& player, Game& game, int step) override;
 };
 
+class GoToJailTile : public Tile {
+public:
+    GoToJailTile(const TileInfo& info);
+    void onLand(Player& player, Game& game, int step) override;
+};
+
 class ChanceTile: public Tile {
-    
+public:
+    ChanceTile(const TileInfo& info);
+    void onLand(Player& player, Game& game, int step) override;
 };
 
 class CommunityChestTile: public Tile {
-
-};
-
-class JailTile : public Tile {
-
+public:
+    CommunityChestTile(const TileInfo& info);
+    void onLand(Player& player, Game& game, int step) override;
 };
 
 #endif

@@ -8,13 +8,14 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/hint_ai/action_weights.cpp" "CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o" "gcc" "CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o.d"
-  "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/hint_ai/hint.cpp" "CMakeFiles/Logic.dir/hint_ai/hint.cpp.o" "gcc" "CMakeFiles/Logic.dir/hint_ai/hint.cpp.o.d"
   "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Board.cpp" "CMakeFiles/Logic.dir/src/Board.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/Board.cpp.o.d"
+  "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/CardDeck.cpp" "CMakeFiles/Logic.dir/src/CardDeck.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/CardDeck.cpp.o.d"
   "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Game.cpp" "CMakeFiles/Logic.dir/src/Game.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/Game.cpp.o.d"
   "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Player.cpp" "CMakeFiles/Logic.dir/src/Player.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/Player.cpp.o.d"
   "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Tile.cpp" "CMakeFiles/Logic.dir/src/Tile.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/Tile.cpp.o.d"
   "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/main.cpp" "CMakeFiles/Logic.dir/src/main.cpp.o" "gcc" "CMakeFiles/Logic.dir/src/main.cpp.o.d"
+  "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/action_weights.cpp" "CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o" "gcc" "CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o.d"
+  "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/hint.cpp" "CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o" "gcc" "CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

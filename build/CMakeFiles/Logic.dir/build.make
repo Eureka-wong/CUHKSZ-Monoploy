@@ -76,99 +76,113 @@ CMakeFiles/Logic.dir/src/main.cpp.o: CMakeFiles/Logic.dir/flags.make
 CMakeFiles/Logic.dir/src/main.cpp.o: /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/main.cpp
 CMakeFiles/Logic.dir/src/main.cpp.o: CMakeFiles/Logic.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Logic.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/src/main.cpp.o -MF CMakeFiles/Logic.dir/src/main.cpp.o.d -o CMakeFiles/Logic.dir/src/main.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/main.cpp"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/src/main.cpp.o -MF CMakeFiles/Logic.dir/src/main.cpp.o.d -o CMakeFiles/Logic.dir/src/main.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/main.cpp"
 
 CMakeFiles/Logic.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Logic.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/main.cpp" > CMakeFiles/Logic.dir/src/main.cpp.i
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/main.cpp" > CMakeFiles/Logic.dir/src/main.cpp.i
 
 CMakeFiles/Logic.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Logic.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/main.cpp" -o CMakeFiles/Logic.dir/src/main.cpp.s
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/main.cpp" -o CMakeFiles/Logic.dir/src/main.cpp.s
 
 CMakeFiles/Logic.dir/src/Game.cpp.o: CMakeFiles/Logic.dir/flags.make
 CMakeFiles/Logic.dir/src/Game.cpp.o: /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Game.cpp
 CMakeFiles/Logic.dir/src/Game.cpp.o: CMakeFiles/Logic.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Logic.dir/src/Game.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/src/Game.cpp.o -MF CMakeFiles/Logic.dir/src/Game.cpp.o.d -o CMakeFiles/Logic.dir/src/Game.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Game.cpp"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/src/Game.cpp.o -MF CMakeFiles/Logic.dir/src/Game.cpp.o.d -o CMakeFiles/Logic.dir/src/Game.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Game.cpp"
 
 CMakeFiles/Logic.dir/src/Game.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Logic.dir/src/Game.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Game.cpp" > CMakeFiles/Logic.dir/src/Game.cpp.i
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Game.cpp" > CMakeFiles/Logic.dir/src/Game.cpp.i
 
 CMakeFiles/Logic.dir/src/Game.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Logic.dir/src/Game.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Game.cpp" -o CMakeFiles/Logic.dir/src/Game.cpp.s
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Game.cpp" -o CMakeFiles/Logic.dir/src/Game.cpp.s
 
 CMakeFiles/Logic.dir/src/Board.cpp.o: CMakeFiles/Logic.dir/flags.make
 CMakeFiles/Logic.dir/src/Board.cpp.o: /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Board.cpp
 CMakeFiles/Logic.dir/src/Board.cpp.o: CMakeFiles/Logic.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Logic.dir/src/Board.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/src/Board.cpp.o -MF CMakeFiles/Logic.dir/src/Board.cpp.o.d -o CMakeFiles/Logic.dir/src/Board.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Board.cpp"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/src/Board.cpp.o -MF CMakeFiles/Logic.dir/src/Board.cpp.o.d -o CMakeFiles/Logic.dir/src/Board.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Board.cpp"
 
 CMakeFiles/Logic.dir/src/Board.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Logic.dir/src/Board.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Board.cpp" > CMakeFiles/Logic.dir/src/Board.cpp.i
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Board.cpp" > CMakeFiles/Logic.dir/src/Board.cpp.i
 
 CMakeFiles/Logic.dir/src/Board.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Logic.dir/src/Board.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Board.cpp" -o CMakeFiles/Logic.dir/src/Board.cpp.s
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Board.cpp" -o CMakeFiles/Logic.dir/src/Board.cpp.s
 
 CMakeFiles/Logic.dir/src/Tile.cpp.o: CMakeFiles/Logic.dir/flags.make
 CMakeFiles/Logic.dir/src/Tile.cpp.o: /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Tile.cpp
 CMakeFiles/Logic.dir/src/Tile.cpp.o: CMakeFiles/Logic.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Logic.dir/src/Tile.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/src/Tile.cpp.o -MF CMakeFiles/Logic.dir/src/Tile.cpp.o.d -o CMakeFiles/Logic.dir/src/Tile.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Tile.cpp"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/src/Tile.cpp.o -MF CMakeFiles/Logic.dir/src/Tile.cpp.o.d -o CMakeFiles/Logic.dir/src/Tile.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Tile.cpp"
 
 CMakeFiles/Logic.dir/src/Tile.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Logic.dir/src/Tile.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Tile.cpp" > CMakeFiles/Logic.dir/src/Tile.cpp.i
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Tile.cpp" > CMakeFiles/Logic.dir/src/Tile.cpp.i
 
 CMakeFiles/Logic.dir/src/Tile.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Logic.dir/src/Tile.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Tile.cpp" -o CMakeFiles/Logic.dir/src/Tile.cpp.s
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Tile.cpp" -o CMakeFiles/Logic.dir/src/Tile.cpp.s
 
 CMakeFiles/Logic.dir/src/Player.cpp.o: CMakeFiles/Logic.dir/flags.make
 CMakeFiles/Logic.dir/src/Player.cpp.o: /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Player.cpp
 CMakeFiles/Logic.dir/src/Player.cpp.o: CMakeFiles/Logic.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Logic.dir/src/Player.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/src/Player.cpp.o -MF CMakeFiles/Logic.dir/src/Player.cpp.o.d -o CMakeFiles/Logic.dir/src/Player.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Player.cpp"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/src/Player.cpp.o -MF CMakeFiles/Logic.dir/src/Player.cpp.o.d -o CMakeFiles/Logic.dir/src/Player.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Player.cpp"
 
 CMakeFiles/Logic.dir/src/Player.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Logic.dir/src/Player.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Player.cpp" > CMakeFiles/Logic.dir/src/Player.cpp.i
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Player.cpp" > CMakeFiles/Logic.dir/src/Player.cpp.i
 
 CMakeFiles/Logic.dir/src/Player.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Logic.dir/src/Player.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Player.cpp" -o CMakeFiles/Logic.dir/src/Player.cpp.s
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/Player.cpp" -o CMakeFiles/Logic.dir/src/Player.cpp.s
 
-CMakeFiles/Logic.dir/hint_ai/hint.cpp.o: CMakeFiles/Logic.dir/flags.make
-CMakeFiles/Logic.dir/hint_ai/hint.cpp.o: /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/hint_ai/hint.cpp
-CMakeFiles/Logic.dir/hint_ai/hint.cpp.o: CMakeFiles/Logic.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Logic.dir/hint_ai/hint.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/hint_ai/hint.cpp.o -MF CMakeFiles/Logic.dir/hint_ai/hint.cpp.o.d -o CMakeFiles/Logic.dir/hint_ai/hint.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/hint_ai/hint.cpp"
+CMakeFiles/Logic.dir/src/CardDeck.cpp.o: CMakeFiles/Logic.dir/flags.make
+CMakeFiles/Logic.dir/src/CardDeck.cpp.o: /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/CardDeck.cpp
+CMakeFiles/Logic.dir/src/CardDeck.cpp.o: CMakeFiles/Logic.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Logic.dir/src/CardDeck.cpp.o"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/src/CardDeck.cpp.o -MF CMakeFiles/Logic.dir/src/CardDeck.cpp.o.d -o CMakeFiles/Logic.dir/src/CardDeck.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/CardDeck.cpp"
 
-CMakeFiles/Logic.dir/hint_ai/hint.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Logic.dir/hint_ai/hint.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/hint_ai/hint.cpp" > CMakeFiles/Logic.dir/hint_ai/hint.cpp.i
+CMakeFiles/Logic.dir/src/CardDeck.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Logic.dir/src/CardDeck.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/CardDeck.cpp" > CMakeFiles/Logic.dir/src/CardDeck.cpp.i
 
-CMakeFiles/Logic.dir/hint_ai/hint.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Logic.dir/hint_ai/hint.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/hint_ai/hint.cpp" -o CMakeFiles/Logic.dir/hint_ai/hint.cpp.s
+CMakeFiles/Logic.dir/src/CardDeck.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Logic.dir/src/CardDeck.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/src/CardDeck.cpp" -o CMakeFiles/Logic.dir/src/CardDeck.cpp.s
 
-CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o: CMakeFiles/Logic.dir/flags.make
-CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o: /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/hint_ai/action_weights.cpp
-CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o: CMakeFiles/Logic.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o -MF CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o.d -o CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/hint_ai/action_weights.cpp"
+CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o: CMakeFiles/Logic.dir/flags.make
+CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o: /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/hint.cpp
+CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o: CMakeFiles/Logic.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o -MF CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o.d -o CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/hint.cpp"
 
-CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/hint_ai/action_weights.cpp" > CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.i
+CMakeFiles/Logic.dir/strategyEngine/hint.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Logic.dir/strategyEngine/hint.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/hint.cpp" > CMakeFiles/Logic.dir/strategyEngine/hint.cpp.i
 
-CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/hint_ai/action_weights.cpp" -o CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.s
+CMakeFiles/Logic.dir/strategyEngine/hint.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Logic.dir/strategyEngine/hint.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/hint.cpp" -o CMakeFiles/Logic.dir/strategyEngine/hint.cpp.s
+
+CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o: CMakeFiles/Logic.dir/flags.make
+CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o: /Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26\ Term\ 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/action_weights.cpp
+CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o: CMakeFiles/Logic.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o -MF CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o.d -o CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o -c "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/action_weights.cpp"
+
+CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/action_weights.cpp" > CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.i
+
+CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/strategyEngine/action_weights.cpp" -o CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.s
 
 # Object files for target Logic
 Logic_OBJECTS = \
@@ -177,8 +191,9 @@ Logic_OBJECTS = \
 "CMakeFiles/Logic.dir/src/Board.cpp.o" \
 "CMakeFiles/Logic.dir/src/Tile.cpp.o" \
 "CMakeFiles/Logic.dir/src/Player.cpp.o" \
-"CMakeFiles/Logic.dir/hint_ai/hint.cpp.o" \
-"CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o"
+"CMakeFiles/Logic.dir/src/CardDeck.cpp.o" \
+"CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o" \
+"CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o"
 
 # External object files for target Logic
 Logic_EXTERNAL_OBJECTS =
@@ -188,11 +203,12 @@ Logic: CMakeFiles/Logic.dir/src/Game.cpp.o
 Logic: CMakeFiles/Logic.dir/src/Board.cpp.o
 Logic: CMakeFiles/Logic.dir/src/Tile.cpp.o
 Logic: CMakeFiles/Logic.dir/src/Player.cpp.o
-Logic: CMakeFiles/Logic.dir/hint_ai/hint.cpp.o
-Logic: CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o
+Logic: CMakeFiles/Logic.dir/src/CardDeck.cpp.o
+Logic: CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o
+Logic: CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o
 Logic: CMakeFiles/Logic.dir/build.make
 Logic: CMakeFiles/Logic.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable Logic"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/aliya/Library/CloudStorage/OneDrive-CUHK-Shenzhen/CUHKSZ/AY25-26 Term 1/CSC3002/Monopoly/CUHKSZ-Monoploy/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable Logic"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Logic.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

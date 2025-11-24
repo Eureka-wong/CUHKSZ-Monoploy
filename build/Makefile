@@ -129,54 +129,6 @@ Logic/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/build
 .PHONY : Logic/fast
 
-hint_ai/action_weights.o: hint_ai/action_weights.cpp.o
-.PHONY : hint_ai/action_weights.o
-
-# target to build an object file
-hint_ai/action_weights.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.o
-.PHONY : hint_ai/action_weights.cpp.o
-
-hint_ai/action_weights.i: hint_ai/action_weights.cpp.i
-.PHONY : hint_ai/action_weights.i
-
-# target to preprocess a source file
-hint_ai/action_weights.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.i
-.PHONY : hint_ai/action_weights.cpp.i
-
-hint_ai/action_weights.s: hint_ai/action_weights.cpp.s
-.PHONY : hint_ai/action_weights.s
-
-# target to generate assembly for a file
-hint_ai/action_weights.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/hint_ai/action_weights.cpp.s
-.PHONY : hint_ai/action_weights.cpp.s
-
-hint_ai/hint.o: hint_ai/hint.cpp.o
-.PHONY : hint_ai/hint.o
-
-# target to build an object file
-hint_ai/hint.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/hint_ai/hint.cpp.o
-.PHONY : hint_ai/hint.cpp.o
-
-hint_ai/hint.i: hint_ai/hint.cpp.i
-.PHONY : hint_ai/hint.i
-
-# target to preprocess a source file
-hint_ai/hint.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/hint_ai/hint.cpp.i
-.PHONY : hint_ai/hint.cpp.i
-
-hint_ai/hint.s: hint_ai/hint.cpp.s
-.PHONY : hint_ai/hint.s
-
-# target to generate assembly for a file
-hint_ai/hint.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/hint_ai/hint.cpp.s
-.PHONY : hint_ai/hint.cpp.s
-
 src/Board.o: src/Board.cpp.o
 .PHONY : src/Board.o
 
@@ -200,6 +152,30 @@ src/Board.s: src/Board.cpp.s
 src/Board.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/src/Board.cpp.s
 .PHONY : src/Board.cpp.s
+
+src/CardDeck.o: src/CardDeck.cpp.o
+.PHONY : src/CardDeck.o
+
+# target to build an object file
+src/CardDeck.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/src/CardDeck.cpp.o
+.PHONY : src/CardDeck.cpp.o
+
+src/CardDeck.i: src/CardDeck.cpp.i
+.PHONY : src/CardDeck.i
+
+# target to preprocess a source file
+src/CardDeck.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/src/CardDeck.cpp.i
+.PHONY : src/CardDeck.cpp.i
+
+src/CardDeck.s: src/CardDeck.cpp.s
+.PHONY : src/CardDeck.s
+
+# target to generate assembly for a file
+src/CardDeck.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/src/CardDeck.cpp.s
+.PHONY : src/CardDeck.cpp.s
 
 src/Game.o: src/Game.cpp.o
 .PHONY : src/Game.o
@@ -297,6 +273,54 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+strategyEngine/action_weights.o: strategyEngine/action_weights.cpp.o
+.PHONY : strategyEngine/action_weights.o
+
+# target to build an object file
+strategyEngine/action_weights.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.o
+.PHONY : strategyEngine/action_weights.cpp.o
+
+strategyEngine/action_weights.i: strategyEngine/action_weights.cpp.i
+.PHONY : strategyEngine/action_weights.i
+
+# target to preprocess a source file
+strategyEngine/action_weights.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.i
+.PHONY : strategyEngine/action_weights.cpp.i
+
+strategyEngine/action_weights.s: strategyEngine/action_weights.cpp.s
+.PHONY : strategyEngine/action_weights.s
+
+# target to generate assembly for a file
+strategyEngine/action_weights.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/strategyEngine/action_weights.cpp.s
+.PHONY : strategyEngine/action_weights.cpp.s
+
+strategyEngine/hint.o: strategyEngine/hint.cpp.o
+.PHONY : strategyEngine/hint.o
+
+# target to build an object file
+strategyEngine/hint.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/strategyEngine/hint.cpp.o
+.PHONY : strategyEngine/hint.cpp.o
+
+strategyEngine/hint.i: strategyEngine/hint.cpp.i
+.PHONY : strategyEngine/hint.i
+
+# target to preprocess a source file
+strategyEngine/hint.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/strategyEngine/hint.cpp.i
+.PHONY : strategyEngine/hint.cpp.i
+
+strategyEngine/hint.s: strategyEngine/hint.cpp.s
+.PHONY : strategyEngine/hint.s
+
+# target to generate assembly for a file
+strategyEngine/hint.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Logic.dir/build.make CMakeFiles/Logic.dir/strategyEngine/hint.cpp.s
+.PHONY : strategyEngine/hint.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -306,15 +330,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Logic"
-	@echo "... hint_ai/action_weights.o"
-	@echo "... hint_ai/action_weights.i"
-	@echo "... hint_ai/action_weights.s"
-	@echo "... hint_ai/hint.o"
-	@echo "... hint_ai/hint.i"
-	@echo "... hint_ai/hint.s"
 	@echo "... src/Board.o"
 	@echo "... src/Board.i"
 	@echo "... src/Board.s"
+	@echo "... src/CardDeck.o"
+	@echo "... src/CardDeck.i"
+	@echo "... src/CardDeck.s"
 	@echo "... src/Game.o"
 	@echo "... src/Game.i"
 	@echo "... src/Game.s"
@@ -327,6 +348,12 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... strategyEngine/action_weights.o"
+	@echo "... strategyEngine/action_weights.i"
+	@echo "... strategyEngine/action_weights.s"
+	@echo "... strategyEngine/hint.o"
+	@echo "... strategyEngine/hint.i"
+	@echo "... strategyEngine/hint.s"
 .PHONY : help
 
 
