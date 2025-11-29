@@ -1,0 +1,43 @@
+# ninja log v6
+13	960	7860405485272583	CUHKSZ_Tycoon_autogen/timestamp	fd202590fb735015
+13	960	7860405485272583	CUHKSZ_Tycoon_autogen/mocs_compilation.cpp	fd202590fb735015
+13	960	7860405485272583	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/timestamp	fd202590fb735015
+2558	48057	7860370659918084	CMakeFiles/CUHKSZ_Tycoon.dir/main.cpp.obj	d5dc0834834ad13f
+961	7653	7860405486751092	CMakeFiles/CUHKSZ_Tycoon.dir/CUHKSZ_Tycoon_autogen/mocs_compilation.cpp.obj	e0b30987e2be95a2
+13	960	7860405485272583	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/mocs_compilation.cpp	fd202590fb735015
+969	7309	7860405486799269	CMakeFiles/CUHKSZ_Tycoon.dir/mainwindow.cpp.obj	8b4daa9c68f6b23d
+7653	8502	7860405553679669	CUHKSZ_Tycoon.exe	692c140c20dde3c3
+990	5097	7860405487030708	CMakeFiles/CUHKSZ_Tycoon.dir/Tile.cpp.obj	cd3310127b5b4573
+975	5742	7860405486887294	CMakeFiles/CUHKSZ_Tycoon.dir/Game.cpp.obj	2ff6c32f5fba0fa1
+2573	47521	7860370660050433	CMakeFiles/CUHKSZ_Tycoon.dir/Board.cpp.obj	6b64341a1aa94045
+998	6358	7860405487118280	CMakeFiles/CUHKSZ_Tycoon.dir/BoardWidget.cpp.obj	b8a5e3f28da9bc48
+983	5078	7860405486967039	CMakeFiles/CUHKSZ_Tycoon.dir/Player.cpp.obj	fc51e01c3d00fd1d
+368	530	7855927032245681	CUHKSZ_Tycoon_autogen/EWIEGA46WW/qrc_resources.cpp	2b86af350e0af658
+368	530	7855927032245681	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/EWIEGA46WW/qrc_resources.cpp	2b86af350e0af658
+531	801	7855927032390974	CMakeFiles/CUHKSZ_Tycoon.dir/CUHKSZ_Tycoon_autogen/EWIEGA46WW/qrc_resources.cpp.obj	2342b02d2931b699
+74	1025	7855926985590213	build.ninja	ebc40e0c7c07b130
+1006	5334	7860405487208730	CMakeFiles/CUHKSZ_Tycoon.dir/CardDeck.cpp.obj	bd79fab4727e3544
+61	432	7860408951969855	CUHKSZ_Tycoon_autogen/timestamp	fd202590fb735015
+61	432	7860408951969855	CUHKSZ_Tycoon_autogen/mocs_compilation.cpp	fd202590fb735015
+61	432	7860408951969855	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/timestamp	fd202590fb735015
+61	432	7860408951969855	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/mocs_compilation.cpp	fd202590fb735015
+434	5617	7860408955746818	CMakeFiles/CUHKSZ_Tycoon.dir/mainwindow.cpp.obj	8b4daa9c68f6b23d
+5618	6462	7860409007580830	CUHKSZ_Tycoon.exe	692c140c20dde3c3
+12	387	7860412656806355	CUHKSZ_Tycoon_autogen/timestamp	fd202590fb735015
+12	387	7860412656806355	CUHKSZ_Tycoon_autogen/mocs_compilation.cpp	fd202590fb735015
+12	387	7860412656806355	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/timestamp	fd202590fb735015
+12	387	7860412656806355	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/mocs_compilation.cpp	fd202590fb735015
+388	5406	7860412660579803	CMakeFiles/CUHKSZ_Tycoon.dir/mainwindow.cpp.obj	8b4daa9c68f6b23d
+5406	6230	7860412710750832	CUHKSZ_Tycoon.exe	692c140c20dde3c3
+11	372	7860414359698075	CUHKSZ_Tycoon_autogen/timestamp	fd202590fb735015
+11	372	7860414359698075	CUHKSZ_Tycoon_autogen/mocs_compilation.cpp	fd202590fb735015
+11	372	7860414359698075	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/timestamp	fd202590fb735015
+11	372	7860414359698075	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/mocs_compilation.cpp	fd202590fb735015
+374	5629	7860414363325807	CMakeFiles/CUHKSZ_Tycoon.dir/mainwindow.cpp.obj	8b4daa9c68f6b23d
+5629	6455	7860414415865013	CUHKSZ_Tycoon.exe	692c140c20dde3c3
+22	377	7860416769577990	CUHKSZ_Tycoon_autogen/timestamp	fd202590fb735015
+22	377	7860416769577990	CUHKSZ_Tycoon_autogen/mocs_compilation.cpp	fd202590fb735015
+22	377	7860416769577990	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/timestamp	fd202590fb735015
+22	377	7860416769577990	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/mocs_compilation.cpp	fd202590fb735015
+379	3728	7860416773142567	CMakeFiles/CUHKSZ_Tycoon.dir/Game.cpp.obj	2ff6c32f5fba0fa1
+3728	4572	7860416806642290	CUHKSZ_Tycoon.exe	692c140c20dde3c3
