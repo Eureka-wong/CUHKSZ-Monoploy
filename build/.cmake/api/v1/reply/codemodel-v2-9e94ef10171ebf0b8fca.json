@@ -7,7 +7,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-9ad1a58d4644cf6543fa.json",
+					"jsonFile" : "directory-.-9ad1a58d4644cf6543fa.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.10"
@@ -20,7 +20,7 @@
 					]
 				}
 			],
-			"name" : "Debug",
+			"name" : "",
 			"projects" : 
 			[
 				{
@@ -40,7 +40,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Logic::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Logic-Debug-d8ee88fc327bc6fa7451.json",
+					"jsonFile" : "target-Logic-01b5c24cc28bab63be3f.json",
 					"name" : "Logic",
 					"projectIndex" : 0
 				}
