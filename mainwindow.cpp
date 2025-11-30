@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QMessageBox>
+#include "strategyEngine.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

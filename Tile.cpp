@@ -262,6 +262,18 @@ bool PropertyTile::isMortgaged() const {
     return mortgaged;
 }
 
+int PropertyTile::getHousePrice() const{
+    return housePrice;
+}
+
+std::array<int, 6> PropertyTile::getRent() const{
+    return rent;
+};
+
+std::string PropertyTile::getGroup() const{
+    return group;
+};
+
 int PropertyTile::countOwnedPropertiesInGroup() const {
     int count = 0;
     for (const auto& property : owner->getProperties()) {

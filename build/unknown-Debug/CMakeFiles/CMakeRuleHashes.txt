@@ -1,0 +1,4 @@
+# Hashes of file build rules.
+b2861d3004cfd0b5ef1a89d1a42dfd04 CMakeFiles/CUHKSZ_Tycoon_autogen
+e95b53589876fff80ad56af328c41bbf CUHKSZ_Tycoon_autogen/EWIEGA46WW/qrc_resources.cpp
+cde7af8302bd14e0fa7546b894d7533b CUHKSZ_Tycoon_autogen/timestamp
