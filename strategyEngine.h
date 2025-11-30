@@ -1,7 +1,6 @@
 #ifndef HINT_AI_H
 #define HINT_AI_H
 
-#include "Board.h"
 #include "Player.h"
 #include "Game.h"
 #include "Tile.h"
