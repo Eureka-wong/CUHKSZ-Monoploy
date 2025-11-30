@@ -8,8 +8,8 @@
 
 using namespace std;
 
-Player::Player(const string& name, int position, int balance)
-    : name(name), position(position), balance(balance) {}
+Player::Player(const string& name, int position, int balance, int availableSE)
+    : name(name), position(position), balance(balance),  availableSE(availableSE) {}
 
 string Player::getName() const {
     return name;
@@ -21,6 +21,10 @@ int Player::getPosition () const {
 
 int Player::getCash() const {
     return balance;
+}
+
+int Player::getSE() const{
+    return availableSE;
 }
 
 vector<PropertyTile*> Player::getProperties() const {
@@ -349,4 +353,8 @@ void Player::getTradeDetails(int& playerIndex, int& amount, bool buyProperty) {
             continue;
         }
     }
+}
+
+void Player::deductSE(){
+    availableSE -= 1;
 }

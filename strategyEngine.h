@@ -25,7 +25,7 @@ struct playerstate{
 };
 
 
-class Hint{
+class StrategyEngine{
 private:
     // playerstate* Hint::playerGameinfo(const Player& player) const;
     std::vector<possibleActions*> actions;
@@ -33,7 +33,7 @@ private:
     Game* game;
 
 public:
-    Hint (Game* g);
+    StrategyEngine (Game* g);
     playerstate* playerGameinfo(const Player& player) const;
     std::vector<possibleActions*> getActions(const Player& player, playerstate* state);
     Weights& getActionWeights(){return actionWeights;}
@@ -43,6 +43,7 @@ public:
     int scoreUpgradeAction(const possibleActions& action, playerstate* state);
     int scoreBuyAction(const possibleActions& action, playerstate* state);
     void getHintResult(const Player& player);
+    QString getHintResultforQt(const Player& player);
 };
 
 #endif

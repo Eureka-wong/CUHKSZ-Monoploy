@@ -178,6 +178,9 @@ void Game::endGame() {
                             .arg(QString::fromStdString(players[winnerIndex].getName())));
 }
 
+Board& Game::getBoard(){
+    return board;
+}
 /*void Game::processJailAction(JailAction action) {
     Player& currentPlayer = players[currentPlayerIndex];
     int jailStatus = currentPlayer.getJailStatus();

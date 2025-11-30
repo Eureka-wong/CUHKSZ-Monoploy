@@ -29,7 +29,7 @@ private slots:
 
     void onPropertiesClicked();
 
-    void onHintClicked();
+    void onHintClicked(int playerIndex);
 
     void onChatroomClicked();
 

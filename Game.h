@@ -73,11 +73,11 @@ public:
 
     int getPlayerIndex(const Player& player) const;
     Player& getPlayer(int index) { return players[index]; }
-    const Player& getPlayer(int index) const { return players[index]; }
     int getCurrentPlayerIndex() const { return currentPlayerIndex; }
 
     int getCurrentRound() const { return round; }
     GameState getCurrentState() const { return currentState; }
+    Board& getBoard();
 
     // 状态检查
     bool canRollDice() const;
