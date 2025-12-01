@@ -1,4 +1,4 @@
-# Install script for directory: /Users/Leviathan/Downloads/CSC3002/GUI
+# Install script for directory: /Users/aliya/Desktop/CUHKSZ-Monoploy
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,16 +38,22 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/." TYPE DIRECTORY FILES "/Users/Leviathan/Downloads/CSC3002/GUI/build/Qt_6_10_1_for_macOS-Debug/GUI.app" USE_SOURCE_PERMISSIONS)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/." TYPE DIRECTORY FILES "/Users/aliya/Desktop/CUHKSZ-Monoploy/build/Qt_6_10_1_for_macOS-Debug/GUI.app" USE_SOURCE_PERMISSIONS)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/./GUI.app/Contents/MacOS/GUI" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/./GUI.app/Contents/MacOS/GUI")
     execute_process(COMMAND /usr/bin/install_name_tool
-      -delete_rpath "/Users/Leviathan/Qt/6.10.1/macos/lib"
+      -delete_rpath "/Users/aliya/Qt/6.10.1/macos/lib"
       -add_rpath "@executable_path/../Frameworks"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/./GUI.app/Contents/MacOS/GUI")
   endif()
 endif()
 
+string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
+       "${CMAKE_INSTALL_MANIFEST_FILES}")
+if(CMAKE_INSTALL_LOCAL_ONLY)
+  file(WRITE "/Users/aliya/Desktop/CUHKSZ-Monoploy/build/Qt_6_10_1_for_macOS-Debug/install_local_manifest.txt"
+     "${CMAKE_INSTALL_MANIFEST_CONTENT}")
+endif()
 if(CMAKE_INSTALL_COMPONENT)
   if(CMAKE_INSTALL_COMPONENT MATCHES "^[a-zA-Z0-9_.+-]+$")
     set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
@@ -61,8 +67,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
-       "${CMAKE_INSTALL_MANIFEST_FILES}")
-  file(WRITE "/Users/Leviathan/Downloads/CSC3002/GUI/build/Qt_6_10_1_for_macOS-Debug/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "/Users/aliya/Desktop/CUHKSZ-Monoploy/build/Qt_6_10_1_for_macOS-Debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

@@ -78,6 +78,7 @@ public:
 
     int getCurrentRound() const { return round; }
     GameState getCurrentState() const { return currentState; }
+    Board& getBoard();
 
     // 状态检查
     bool canRollDice() const;

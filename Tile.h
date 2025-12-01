@@ -83,6 +83,9 @@ public:
     int getHouses() const;
     Player* getOwner() const;
     bool isMortgaged() const;
+    int getHousePrice() const;
+    std::array<int, 6> getRent() const;
+    std::string getGroup() const;
 
     // Helpers
     int countOwnedPropertiesInGroup() const;

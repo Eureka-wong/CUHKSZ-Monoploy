@@ -104,7 +104,9 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
             { QMetaType::QString, 15 },
         }}),
         // Slot 'onHintClicked'
-        QtMocHelpers::SlotData<void()>(16, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void(int)>(16, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 4 },
+        }}),
         // Slot 'onChatroomClicked'
         QtMocHelpers::SlotData<void()>(17, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onEndTurnClicked'
@@ -175,7 +177,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 4: _t->onPropertiesClicked(); break;
         case 5: _t->updatePropertyDisplay((*reinterpret_cast<std::add_pointer_t<QLabel*>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QLabel*>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<PropertyTile*>>(_a[3])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[4]))); break;
         case 6: _t->showWarning((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
-        case 7: _t->onHintClicked(); break;
+        case 7: _t->onHintClicked((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
         case 8: _t->onChatroomClicked(); break;
         case 9: _t->onEndTurnClicked(); break;
         case 10: _t->onPlayerTurnStarted((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;

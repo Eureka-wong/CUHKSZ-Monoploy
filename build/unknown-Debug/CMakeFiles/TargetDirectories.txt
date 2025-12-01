@@ -1,0 +1,9 @@
+/Users/aliya/Desktop/CUHKSZ-Monoploy/build/unknown-Debug/CMakeFiles/GUI.dir
+/Users/aliya/Desktop/CUHKSZ-Monoploy/build/unknown-Debug/CMakeFiles/edit_cache.dir
+/Users/aliya/Desktop/CUHKSZ-Monoploy/build/unknown-Debug/CMakeFiles/rebuild_cache.dir
+/Users/aliya/Desktop/CUHKSZ-Monoploy/build/unknown-Debug/CMakeFiles/list_install_components.dir
+/Users/aliya/Desktop/CUHKSZ-Monoploy/build/unknown-Debug/CMakeFiles/install.dir
+/Users/aliya/Desktop/CUHKSZ-Monoploy/build/unknown-Debug/CMakeFiles/install/local.dir
+/Users/aliya/Desktop/CUHKSZ-Monoploy/build/unknown-Debug/CMakeFiles/install/strip.dir
+/Users/aliya/Desktop/CUHKSZ-Monoploy/build/unknown-Debug/CMakeFiles/GUI_autogen_timestamp_deps.dir
+/Users/aliya/Desktop/CUHKSZ-Monoploy/build/unknown-Debug/CMakeFiles/GUI_autogen.dir

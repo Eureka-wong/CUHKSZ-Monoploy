@@ -39,6 +39,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         resources.qrc
+        StrategyEngine.cpp
+        StrategyEngine.h
+        action_weights.h
+        action_weights.cpp
     )
 else()
     if(ANDROID)

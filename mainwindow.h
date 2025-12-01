@@ -34,7 +34,7 @@ private slots:
     void updatePropertyDisplay(QLabel* playerInfo, QLabel* propertyInfo, PropertyTile* property, int currentPlayerIndex);
     void showWarning(const QString& message);
 
-    void onHintClicked();
+    void onHintClicked(int playerIndex);
 
     void onChatroomClicked();
 

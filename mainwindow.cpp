@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "StrategyEngine.h"
 #include "ui_MainWindow.h"
 #include "BoardWidget.h"
 #include "Game.h"
@@ -508,7 +509,57 @@ void MainWindow::showWarning(const QString& message) {
 }
 
 
-void MainWindow::onHintClicked(){
+void MainWindow::onHintClicked(int playerIndex){
+    Player& currentPlayer = m_game->getPlayer(playerIndex);
+    QMessageBox msgBox(this);
+    msgBox.setWindowTitle(tr("Strategy Engine"));
+    QString infoStr = ("Do you want to use a strategy engine for $50?");
+
+    // 检查现金 & SE是否充足
+    bool canAfford = (currentPlayer.getCash() >= 100 && currentPlayer.getSE() > 0);
+
+    if (canAfford) {
+
+        // 设置选择按钮
+        msgBox.setText(infoStr);
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+    } else {
+        msgBox.setInformativeText(infoStr + "\n\nYou don't have enough cash!");
+
+        // 现金不足时，只显示No按钮，禁止使用Strategy Engine
+        msgBox.setStandardButtons(QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+    }
+    // 添加详细说明
+    QString details = QString("Price of Strategy Engine: $50\nYour cash: $%1\nBalance after purchase: $%2\nAvailable Strategy Engines after purchase:%3")
+                          .arg(currentPlayer.getCash())
+                          .arg(currentPlayer.getCash() - 50)
+                          .arg(currentPlayer.getSE() - 1);
+    msgBox.setDetailedText(details);
+
+    // 显示对话框并获取结果
+    int result = msgBox.exec();
+
+    if (result == QMessageBox::Yes) {
+        // 用户选择使用SE
+        currentPlayer.deductSE();
+        // 购买成功
+        m_statusLabel->setText(QString("%1 purchased a Strategy Engine for $50")
+                                   .arg(playerIndex+1));
+        m_gameLog->append(QString("[PURCHASE] Player %1 bought a Strategy Engine for $50")
+                              .arg(playerIndex+1));
+        //获得SE预测结果，该结果仅展示给用户，不在日志中显示
+        StrategyEngine SE(m_game);
+        QString hint = SE.getHintResultforQt(currentPlayer);
+        QMessageBox SEbox;
+        SEbox.setWindowTitle("Strategy Suggestions");
+        SEbox.setText("Strategy Engine Result:");
+        SEbox.setDetailedText(hint);
+        SEbox.exec();
+
+
+    }
 
 }
 

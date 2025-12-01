@@ -23,6 +23,10 @@ int Player::getCash() const {
     return balance;
 }
 
+int Player::getSE() const{
+    return availableSE;
+}
+
 vector<PropertyTile*> Player::getProperties() const {
     return properties;
 }
@@ -356,4 +360,8 @@ void Player::getTradeDetails(int& playerIndex, int& amount, bool buyProperty) {
             continue;
         }
     }
+}
+
+void Player::deductSE(){
+    availableSE -= 1;
 }

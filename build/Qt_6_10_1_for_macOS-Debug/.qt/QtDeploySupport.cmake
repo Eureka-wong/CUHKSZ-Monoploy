@@ -34,8 +34,8 @@ endif()
 set(__QT_DEPLOY_SYSTEM_NAME "Darwin")
 set(__QT_DEPLOY_SHARED_LIBRARY_SUFFIX ".dylib")
 set(__QT_DEPLOY_IS_SHARED_LIBS_BUILD "ON")
-set(__QT_DEPLOY_TOOL "/Users/Leviathan/Qt/6.10.1/macos/bin/macdeployqt")
-set(__QT_DEPLOY_IMPL_DIR "/Users/Leviathan/Downloads/CSC3002/GUI/build/Qt_6_10_1_for_macOS-Debug/.qt")
+set(__QT_DEPLOY_TOOL "/Users/aliya/Qt/6.10.1/macos/bin/macdeployqt")
+set(__QT_DEPLOY_IMPL_DIR "/Users/aliya/Desktop/CUHKSZ-Monoploy/build/Qt_6_10_1_for_macOS-Debug/.qt")
 set(__QT_DEPLOY_VERBOSE "")
 set(__QT_CMAKE_EXPORT_NAMESPACE "Qt6")
 set(__QT_LIBINFIX "")
@@ -44,14 +44,14 @@ set(__QT_DEPLOY_ACTIVE_CONFIG "Debug")
 set(__QT_NO_CREATE_VERSIONLESS_FUNCTIONS "")
 set(__QT_DEFAULT_MAJOR_VERSION "6")
 set(__QT_DEPLOY_QT_ADDITIONAL_PACKAGES_PREFIX_PATH "")
-set(__QT_DEPLOY_QT_INSTALL_PREFIX "/Users/Leviathan/Qt/6.10.1/macos")
+set(__QT_DEPLOY_QT_INSTALL_PREFIX "/Users/aliya/Qt/6.10.1/macos")
 set(__QT_DEPLOY_QT_INSTALL_BINS "bin")
 set(__QT_DEPLOY_QT_INSTALL_DATA ".")
 set(__QT_DEPLOY_QT_INSTALL_DESCRIPTIONSDIR "modules")
 set(__QT_DEPLOY_QT_INSTALL_LIBEXECS "libexec")
 set(__QT_DEPLOY_QT_INSTALL_PLUGINS "plugins")
 set(__QT_DEPLOY_QT_INSTALL_TRANSLATIONS "translations")
-set(__QT_DEPLOY_TARGET_QT_PATHS_PATH "/Users/Leviathan/Qt/6.10.1/macos/bin/qtpaths6")
+set(__QT_DEPLOY_TARGET_QT_PATHS_PATH "/Users/aliya/Qt/6.10.1/macos/bin/qtpaths6")
 set(__QT_DEPLOY_MUST_ADJUST_PLUGINS_RPATH "OFF")
 set(__QT_DEPLOY_USE_PATCHELF "")
 set(__QT_DEPLOY_PATCHELF_EXECUTABLE "")
@@ -60,8 +60,8 @@ set(__QT_DEPLOY_QT_DEBUG_POSTFIX "")
 
 # Define the CMake commands to be made available during deployment.
 set(__qt_deploy_support_files
-    "/Users/Leviathan/Downloads/CSC3002/GUI/build/Qt_6_10_1_for_macOS-Debug/.qt/QtDeployTargets.cmake"
-    "/Users/Leviathan/Qt/6.10.1/macos/lib/cmake/Qt6Core/Qt6CoreDeploySupport.cmake"
+    "/Users/aliya/Desktop/CUHKSZ-Monoploy/build/Qt_6_10_1_for_macOS-Debug/.qt/QtDeployTargets.cmake"
+    "/Users/aliya/Qt/6.10.1/macos/lib/cmake/Qt6Core/Qt6CoreDeploySupport.cmake"
 )
 foreach(__qt_deploy_support_file IN LISTS __qt_deploy_support_files)
     include("${__qt_deploy_support_file}")
