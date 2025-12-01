@@ -397,7 +397,7 @@ QString StrategyEngine::getHintResultforQt(const Player& player){
     std::vector<possibleActions*> actions = getActions(player, playerinfo);
     std::vector<possibleActions*> action_with_socres = scoreActions(actions, playerinfo);
 
-    results += "<b>Property Purchase Suggestions</b>\n";
+    results += "Property Purchase Suggestions\n";
     for (auto item : action_with_socres){
         if (item->action == "buy"){
             if (item->property == nullptr) continue;
@@ -408,7 +408,7 @@ QString StrategyEngine::getHintResultforQt(const Player& player){
             int step = (idx - current_idx + 40) % 40;
             QString buyResults = scoreToHint(item->score);
 
-            results += QString("• Roll %1 steps : Buy <b>%2</b> → <font color='blue'>%3</font>\n")
+            results += QString("• Roll %1 steps : Buy %2 → %3\n")
                            .arg(step)
                            .arg(QString::fromStdString(property->getName()))
                            .arg(buyResults);
@@ -416,7 +416,7 @@ QString StrategyEngine::getHintResultforQt(const Player& player){
         }
     }
 
-    results += "\n<b>Best Alternative Actions</b>\n";
+    results += "\nBest Alternative Actions\n";
     std::vector<possibleActions*> nonBuy;
     for (auto* item : action_with_socres) {
         if (item->action != "buy")
@@ -437,7 +437,7 @@ QString StrategyEngine::getHintResultforQt(const Player& player){
                                QString::fromStdString(item->property->getName()) :
                                "N/A";
 
-        results += QString("• <b>%1</b> on <b>%2</b> → <font color='green'>%3</font>\n")
+        results += QString("• %1 on %2→ %3\n")
                        .arg(actionName)
                        .arg(propName)
                        .arg(hint);

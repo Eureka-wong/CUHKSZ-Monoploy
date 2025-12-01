@@ -215,7 +215,7 @@ void MainWindow::setupUI()
     controlLayout->addWidget(m_roundLabel);
 
     // 2. My balance
-    m_cashLabel = new QLabel("My cash: $0");
+    m_cashLabel = new QLabel("My cash: $1000");
     m_cashLabel->setStyleSheet("margin-left: 10px;");
     controlLayout->addWidget(m_cashLabel);
 
@@ -510,13 +510,18 @@ void MainWindow::showWarning(const QString& message) {
 
 
 void MainWindow::onHintClicked(int playerIndex){
-    Player& currentPlayer = m_game->getPlayer(playerIndex);
+    int currentPlayerIndex = m_game->getCurrentPlayerIndex();
+    // if (currentPlayerIndex == -1) {
+    //     currentPlayerIndex = m_game->getCurrentPlayerIndex();
+    // }
+    Player& currentPlayer = m_game->getPlayer(currentPlayerIndex);
     QMessageBox msgBox(this);
     msgBox.setWindowTitle(tr("Strategy Engine"));
     QString infoStr = ("Do you want to use a strategy engine for $50?");
 
     // 检查现金 & SE是否充足
     bool canAfford = (currentPlayer.getCash() >= 100 && currentPlayer.getSE() > 0);
+    // bool canAfford = true;
 
     if (canAfford) {
 
@@ -546,9 +551,9 @@ void MainWindow::onHintClicked(int playerIndex){
         currentPlayer.deductSE();
         // 购买成功
         m_statusLabel->setText(QString("%1 purchased a Strategy Engine for $50")
-                                   .arg(playerIndex+1));
+                                   .arg(currentPlayerIndex+1));
         m_gameLog->append(QString("[PURCHASE] Player %1 bought a Strategy Engine for $50")
-                              .arg(playerIndex+1));
+                              .arg(currentPlayerIndex+1));
         //获得SE预测结果，该结果仅展示给用户，不在日志中显示
         StrategyEngine SE(m_game);
         QString hint = SE.getHintResultforQt(currentPlayer);
