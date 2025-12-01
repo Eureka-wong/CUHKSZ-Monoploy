@@ -558,9 +558,10 @@ void MainWindow::onHintClicked(int playerIndex){
         StrategyEngine SE(m_game);
         QString hint = SE.getHintResultforQt(currentPlayer);
         QMessageBox SEbox;
+        SEbox.setStyleSheet("QLabel{min-width: 500px; min-height: 200px;}");
         SEbox.setWindowTitle("Strategy Suggestions");
-        SEbox.setText("Strategy Engine Result:");
-        SEbox.setDetailedText(hint);
+        SEbox.setText(hint);
+        // SEbox.setDetailedText(hint);
         SEbox.exec();
 
 

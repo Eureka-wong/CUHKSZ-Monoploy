@@ -423,6 +423,11 @@ QString StrategyEngine::getHintResultforQt(const Player& player){
             nonBuy.push_back(item);
     }
 
+    if (nonBuy.empty()){
+        results += "\n No property to manage \n";
+
+    }
+
     std::sort(nonBuy.begin(), nonBuy.end(), [](auto* a, auto* b){
         return a->score > b->score;
     });
