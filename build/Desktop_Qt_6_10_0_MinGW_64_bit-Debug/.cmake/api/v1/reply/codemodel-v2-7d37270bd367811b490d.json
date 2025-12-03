@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-f973b53bd5d05b36b000.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "GUI",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "GUI::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-GUI-Debug-9b436d768d12c54d1bb6.json",
+					"name" : "GUI",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "GUI_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-GUI_autogen-Debug-24bf76de449e5c5dc1cc.json",
+					"name" : "GUI_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "GUI_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-GUI_autogen_timestamp_deps-Debug-baea075408870234d750.json",
+					"name" : "GUI_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug",
+		"source" : "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

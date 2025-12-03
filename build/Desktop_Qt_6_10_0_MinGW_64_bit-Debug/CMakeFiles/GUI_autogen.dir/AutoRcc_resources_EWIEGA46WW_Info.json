@@ -1,0 +1,22 @@
+{
+	"BUILD_DIR" : "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen",
+	"CMAKE_BINARY_DIR" : "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon",
+	"CMAKE_SOURCE_DIR" : "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon",
+	"CROSS_CONFIG" : false,
+	"GENERATOR" : "Ninja",
+	"INCLUDE_DIR" : "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/include",
+	"INPUTS" : [ "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/images/board.png" ],
+	"LOCK_FILE" : "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CMakeFiles/GUI_autogen.dir/AutoRcc_resources_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "--no-zstd", "-name", "resources" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_resources.cpp",
+	"RCC_EXECUTABLE" : "E:/Qt/6.10.0/mingw_64/bin/rcc.exe",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CMakeFiles/GUI_autogen.dir/AutoRcc_resources_EWIEGA46WW_Used.txt",
+	"SOURCE" : "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/resources.qrc",
+	"USE_BETTER_GRAPH" : true,
+	"VERBOSITY" : 0
+}
