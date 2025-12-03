@@ -27,10 +27,6 @@ set(PROJECT_SOURCES
         Tile.h
         BoardWidget.h     # 添加这行
         BoardWidget.cpp   # 添加这行
-        strategyEngine.cpp
-        action_weights.cpp
-        strategyEngine.h
-        action_weights.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

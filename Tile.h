@@ -69,24 +69,20 @@ public:
 
     // Property management
     void buyProperty(Player& player);
-    void sellProperty(Player& player);
 
-    void buyBuilding(Player& player, Game& game);
-    void sellBuilding(Player& player, Game& game);
-
-    void mortgageProperty(Player& player);
+    bool sellProperty(Player& player, Game& game);
+    bool buyBuilding(Player& player, Game& game);
+    bool sellBuilding(Player& player, Game& game);
+    bool mortgageProperty(Player& player, Game& game);
 
     void liquidateBuildings(Game& game, Player* creditor = nullptr);
-    void transferOwnership(Player& previousOwner, Player* newOwner);
+    void transferOwnership(Player& previousOwner, Player* newOwner, Game& game);
 
     // Accessors
     int getPrice() const;
     int getHouses() const;
     Player* getOwner() const;
     bool isMortgaged() const;
-    int getHousePrice() const;
-    std::array<int, 6> getRent() const;
-    std::string getGroup() const;
 
     // Helpers
     int countOwnedPropertiesInGroup() const;
@@ -94,7 +90,7 @@ public:
     bool allowHouseTransactions(bool buy) const;
     bool allPropertyInGroupHasNoHouses() const;
 
-    void calculateRent(int step, int& rentDue) const;
+    int calculateRent(int step) const;
     bool ownedByPlayer(Player& player) const;
     bool isStationOrUtility() const;
     int calculateValue() const;

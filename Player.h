@@ -15,12 +15,11 @@ private:
     int balance = 0;
     int jailStatus = -1; // -1: not in jail, 0: first turn, 1: second turn, 2: third turn
     bool bankrupt = false;
-    int  availableSE = 3;
     std::vector<Card*> getOutOfJailCard;
 
     std::vector<PropertyTile*> properties;
 public:
-    Player(const std::string& name, int position, int balance, int availableSE);
+    Player(const std::string& name, int position, int balance);
 
     // Accessors
     std::string getName() const;
@@ -29,7 +28,6 @@ public:
     std::vector<PropertyTile*> getProperties() const;
     int getJailStatus() const;
     int isBankrupt() const ;
-    int getSE() const;
 
     // Helpers
     void showPlayer() const;
@@ -50,11 +48,10 @@ public:
 
     void addGetOutOfJailCard(Card* card);
     bool hasGetOutOfJailCard() const;
+    int ownedGetOutOfJailCard() const;
     Card* takeOutGetOutOfJailCard();
 
     void getTradeDetails(int& amount, int& playerIndex, bool buyProperty = false);
-    void deductSE();
-
 };
 
 #endif

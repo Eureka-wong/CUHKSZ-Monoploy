@@ -8,8 +8,8 @@
 
 using namespace std;
 
-Player::Player(const string& name, int position, int balance, int availableSE)
-    : name(name), position(position), balance(balance),  availableSE(availableSE) {}
+Player::Player(const string& name, int position, int balance)
+    : name(name), position(position), balance(balance) {}
 
 string Player::getName() const {
     return name;
@@ -21,10 +21,6 @@ int Player::getPosition () const {
 
 int Player::getCash() const {
     return balance;
-}
-
-int Player::getSE() const{
-    return availableSE;
 }
 
 vector<PropertyTile*> Player::getProperties() const {
@@ -144,12 +140,12 @@ void Player::manageProperties(Game& game) {
                         property->buyBuilding(*this, game);
                     } else if (command[0] == 'S') {
                         if (property->getHouses() == 0) {
-                            property->sellProperty(*this);
+                            property->sellProperty(*this, game);
                         } else {
                             property->sellBuilding(*this, game);
                         }
                     } else if (command[0] == 'M') {
-                        property->mortgageProperty(*this);
+                        property->mortgageProperty(*this, game);
                     } else {
                         cout << "Invalid command. Please try again." << endl;
                     }
@@ -208,12 +204,12 @@ void Player::forceRaiseMoney(Game& game, int amount) {
                 if (property->getIndex() == index) {
                     if (command[0] == 'S') {
                         if (property->getHouses() == 0) {
-                            property->sellProperty(*this);
+                            property->sellProperty(*this, game);
                         } else {
                             property->sellBuilding(*this, game);
                         }
                     } else if (command[0] == 'M') {
-                        property->mortgageProperty(*this);
+                        property->mortgageProperty(*this, game);
                     } else {
                         cout << "Invalid command. Please try again." << endl;
                         break;
@@ -242,7 +238,7 @@ void Player::declareBankruptcy(Game& game, Player* creditor) {
     if (creditor == nullptr) {
         for (auto& property : properties) {
             property->liquidateBuildings(game, nullptr);
-            property->transferOwnership(*this, nullptr);
+            property->transferOwnership(*this, nullptr, game);
         }
         cout << name << "'s assets are returned to the bank." << endl;
         balance = 0;
@@ -270,7 +266,7 @@ void Player::declareBankruptcy(Game& game, Player* creditor) {
         else {
             for (auto& property : properties) {
                 property->liquidateBuildings(game, nullptr);
-                property->transferOwnership(*this, nullptr);
+                property->transferOwnership(*this, nullptr, game);
             }
             cout << name << "'s assets are returned to the bank." << endl;
             balance = 0;
@@ -283,7 +279,7 @@ void Player::declareBankruptcy(Game& game, Player* creditor) {
     cout << "All " << name << "'s assets are being transferred to " << creditor->getName() << "." << endl << endl;
     for (auto& property : properties) {
         property->liquidateBuildings(game, creditor);
-        property->transferOwnership(*this, creditor);
+        property->transferOwnership(*this, creditor, game);
     }
 
     // Transfer money and cards
@@ -305,6 +301,13 @@ void Player::addGetOutOfJailCard(Card* card) {
 
 bool Player::hasGetOutOfJailCard() const {
     return !getOutOfJailCard.empty();
+}
+
+int Player::ownedGetOutOfJailCard() const {
+    if (hasGetOutOfJailCard()) {
+        return getOutOfJailCard.size();
+    }
+    return 0;
 }
 
 Card* Player::takeOutGetOutOfJailCard() {
@@ -353,8 +356,4 @@ void Player::getTradeDetails(int& playerIndex, int& amount, bool buyProperty) {
             continue;
         }
     }
-}
-
-void Player::deductSE(){
-    availableSE -= 1;
 }

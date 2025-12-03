@@ -55,7 +55,6 @@ template <> constexpr inline auto Game::qt_create_metaobjectdata<qt_meta_tag_ZN4
         "oldPosition",
         "newPosition",
         "playerSentToJail",
-        "playerReleasedFromJail",
         "tileEventTriggered",
         "tileIndex",
         "eventMessage",
@@ -66,15 +65,23 @@ template <> constexpr inline auto Game::qt_create_metaobjectdata<qt_meta_tag_ZN4
         "rent",
         "fromPlayer",
         "toPlayer",
+        "taxPaymentRequired",
+        "taxName",
+        "tax",
+        "landOnSelfProperty",
+        "openChanceCard",
+        "cardDiscription",
+        "openCommunityCard",
         "rentPaid",
         "rentAmount",
         "gameLogMessage",
         "message",
-        "playerNeedsMoney",
+        "forceRaiseMoney",
         "amount",
         "playerBankrupt",
         "tradeProposed",
-        "propertyIndex"
+        "propertyIndex",
+        "warningSignal"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -108,41 +115,57 @@ template <> constexpr inline auto Game::qt_create_metaobjectdata<qt_meta_tag_ZN4
         QtMocHelpers::SignalData<void(int)>(16, 2, QMC::AccessPublic, QMetaType::Void, {{
             { QMetaType::Int, 9 },
         }}),
-        // Signal 'playerReleasedFromJail'
-        QtMocHelpers::SignalData<void(int)>(17, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::Int, 9 },
-        }}),
         // Signal 'tileEventTriggered'
-        QtMocHelpers::SignalData<void(int, const QString &)>(18, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::Int, 19 }, { QMetaType::QString, 20 },
+        QtMocHelpers::SignalData<void(int, const QString &)>(17, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 18 }, { QMetaType::QString, 19 },
         }}),
         // Signal 'purchaseOpportunity'
-        QtMocHelpers::SignalData<void(const QString &, int, int)>(21, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::QString, 22 }, { QMetaType::Int, 23 }, { QMetaType::Int, 9 },
+        QtMocHelpers::SignalData<void(const QString &, int, int)>(20, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 21 }, { QMetaType::Int, 22 }, { QMetaType::Int, 9 },
         }}),
         // Signal 'rentPaymentRequired'
-        QtMocHelpers::SignalData<void(const QString &, int, int, int)>(24, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::QString, 22 }, { QMetaType::Int, 25 }, { QMetaType::Int, 26 }, { QMetaType::Int, 27 },
+        QtMocHelpers::SignalData<void(const QString &, int, int, int)>(23, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 21 }, { QMetaType::Int, 24 }, { QMetaType::Int, 25 }, { QMetaType::Int, 26 },
+        }}),
+        // Signal 'taxPaymentRequired'
+        QtMocHelpers::SignalData<void(const QString &, int, int)>(27, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 28 }, { QMetaType::Int, 29 }, { QMetaType::Int, 25 },
+        }}),
+        // Signal 'landOnSelfProperty'
+        QtMocHelpers::SignalData<void(int, const QString &)>(30, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 9 }, { QMetaType::QString, 21 },
+        }}),
+        // Signal 'openChanceCard'
+        QtMocHelpers::SignalData<void(int, const QString &)>(31, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 9 }, { QMetaType::QString, 32 },
+        }}),
+        // Signal 'openCommunityCard'
+        QtMocHelpers::SignalData<void(int, const QString &)>(33, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 9 }, { QMetaType::QString, 32 },
         }}),
         // Signal 'rentPaid'
-        QtMocHelpers::SignalData<void(const QString &, int, const QString &)>(28, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::QString, 26 }, { QMetaType::Int, 29 }, { QMetaType::QString, 27 },
+        QtMocHelpers::SignalData<void(const QString &, int, const QString &)>(34, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 25 }, { QMetaType::Int, 35 }, { QMetaType::QString, 26 },
         }}),
         // Signal 'gameLogMessage'
-        QtMocHelpers::SignalData<void(const QString &)>(30, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::QString, 31 },
+        QtMocHelpers::SignalData<void(const QString &)>(36, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 37 },
         }}),
-        // Signal 'playerNeedsMoney'
-        QtMocHelpers::SignalData<void(int, int)>(32, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::Int, 9 }, { QMetaType::Int, 33 },
+        // Signal 'forceRaiseMoney'
+        QtMocHelpers::SignalData<void(int, int)>(38, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 9 }, { QMetaType::Int, 39 },
         }}),
         // Signal 'playerBankrupt'
-        QtMocHelpers::SignalData<void(int)>(34, 2, QMC::AccessPublic, QMetaType::Void, {{
+        QtMocHelpers::SignalData<void(int)>(40, 2, QMC::AccessPublic, QMetaType::Void, {{
             { QMetaType::Int, 9 },
         }}),
         // Signal 'tradeProposed'
-        QtMocHelpers::SignalData<void(int, int, int, int)>(35, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::Int, 26 }, { QMetaType::Int, 27 }, { QMetaType::Int, 36 }, { QMetaType::Int, 33 },
+        QtMocHelpers::SignalData<void(int, int, int, int)>(41, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 25 }, { QMetaType::Int, 26 }, { QMetaType::Int, 42 }, { QMetaType::Int, 39 },
+        }}),
+        // Signal 'warningSignal'
+        QtMocHelpers::SignalData<void(const QString &)>(43, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 37 },
         }}),
     };
     QtMocHelpers::UintData qt_properties {
@@ -175,15 +198,19 @@ void Game::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         case 5: _t->diceRolled((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2]))); break;
         case 6: _t->playerMoved((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[3]))); break;
         case 7: _t->playerSentToJail((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
-        case 8: _t->playerReleasedFromJail((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
-        case 9: _t->tileEventTriggered((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2]))); break;
-        case 10: _t->purchaseOpportunity((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[3]))); break;
-        case 11: _t->rentPaymentRequired((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[4]))); break;
-        case 12: _t->rentPaid((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[3]))); break;
-        case 13: _t->gameLogMessage((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
-        case 14: _t->playerNeedsMoney((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2]))); break;
-        case 15: _t->playerBankrupt((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
-        case 16: _t->tradeProposed((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[4]))); break;
+        case 8: _t->tileEventTriggered((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2]))); break;
+        case 9: _t->purchaseOpportunity((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[3]))); break;
+        case 10: _t->rentPaymentRequired((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[4]))); break;
+        case 11: _t->taxPaymentRequired((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[3]))); break;
+        case 12: _t->landOnSelfProperty((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2]))); break;
+        case 13: _t->openChanceCard((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2]))); break;
+        case 14: _t->openCommunityCard((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2]))); break;
+        case 15: _t->rentPaid((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[3]))); break;
+        case 16: _t->gameLogMessage((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
+        case 17: _t->forceRaiseMoney((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2]))); break;
+        case 18: _t->playerBankrupt((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
+        case 19: _t->tradeProposed((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[4]))); break;
+        case 20: _t->warningSignal((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
         default: ;
         }
     }
@@ -204,23 +231,31 @@ void Game::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
             return;
         if (QtMocHelpers::indexOfMethod<void (Game::*)(int )>(_a, &Game::playerSentToJail, 7))
             return;
-        if (QtMocHelpers::indexOfMethod<void (Game::*)(int )>(_a, &Game::playerReleasedFromJail, 8))
+        if (QtMocHelpers::indexOfMethod<void (Game::*)(int , const QString & )>(_a, &Game::tileEventTriggered, 8))
             return;
-        if (QtMocHelpers::indexOfMethod<void (Game::*)(int , const QString & )>(_a, &Game::tileEventTriggered, 9))
+        if (QtMocHelpers::indexOfMethod<void (Game::*)(const QString & , int , int )>(_a, &Game::purchaseOpportunity, 9))
             return;
-        if (QtMocHelpers::indexOfMethod<void (Game::*)(const QString & , int , int )>(_a, &Game::purchaseOpportunity, 10))
+        if (QtMocHelpers::indexOfMethod<void (Game::*)(const QString & , int , int , int )>(_a, &Game::rentPaymentRequired, 10))
             return;
-        if (QtMocHelpers::indexOfMethod<void (Game::*)(const QString & , int , int , int )>(_a, &Game::rentPaymentRequired, 11))
+        if (QtMocHelpers::indexOfMethod<void (Game::*)(const QString & , int , int )>(_a, &Game::taxPaymentRequired, 11))
             return;
-        if (QtMocHelpers::indexOfMethod<void (Game::*)(const QString & , int , const QString & )>(_a, &Game::rentPaid, 12))
+        if (QtMocHelpers::indexOfMethod<void (Game::*)(int , const QString & )>(_a, &Game::landOnSelfProperty, 12))
             return;
-        if (QtMocHelpers::indexOfMethod<void (Game::*)(const QString & )>(_a, &Game::gameLogMessage, 13))
+        if (QtMocHelpers::indexOfMethod<void (Game::*)(int , const QString & )>(_a, &Game::openChanceCard, 13))
             return;
-        if (QtMocHelpers::indexOfMethod<void (Game::*)(int , int )>(_a, &Game::playerNeedsMoney, 14))
+        if (QtMocHelpers::indexOfMethod<void (Game::*)(int , const QString & )>(_a, &Game::openCommunityCard, 14))
             return;
-        if (QtMocHelpers::indexOfMethod<void (Game::*)(int )>(_a, &Game::playerBankrupt, 15))
+        if (QtMocHelpers::indexOfMethod<void (Game::*)(const QString & , int , const QString & )>(_a, &Game::rentPaid, 15))
             return;
-        if (QtMocHelpers::indexOfMethod<void (Game::*)(int , int , int , int )>(_a, &Game::tradeProposed, 16))
+        if (QtMocHelpers::indexOfMethod<void (Game::*)(const QString & )>(_a, &Game::gameLogMessage, 16))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (Game::*)(int , int )>(_a, &Game::forceRaiseMoney, 17))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (Game::*)(int )>(_a, &Game::playerBankrupt, 18))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (Game::*)(int , int , int , int )>(_a, &Game::tradeProposed, 19))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (Game::*)(const QString & )>(_a, &Game::warningSignal, 20))
             return;
     }
 }
@@ -244,14 +279,14 @@ int Game::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 17)
+        if (_id < 21)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 17;
+        _id -= 21;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 17)
+        if (_id < 21)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 17;
+        _id -= 21;
     }
     return _id;
 }
@@ -305,56 +340,80 @@ void Game::playerSentToJail(int _t1)
 }
 
 // SIGNAL 8
-void Game::playerReleasedFromJail(int _t1)
+void Game::tileEventTriggered(int _t1, const QString & _t2)
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 8, nullptr, _t1);
+    QMetaObject::activate<void>(this, &staticMetaObject, 8, nullptr, _t1, _t2);
 }
 
 // SIGNAL 9
-void Game::tileEventTriggered(int _t1, const QString & _t2)
+void Game::purchaseOpportunity(const QString & _t1, int _t2, int _t3)
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 9, nullptr, _t1, _t2);
+    QMetaObject::activate<void>(this, &staticMetaObject, 9, nullptr, _t1, _t2, _t3);
 }
 
 // SIGNAL 10
-void Game::purchaseOpportunity(const QString & _t1, int _t2, int _t3)
+void Game::rentPaymentRequired(const QString & _t1, int _t2, int _t3, int _t4)
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 10, nullptr, _t1, _t2, _t3);
+    QMetaObject::activate<void>(this, &staticMetaObject, 10, nullptr, _t1, _t2, _t3, _t4);
 }
 
 // SIGNAL 11
-void Game::rentPaymentRequired(const QString & _t1, int _t2, int _t3, int _t4)
+void Game::taxPaymentRequired(const QString & _t1, int _t2, int _t3)
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 11, nullptr, _t1, _t2, _t3, _t4);
+    QMetaObject::activate<void>(this, &staticMetaObject, 11, nullptr, _t1, _t2, _t3);
 }
 
 // SIGNAL 12
-void Game::rentPaid(const QString & _t1, int _t2, const QString & _t3)
+void Game::landOnSelfProperty(int _t1, const QString & _t2)
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 12, nullptr, _t1, _t2, _t3);
+    QMetaObject::activate<void>(this, &staticMetaObject, 12, nullptr, _t1, _t2);
 }
 
 // SIGNAL 13
-void Game::gameLogMessage(const QString & _t1)
+void Game::openChanceCard(int _t1, const QString & _t2)
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 13, nullptr, _t1);
+    QMetaObject::activate<void>(this, &staticMetaObject, 13, nullptr, _t1, _t2);
 }
 
 // SIGNAL 14
-void Game::playerNeedsMoney(int _t1, int _t2)
+void Game::openCommunityCard(int _t1, const QString & _t2)
 {
     QMetaObject::activate<void>(this, &staticMetaObject, 14, nullptr, _t1, _t2);
 }
 
 // SIGNAL 15
-void Game::playerBankrupt(int _t1)
+void Game::rentPaid(const QString & _t1, int _t2, const QString & _t3)
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 15, nullptr, _t1);
+    QMetaObject::activate<void>(this, &staticMetaObject, 15, nullptr, _t1, _t2, _t3);
 }
 
 // SIGNAL 16
+void Game::gameLogMessage(const QString & _t1)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 16, nullptr, _t1);
+}
+
+// SIGNAL 17
+void Game::forceRaiseMoney(int _t1, int _t2)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 17, nullptr, _t1, _t2);
+}
+
+// SIGNAL 18
+void Game::playerBankrupt(int _t1)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 18, nullptr, _t1);
+}
+
+// SIGNAL 19
 void Game::tradeProposed(int _t1, int _t2, int _t3, int _t4)
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 16, nullptr, _t1, _t2, _t3, _t4);
+    QMetaObject::activate<void>(this, &staticMetaObject, 19, nullptr, _t1, _t2, _t3, _t4);
+}
+
+// SIGNAL 20
+void Game::warningSignal(const QString & _t1)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 20, nullptr, _t1);
 }
 QT_WARNING_POP

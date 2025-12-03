@@ -6,9 +6,11 @@
 #include <QLabel>
 #include <QListWidget>
 #include <QTextEdit>
+#include <QDialog>
 
 class Game;
 class BoardWidget;
+class PropertyTile;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -27,9 +29,12 @@ public:
 private slots:
     void onRollDiceClicked();
 
-    void onPropertiesClicked();
+    void onPropertiesClicked(int playerIndex = -1, bool forced = false, int amountDue = 0);
 
-    void onHintClicked(int playerIndex);
+    void updatePropertyDisplay(QLabel* playerInfo, QLabel* propertyInfo, PropertyTile* property, int currentPlayerIndex);
+    void showWarning(const QString& message);
+
+    void onHintClicked();
 
     void onChatroomClicked();
 
@@ -38,7 +43,6 @@ private slots:
 
     void onPlayerTurnStarted(int playerIndex);
     void onPlayerTurnEnded(int playerIndex);
-
 
     void onDiceRolled(int playerIndex, int diceValue);
 
@@ -60,7 +64,13 @@ private slots:
     void onPlayerBankrupt(int playerIndex);
 
     void onrentPaymentRequired(const QString& propertyName, int rent, int fromPlayer, int toPlayer);
+    void ontaxPaymentRequired(const QString& taxName,int tax,int fromPlayer);
+    void onLandOnSelfProperty(int playerIndex, const QString& propertyName);
+    void onOpenChanceCard(int playerIndex,const QString& cardDiscription);
+    void onOpenCommunityCard(int playerIndex,const QString& cardDiscription);
+    void onLandOnFreeParking(int playerIndex, int type);
 
+    void onForceRaiseMoney(int payerIndex, int amountDue);
 
 
 private:
@@ -82,6 +92,8 @@ private:
 
     QLabel* m_playerInfoLabel;
 
+    QDialog* m_propertiesDialog = nullptr;
+
     QTextEdit* m_gameLog;
 
     bool handlePurchaseDialog(const std::string& propertyName, int price, const std::string& playerName);
@@ -95,5 +107,12 @@ private:
     void addGameLog(const QString& message);
     int getMyPlayerId() const;  // 临时方法，后续替换为网络获取
     void setupGameConnections(); // 新增：设置游戏信号连接
+
+    void showPropertiesDialog();
+    void refreshPropertiesDialog();
+
+    void showJailChoiceDialog(int playerIndex);
+    void showJailLastChoiceDialog(int playerIndex);
+    void handleAfterFailedRoll(int playerIndex);
 };
 #endif // MAINWINDOW_H

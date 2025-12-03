@@ -166,6 +166,7 @@ E:/CSC3002/CUHKSZ\ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Deb
   E:/Qt/6.10.0/mingw_64/include/QtGui/qvalidator.h \
   E:/Qt/6.10.0/mingw_64/include/QtGui/qwindowdefs.h \
   E:/Qt/6.10.0/mingw_64/include/QtGui/qwindowdefs_win.h \
+  E:/Qt/6.10.0/mingw_64/include/QtWidgets/QDialog \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/QLabel \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/QListWidget \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/QMainWindow \
@@ -177,6 +178,7 @@ E:/CSC3002/CUHKSZ\ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Deb
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qabstractslider.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qabstractspinbox.h \
+  E:/Qt/6.10.0/mingw_64/include/QtWidgets/qdialog.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qframe.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qlabel.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qlistview.h \

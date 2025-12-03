@@ -19,6 +19,25 @@ Game::Game(QObject* parent)
     addPlayer("1");
     addPlayer("2");
     addPlayer("3");
+    int positions_2[] = {6, 8, 9};
+    for (int pos : positions_2) {
+        Tile& tile = board.getTile(pos);
+        if (auto* property = dynamic_cast<PropertyTile*>(&tile)) {
+            property->buyProperty(players[2]);
+        }
+    }
+    Card additionalOutOfJailCard = Card("Get Out of Jail Free. This card may be kept until needed or sold.", CardType::GET_OUT_OF_JAIL, 0, -1, 0, "", 0, 0, "Community Chest");
+    players[2].addGetOutOfJailCard(&additionalOutOfJailCard);
+    //testing on jailturn functionality
+    players[2].setJailStatus(2);
+    int positions_0[] = {1, 3};
+    for (int pos : positions_0) {
+        Tile& tile = board.getTile(pos);
+        if (auto* property = dynamic_cast<PropertyTile*>(&tile)) {
+            property->buyProperty(players[0]);
+        }
+    }
+    players[0].deductMoney(1500 - 120);
     numPlayers = players.size();
 }
 
@@ -65,13 +84,6 @@ void Game::rollDiceAndMoveAndProcessEvent() {
 
     Player& currentPlayer = players[currentPlayerIndex];
 
-    // 检查是否在监狱, 这里的逻辑是有问题的，应该是在监狱也可以投色子的
-    if (currentPlayer.getJailStatus() != -1) {
-        // 后续需要检查这里的逻辑
-        emit gameLogMessage(QString("%1 is in jail and cannot roll dice")
-                                .arg(QString::fromStdString(currentPlayer.getName())));
-    }
-
     // First of all, roll the dice
     int diceValue = rollDice();
     // update the status label in ui
@@ -114,7 +126,7 @@ void Game::movePlayer(int playerIndex, int steps) {
     emit playerMoved(playerIndex, oldPosition, newPosition);
 
     // update the game log
-    emit gameLogMessage(QString("%1 moved from position %2 to %3")
+    emit gameLogMessage(QString("Player %1 moved from position %2 to %3")
                             .arg(QString::fromStdString(player.getName()))
                             .arg(oldPosition)
                             .arg(newPosition));
@@ -174,20 +186,13 @@ void Game::endGame() {
     }
 
     emit gameOver(winnerIndex);
-    emit gameLogMessage(QString("Game Over! %1 wins!")
+    emit gameLogMessage(QString("Game Over! Player %1 wins!")
                             .arg(QString::fromStdString(players[winnerIndex].getName())));
 }
 
-Board& Game::getBoard(){
-    return board;
-}
-/*void Game::processJailAction(JailAction action) {
+void Game::processJailAction(JailAction action) {
     Player& currentPlayer = players[currentPlayerIndex];
     int jailStatus = currentPlayer.getJailStatus();
-
-    if (jailStatus == -1) return; // 不在监狱
-
-    // action 后面的逻辑要进行修改，读懂后面的逻辑
 
     switch (action) {
     case JailAction::UseCard:
@@ -197,50 +202,49 @@ Board& Game::getBoard(){
         break;
 
     case JailAction::PayBail:
-        if (currentPlayer.getCash() >= 50) {
-            currentPlayer.deductMoney(50);
-            currentPlayer.setJailStatus(-1);
-            emit playerReleasedFromJail(currentPlayerIndex);
-            emit moneyChanged(currentPlayerIndex, currentPlayer.getCash());
-            emit gameLogMessage(QString("%1 paid $50 to get out of jail")
-                                    .arg(QString::fromStdString(currentPlayer.getName())));
-        }
+        currentPlayer.deductMoney(50);
+        currentPlayer.setJailStatus(-1);
+        emit gameLogMessage(QString("Player %1 paid $50 to get out of jail").arg(currentPlayerIndex+1));
+        //玩家可以继续正常掷色子
+        emit playerTurnStarted(currentPlayerIndex);
         break;
 
     case JailAction::RollForFreedom: {
+        // testing purpose
         int roll = rollDice();
-        emit diceRolled(currentPlayerIndex, roll);
+        //int roll = rollDice();
 
         if (roll == 12) {
             currentPlayer.setJailStatus(-1);
-            emit playerReleasedFromJail(currentPlayerIndex);
-            emit gameLogMessage(QString("%1 rolled 12 and got out of jail!")
-                                    .arg(QString::fromStdString(currentPlayer.getName())));
-            // 移动玩家
+            emit gameLogMessage(QString("Player %1 rolled 12 and got out of jail!").arg(currentPlayerIndex+1));
+            // 移动玩家并触发格子功能
             movePlayer(currentPlayerIndex, 12);
+            Tile& currentTile = board.getTile(currentPlayer.getPosition());
+            currentTile.onLand(currentPlayer,*this,12);
+            //不需要发出信号，因为一旦发出playerTurnStarted信号，玩家就可以再次掷色子了
         } else {
             currentPlayer.setJailStatus(jailStatus + 1);
-            emit gameLogMessage(QString("%1 rolled %2 and stays in jail")
-                                    .arg(QString::fromStdString(currentPlayer.getName()))
+            emit gameLogMessage(QString("Player %1 rolled %2 and stays in jail")
+                                    .arg(currentPlayerIndex+1)
                                     .arg(roll));
-            endTurn();
+            //玩家自己点击end turn button结束自己的轮次
         }
         break;
     }
 
     case JailAction::StayInJail:
         currentPlayer.setJailStatus(jailStatus + 1);
-        emit gameLogMessage(QString("%1 stays in jail")
-                                .arg(QString::fromStdString(currentPlayer.getName())));
-        endTurn();
+        emit gameLogMessage(QString("Player %1 stays in jail")
+                                .arg(currentPlayerIndex+1));
+        //玩家自己点击endTurn button
         break;
     }
-}*/
+}
 
-// 这些函数有什么用处
-// 这里用于检查用户可不可以投色子的逻辑是有问题的，需要先搞清楚用户什么时候可以投色子
 bool Game::canRollDice() const {
-    if (currentState != GameState::PlayerTurn) return false;
+    if (currentState != GameState::PlayerTurn) {
+        return false;
+    }
 
     const Player& currentPlayer = players[currentPlayerIndex];
     return !currentPlayer.isBankrupt() && currentPlayer.getJailStatus() == -1;
@@ -269,67 +273,25 @@ int Game::getPlayerIndex(const Player& player) const {
 }
 
 
-/*void Game::useGetOutOfJailCard(int playerIndex) {
+void Game::useGetOutOfJailCard(int playerIndex) {
     Player& player = players[playerIndex];
     Card* card = player.takeOutGetOutOfJailCard();
     if (card != nullptr) {
         player.setJailStatus(-1);
 
-        emit playerReleasedFromJail(playerIndex);
-        emit gameLogMessage(QString("%1 used a Get Out of Jail Free card")
-                                .arg(QString::fromStdString(player.getName())));
+        emit gameLogMessage(QString("Player %1 used a Get Out of Jail Free card").arg(playerIndex+1));
 
         if (card->sourceDeck == "Chance") {
             chanceDeck.returnCard(*card);
         } else if (card->sourceDeck == "Community Chest") {
             communityChestDeck.returnCard(*card);
         }
+        //玩家之后可以正常掷色子
+        emit playerTurnStarted(playerIndex);
     } else {
-        emit gameLogMessage(QString("%1 does not have a Get Out of Jail Free card")
-                                .arg(QString::fromStdString(player.getName())));
+        emit gameLogMessage(QString("Player %1 does not have a Get Out of Jail Free card").arg(playerIndex+1));
     }
-}*/
-
-/*void Game::handleRentDue(int rentAmount) {
-    // 获取当前玩家
-    Player& payer = players[currentPlayerIndex];
-    int position = payer.getPosition();
-
-    // 获取当前财产和所有者
-    Tile& tile = board.getTile(position);
-    if (auto* property = dynamic_cast<PropertyTile*>(&tile)) {
-        Player* owner = property->getOwner();
-        if (owner) {
-            int receiverIndex = getPlayerIndex(*owner);
-
-            // 通知UI
-            emit rentPaymentRequired(
-                QString::fromStdString(property->getName()),
-                rentAmount,
-                QString::fromStdString(payer.getName()),
-                QString::fromStdString(owner->getName())
-                );
-
-            // 执行支付逻辑
-            if (playerCanPay(currentPlayerIndex, rentAmount, receiverIndex)) {
-                payer.deductMoney(rentAmount);
-                owner->addMoney(rentAmount);
-
-                // 通知UI支付完成
-                emit rentPaid(
-                    QString::fromStdString(payer.getName()),
-                    rentAmount,
-                    QString::fromStdString(owner->getName())
-                    );
-
-                // 更新UI显示
-                emit moneyChanged(currentPlayerIndex, payer.getCash());
-                emit moneyChanged(receiverIndex, owner->getCash());
-            }
-        }
-    }
-}*/
-
+}
 
 /*void Game::endTurn(Player& currentPlayer) {
     // In the end of turn, player can choose to finish their turn or manage their properties.
@@ -554,15 +516,30 @@ int Game::getPlayerIndex(const Player& player) const {
     }
 }*/
 
+/*void Game::useGetOutOfJailCard(Player& player) {
+    Card* card = player.takeOutGetOutOfJailCard();
+    if (card != nullptr) {
+        player.setJailStatus(-1);
+        cout << player.getName() << " used a Get Out of Jail Free card and got out from jail." << endl << endl;
+
+        if (card->sourceDeck == "Chance") {
+            chanceDeck.returnCard(*card);
+        }
+        else if (card->sourceDeck == "Community Chest") {
+            communityChestDeck.returnCard(*card);
+        }
+        normalTurn(player, 0);
+    } else {
+        cout << player.getName() << " does not have a Get Out of Jail Free card." << endl << endl;
+    }
+}*/
+
 /*void Game::payToGetOutofJail(Player& currentPlayer) {
     currentPlayer.deductMoney(50);
     currentPlayer.setJailStatus(-1);
     cout << currentPlayer.getName() << " paid $50 and got out from jail." << endl << endl;
     normalTurn(currentPlayer, 0);
 }*/
-
-
-
 
 /*void Game::endGame(Player* currentPlayer) {
     cout << "---------------------------------------------------------------" << endl;
@@ -604,7 +581,7 @@ bool Game::playerCanPay(int payerIndex, int amount, int receiverIndex) {
     Player& payer = players[payerIndex];
 
     if (payer.getCash() < amount) {
-        QString message = QString("%1 does not have enough money to pay $%2")
+        QString message = QString("Player %1 does not have enough money to pay $%2")
         .arg(QString::fromStdString(payer.getName()))
             .arg(amount);
         emit gameLogMessage(message);
@@ -617,8 +594,8 @@ bool Game::playerCanPay(int payerIndex, int amount, int receiverIndex) {
             return false;
         }
 
-        emit playerNeedsMoney(payerIndex, amount);
-        return false;
+        emit forceRaiseMoney(payerIndex, amount);
+        return true;
     }
     return true;
 }
@@ -674,7 +651,7 @@ void Game::receiveFromPlayers(int receiverIndex, int amount) {
                 players[i].deductMoney(amount);
                 receiver.addMoney(amount);
 
-                QString message = QString("%1 receives $%2 from %3")
+                QString message = QString("Player %1 receives $%2 from %3")
                                       .arg(QString::fromStdString(receiver.getName()))
                                       .arg(amount)
                                       .arg(QString::fromStdString(players[i].getName()));
@@ -729,10 +706,9 @@ void Game::drawChanceCard(int playerIndex) {
     Card card = chanceDeck.draw();
 
     QString message = QString("%1 draws Chance card: %2")
-                          .arg(QString::fromStdString(player.getName()))
-                          .arg(QString::fromStdString(card.description));
-    //emit cardDrawn(message);
+                          .arg(QString::fromStdString(player.getName()), QString::fromStdString(card.description));
     emit gameLogMessage(message);
+    emit openChanceCard(playerIndex,QString::fromStdString(card.description));
 
     //execute the logic part
     card.execute(player, *this);
@@ -745,11 +721,10 @@ void Game::drawCommunityChestCard(int playerIndex) {
     Player& player = players[playerIndex];
     Card card = communityChestDeck.draw();
 
-    QString message = QString("%1 draws Community Chest card: %2")
-                          .arg(QString::fromStdString(player.getName()))
-                          .arg(QString::fromStdString(card.description));
+    QString message = QString("%1 draws Community Chest card: %2").arg(player.getName(), card.description);
     //emit cardDrawn(message);
     emit gameLogMessage(message);
+    emit openCommunityCard(playerIndex,QString::fromStdString(card.description));
 
     card.execute(player, *this);
     if (card.type != CardType::GET_OUT_OF_JAIL) {
@@ -757,23 +732,7 @@ void Game::drawCommunityChestCard(int playerIndex) {
     }
 }
 
-/*void Game::useGetOutOfJailCard(Player& player) {
-    Card* card = player.takeOutGetOutOfJailCard();
-    if (card != nullptr) {
-        player.setJailStatus(-1);
-        cout << player.getName() << " used a Get Out of Jail Free card and got out from jail." << endl << endl;
 
-        if (card->sourceDeck == "Chance") {
-            chanceDeck.returnCard(*card);
-        }
-        else if (card->sourceDeck == "Community Chest") {
-            communityChestDeck.returnCard(*card);
-        }
-        normalTurn(player, 0);
-    } else {
-        cout << player.getName() << " does not have a Get Out of Jail Free card." << endl << endl;
-    }
-}*/
 
 // 交易相关函数需要大幅修改
 // void Game::proposeTrade(int fromPlayer, int toPlayer, int propertyIndex, int amount) {

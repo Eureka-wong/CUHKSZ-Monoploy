@@ -43,18 +43,20 @@ PropertyTile::PropertyTile(TileInfo const& info, QObject* parent) :
 void PropertyTile::onLand(Player& player, Game& game, int step) {
     if (owner == nullptr) {
         // This property is unowned. Emit purchaseOpportunity signal to UI to prompt user for purchase decision
-        emit game.purchaseOpportunity(QString::fromStdString(name),price,game.getPlayerIndex(player));
-    }else if (owner != &player && !mortgaged){
+        emit game.purchaseOpportunity(QString::fromStdString(name), price, game.getPlayerIndex(player));
+    }else if (owner == &player) {
+        // Player landed on their own property
+        emit game.landOnSelfProperty(game.getCurrentPlayerIndex(),QString::fromStdString(name));
+    }
+    else if (owner != &player && !mortgaged){
         // This property is owned by someone else, and it isn't motaged, so pay rent to the owner
-        int rentAmount;
-        calculateRent(step, rentAmount);
+        int rentAmount = calculateRent(step);
         if (game.playerCanPay(game.getCurrentPlayerIndex(),rentAmount)){
             emit game.rentPaymentRequired(QString::fromStdString(name),rentAmount,game.getCurrentPlayerIndex(),game.getPlayerIndex(*owner));
-        }else{
+        } else{
             emit game.playerBankrupt(game.getCurrentPlayerIndex());
         }
-    }
-    else if (mortgaged) {
+    }else if (mortgaged) {
         emit game.gameLogMessage(QString::fromStdString("%1 is owned by %2").arg(name).arg(owner->getName()));
         emit game.gameLogMessage(QString::fromStdString("This property is mortaged, no rent is due."));
     }
@@ -66,6 +68,7 @@ void PropertyTile::buyProperty(Player &player) {
     player.addProperty(this);
 }
 
+/*
 void PropertyTile::sellProperty(Player &player) {
     if (!ownedByPlayer(player)) {
         return;
@@ -87,8 +90,31 @@ void PropertyTile::sellProperty(Player &player) {
     player.removeProperty(this);
 
     cout << player.getName() << " sold " << name << " for $" << sellPrice << "." << endl;
+}*/
+
+bool PropertyTile::sellProperty(Player &player, Game& game) {
+    if (!ownedByPlayer(player)) {
+        emit game.warningSignal("You do not own this property.");
+        return false;
+    }
+    if (!allPropertyInGroupHasNoHouses()) {
+        emit game.warningSignal("You cannot sell if any of the property of the same color group has buildings.");
+        return false;
+    }
+    if (mortgaged) {
+        emit game.warningSignal("You cannot sell mortgaged property.");
+        return false;
+    }
+
+    int sellPrice = price / 2;
+    player.addMoney(sellPrice);
+    owner = nullptr;
+    player.removeProperty(this);
+    emit game.gameLogMessage(QString::fromStdString("%1 sold %2 for $%3").arg(player.getName()).arg(name).arg(sellPrice));
+    return true;
 }
 
+/*
 void PropertyTile::buyBuilding(Player &player, Game& game) {
     if (!ownedByPlayer(player) || isStationOrUtility()) {
         return;
@@ -138,9 +164,62 @@ void PropertyTile::buyBuilding(Player &player, Game& game) {
         cout << player.getName() << " built a house on " << name << ". Total houses: " << houses << "." << endl;
         game.modifyAvailableBuildings(true, -1);
     }
+}*/
+
+bool PropertyTile::buyBuilding(Player &player, Game& game) {
+    if (!ownedByPlayer(player)) {
+        emit game.warningSignal("You do not own this property.");
+        return false;
+    }
+    if (isStationOrUtility()) {
+        emit game.warningSignal("You cannot buy buildings on Station or Utility.");
+        return false;
+    }
+    if (player.getCash() < housePrice) {
+        emit game.warningSignal("You don't have enough money to buy this building.");
+        return false;
+    }
+    if (!ownColorGroup()) {
+        emit game.warningSignal("You don't own all properties in this color group or some are mortgaged.");
+        return false;
+    }
+    if (mortgaged) {
+        emit game.warningSignal("Cannot buy building on mortgaged property.");
+        return false;
+    }
+    if (!allowHouseTransactions(true)) {
+        emit game.warningSignal("You must build houses evenly across this color group.");
+        return false;
+    }
+    if (houses == 5) {
+        emit game.warningSignal("This property already has a hotel (max buildings).");
+        return false;
+    }
+
+    if (houses + 1 == 5) {
+        if (game.getAvailableBuildings(false) == 0) {
+            emit game.warningSignal("No hotels available to build.");
+            return false;
+        }
+        houses++;
+        player.deductMoney(housePrice);
+        game.modifyAvailableBuildings(true, 4);
+        game.modifyAvailableBuildings(false, -1);
+        emit game.gameLogMessage(QString::fromStdString("%1 built a hotel on %2 for $%3").arg(player.getName()).arg(name).arg(housePrice));
+    } else {
+        if (game.getAvailableBuildings(true) == 0) {
+            emit game.warningSignal("No houses available to build.");
+            return false;
+        }
+        houses++;
+        player.deductMoney(housePrice);
+        game.modifyAvailableBuildings(true, -1);
+        emit game.gameLogMessage(QString::fromStdString("%1 built a house on %2 for $%3").arg(player.getName()).arg(name).arg(housePrice));
+    }
+    return true;
 }
 
-void PropertyTile::sellBuilding(Player &player, Game& game) {
+/*void PropertyTile::sellBuilding(Player &player, Game& game) {
     if (!ownedByPlayer(player) || isStationOrUtility()) {
         return;
     }
@@ -171,8 +250,45 @@ void PropertyTile::sellBuilding(Player &player, Game& game) {
         cout << player.getName() << " sold a house on " << name << ". Total houses: " << houses << "." << endl;
         game.modifyAvailableBuildings(true, 1);
     }
+}*/
+
+bool PropertyTile::sellBuilding(Player &player, Game& game) {
+    if (!ownedByPlayer(player)) {
+        emit game.warningSignal("You do not own this property");
+        return false;
+    }
+    if (isStationOrUtility()) {
+        emit game.warningSignal("Cannot sell buildings on Station or Utility");
+        return false;
+    }
+    if (houses == 0) {
+        emit game.warningSignal("This property has no buildings to sell");
+        return false;
+    }
+    if (!allowHouseTransactions(false)) {
+        emit game.warningSignal("You must sell houses evenly across this color group");
+        return false;
+    }
+
+    // Success case - sell house/hotel
+    if (houses - 1 == 4) {
+        houses--;
+        int sellPrice = housePrice / 2;
+        player.addMoney(sellPrice);
+        game.modifyAvailableBuildings(false, 1);
+        game.modifyAvailableBuildings(true, -4);
+        emit game.gameLogMessage(QString::fromStdString("%1 reverted a hotel back to 4 houses on %2 for $%3").arg(player.getName()).arg(name).arg(sellPrice));
+    } else {
+        houses--;
+        int sellPrice = housePrice / 2;
+        player.addMoney(sellPrice);
+        game.modifyAvailableBuildings(true, 1);
+        emit game.gameLogMessage(QString::fromStdString("%1 sold a house on %2 for $%3").arg(player.getName()).arg(name).arg(sellPrice));
+    }
+    return true;
 }
 
+/*
 void PropertyTile::mortgageProperty(Player &player) {
     if (!ownedByPlayer(player)) {
         return;
@@ -198,6 +314,35 @@ void PropertyTile::mortgageProperty(Player &player) {
         mortgaged = false;
         cout << player.getName() << " unmortgaged " << name << " by paying $" << unmortgageCost << "." << endl;
     }
+}*/
+
+bool PropertyTile::mortgageProperty(Player &player, Game& game) {
+    if (!ownedByPlayer(player)) {
+        emit game.warningSignal("You do not own this property.");
+        return false;
+    }
+    if (!allPropertyInGroupHasNoHouses()) {
+        emit game.warningSignal("You cannot mortgage if any of the property of the same color group has buildings.");
+        return false;
+    }
+
+    if (!mortgaged) {
+        int mortgageValue = price / 2;
+        player.addMoney(mortgageValue);
+        mortgaged = true;
+        emit game.gameLogMessage(QString::fromStdString("%1 mortgaged %2 for $%3.").arg(player.getName()).arg(name).arg(mortgageValue));
+    }
+    else if (mortgaged) {
+        int unmortgageCost = static_cast<int>((price / 2) * 1.1);
+        if (player.getCash() < unmortgageCost) {
+            emit game.warningSignal("You do not have enough money to unmortgage this property");
+            return false;
+        }
+        player.deductMoney(unmortgageCost);
+        mortgaged = false;
+        emit game.gameLogMessage(QString::fromStdString("%1 unmortgaged %2 for $%3s.").arg(player.getName()).arg(name).arg(unmortgageCost));
+    }
+    return true;
 }
 
 void PropertyTile::liquidateBuildings(Game& game, Player* creditor) {
@@ -214,7 +359,7 @@ void PropertyTile::liquidateBuildings(Game& game, Player* creditor) {
     houses = 0;
 }
 
-void PropertyTile::transferOwnership(Player& previousOwner, Player* newOwner) {
+void PropertyTile::transferOwnership(Player& previousOwner, Player* newOwner, Game& game) {
     previousOwner.removeProperty(this);
     if (newOwner != nullptr) {
         newOwner->addProperty(this);
@@ -234,7 +379,7 @@ void PropertyTile::transferOwnership(Player& previousOwner, Player* newOwner) {
                 cin.clear();
             }
             if (choice == 'Y') {
-                mortgageProperty(*newOwner);
+                mortgageProperty(*newOwner, game);
             }
         }
         cout << endl;
@@ -261,18 +406,6 @@ Player* PropertyTile::getOwner() const {
 bool PropertyTile::isMortgaged() const {
     return mortgaged;
 }
-
-int PropertyTile::getHousePrice() const{
-    return housePrice;
-}
-
-std::array<int, 6> PropertyTile::getRent() const{
-    return rent;
-};
-
-std::string PropertyTile::getGroup() const{
-    return group;
-};
 
 int PropertyTile::countOwnedPropertiesInGroup() const {
     int count = 0;
@@ -317,7 +450,8 @@ bool PropertyTile::allPropertyInGroupHasNoHouses() const {
     return true;
 }
 
-void PropertyTile::calculateRent(int step, int& rentDue) const {
+int PropertyTile::calculateRent(int step) const {
+    int rentDue;
     int ownedPropertiesInGroup = countOwnedPropertiesInGroup();
     if (group == "Station") {
         rentDue = rent[ownedPropertiesInGroup - 1];
@@ -335,6 +469,7 @@ void PropertyTile::calculateRent(int step, int& rentDue) const {
             rentDue = rent[houses];
         }
     }
+    return rentDue;
 }
 
 bool PropertyTile::ownedByPlayer(Player& player) const {
@@ -366,14 +501,13 @@ FreeParkingTile::FreeParkingTile(TileInfo const& info,QObject* parent) :
 
 void FreeParkingTile::onLand(Player &player, Game &game, int step) {
     if (index == 10) {
-        cout << player.getName() << " landed on " << name << " (Just Visiting)" << endl << endl;
+        emit game.landOnFreeParking(game.getCurrentPlayerIndex(),10);
+        emit game.gameLogMessage(QString::fromStdString("Player %1 landed on %2 (just visiting)").arg(player.getName()).arg(name));
     }
     else {
-        cout << player.getName() << " landed on " << name << " (Free Parking)" << endl;
-        cout << "Nothing happens. Enjoy your free parking!" << endl << endl;
+        emit game.landOnFreeParking(game.getCurrentPlayerIndex(),20);
+        emit game.gameLogMessage(QString::fromStdString("Player %1 landed on %2 (free meal)").arg(player.getName()).arg(name));
     }
-    /*game.showPlayers();
-    game.showBoard();*/
 }
 
 
@@ -384,7 +518,11 @@ void TaxTile::onLand(Player &player, Game &game, int step) {
     cout << player.getName() << " landed on " << name << " (Tax)" << endl;
     cout << player.getName() << " must pay $" << tax << " in taxes." << endl << endl;
     if (game.playerCanPay(game.getCurrentPlayerIndex(), tax)) {
-        player.deductMoney(tax);
+        emit game.taxPaymentRequired(QString::fromStdString(name),tax,game.getCurrentPlayerIndex());
+        emit game.gameLogMessage(QString("Player %1 pays $%2 in taxes for landing on %3")
+                                     .arg(game.getCurrentPlayerIndex() + 1)
+                                     .arg(tax)
+                                     .arg(QString::fromStdString(name)));
     }
 }
 

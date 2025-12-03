@@ -73,11 +73,13 @@ public:
 
     int getPlayerIndex(const Player& player) const;
     Player& getPlayer(int index) { return players[index]; }
+    const Player& getPlayer(int index) const { return players[index]; }
     int getCurrentPlayerIndex() const { return currentPlayerIndex; }
-
     int getCurrentRound() const { return round; }
     GameState getCurrentState() const { return currentState; }
-    Board& getBoard();
+    Board& getBoard() { return board; }
+    const Board& getBoard() const { return board; }
+
 
     // 状态检查
     bool canRollDice() const;
@@ -96,28 +98,15 @@ public:
     void receiveFromPlayers(int receiverIndex, int amount);
 
     // 卡片相关
-
     void drawChanceCard(int playerIndex);
     void drawCommunityChestCard(int playerIndex);
-    // void useGetOutOfJailCard(int playerIndex);
+    void useGetOutOfJailCard(int playerIndex);
 
     // 交易相关（需要大幅修改）
     /*
     void proposeTrade(int fromPlayer, int toPlayer, int propertyIndex, int amount);
     void acceptTrade(int tradeId);
     void rejectTrade(int tradeId);*/
-
-    // 购买回调
-
-    /*
-    void setPurchaseCallback(PurchaseCallback callback) { m_purchaseCallback = callback; }
-    bool hasPurchaseCallback() const { return static_cast<bool>(m_purchaseCallback); }
-    bool executePurchaseCallback(const std::string& propertyName, int price, const std::string& playerName) {
-        if (m_purchaseCallback) {
-            return m_purchaseCallback(propertyName, price, playerName);
-        }
-        return false;
-    }*/
 
 signals:
     // 游戏状态信号
@@ -133,13 +122,17 @@ signals:
     void diceRolled(int playerIndex, int diceValue);
     void playerMoved(int playerIndex, int oldPosition, int newPosition);
     void playerSentToJail(int playerIndex);
-    void playerReleasedFromJail(int playerIndex);
+    //void playerReleasedFromJail(int playerIndex);
 
     // 格子事件信号
     void tileEventTriggered(int tileIndex, const QString& eventMessage);
     void purchaseOpportunity(const QString& propertyName, int price, int playerIndex);
     void rentPaymentRequired(const QString& propertyName, int rent, int fromPlayer, int toPlayer);
-    //void cardDrawn(const QString& cardMessage);
+    void taxPaymentRequired(const QString& taxName, int tax,int fromPlayer);
+    void landOnSelfProperty(int playerIndex, const QString& propertyName);
+    void openChanceCard(int playerIndex,const QString& cardDiscription);
+    void openCommunityCard(int playerIndex,const QString& cardDiscription);
+    void landOnFreeParking(int playerIndex, int type);
 
     // 经济信号
     void rentPaid(const QString& fromPlayer, int rentAmount, const QString& toPlayer);
@@ -148,9 +141,11 @@ signals:
     void gameLogMessage(const QString& message);
 
     // 需要读懂这些信号是干嘛的
-    void playerNeedsMoney(int playerIndex, int amount);
+    void forceRaiseMoney(int playerIndex, int amount);
     void playerBankrupt(int playerIndex);
     void tradeProposed(int fromPlayer, int toPlayer, int propertyIndex, int amount);
+
+    void warningSignal(const QString& message);
 
     /*Game();
 
