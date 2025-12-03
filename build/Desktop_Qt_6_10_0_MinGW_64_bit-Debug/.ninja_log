@@ -1,0 +1,20 @@
+# ninja log v6
+7	2238	7864680945859166	CUHKSZ_Tycoon_autogen/timestamp	fd202590fb735015
+7	2238	7864680945859166	CUHKSZ_Tycoon_autogen/mocs_compilation.cpp	fd202590fb735015
+7	2238	7864680945859166	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/timestamp	fd202590fb735015
+7	2238	7864680945859166	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/mocs_compilation.cpp	fd202590fb735015
+2249	2489	7864680950204783	CUHKSZ_Tycoon_autogen/EWIEGA46WW/qrc_resources.cpp	2b86af350e0af658
+2249	2489	7864680950204783	E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/EWIEGA46WW/qrc_resources.cpp	2b86af350e0af658
+2587	3892	7864680951441518	CMakeFiles/CUHKSZ_Tycoon.dir/CUHKSZ_Tycoon_autogen/EWIEGA46WW/qrc_resources.cpp.obj	2342b02d2931b699
+2569	4266	7864680951251383	CMakeFiles/CUHKSZ_Tycoon.dir/action_weights.cpp.obj	361fc5a08218fd1e
+2535	11855	7864680950910185	CMakeFiles/CUHKSZ_Tycoon.dir/Player.cpp.obj	fc51e01c3d00fd1d
+2544	11902	7864680951000187	CMakeFiles/CUHKSZ_Tycoon.dir/Tile.cpp.obj	cd3310127b5b4573
+2578	11909	7864680951351349	CMakeFiles/CUHKSZ_Tycoon.dir/CardDeck.cpp.obj	bd79fab4727e3544
+2518	12020	7864680950750211	CMakeFiles/CUHKSZ_Tycoon.dir/Board.cpp.obj	6b64341a1aa94045
+2560	12466	7864680951171396	CMakeFiles/CUHKSZ_Tycoon.dir/StrategyEngine.cpp.obj	dd405a694a2c5fbf
+2526	12678	7864680950830153	CMakeFiles/CUHKSZ_Tycoon.dir/Game.cpp.obj	2ff6c32f5fba0fa1
+2501	13780	7864680950580210	CMakeFiles/CUHKSZ_Tycoon.dir/main.cpp.obj	d5dc0834834ad13f
+2552	13785	7864680951091200	CMakeFiles/CUHKSZ_Tycoon.dir/BoardWidget.cpp.obj	b8a5e3f28da9bc48
+2510	16075	7864680950660192	CMakeFiles/CUHKSZ_Tycoon.dir/mainwindow.cpp.obj	8b4daa9c68f6b23d
+2490	16086	7864680950464858	CMakeFiles/CUHKSZ_Tycoon.dir/CUHKSZ_Tycoon_autogen/mocs_compilation.cpp.obj	e0b30987e2be95a2
+16086	17645	7864681086416246	CUHKSZ_Tycoon.exe	db5c976d1580ca24

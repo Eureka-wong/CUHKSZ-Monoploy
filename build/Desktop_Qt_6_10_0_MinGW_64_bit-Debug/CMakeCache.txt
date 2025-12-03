@@ -132,7 +132,7 @@ CMAKE_INSTALL_MANDIR:PATH=
 CMAKE_INSTALL_OLDINCLUDEDIR:PATH=/usr/include
 
 //Install path prefix, prepended onto install directories.
-CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/GUI
+CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/CUHKSZ_Tycoon
 
 //Run-time variable data (LOCALSTATEDIR/run)
 CMAKE_INSTALL_RUNSTATEDIR:PATH=
@@ -194,7 +194,7 @@ CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 CMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=GUI
+CMAKE_PROJECT_NAME:STATIC=CUHKSZ_Tycoon
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=0.1
@@ -295,13 +295,13 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //Value Computed by CMake
-GUI_BINARY_DIR:STATIC=E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug
+CUHKSZ_Tycoon_BINARY_DIR:STATIC=E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug
 
 //Value Computed by CMake
-GUI_IS_TOP_LEVEL:STATIC=ON
+CUHKSZ_Tycoon_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-GUI_SOURCE_DIR:STATIC=E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon
+CUHKSZ_Tycoon_SOURCE_DIR:STATIC=E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon
 
 //Additional directories where find(Qt6 ...) host Qt components
 // are searched
@@ -1393,5 +1393,5 @@ Vulkan_LIBRARY-ADVANCED:INTERNAL=1
 //linker supports push/pop state
 _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //CMAKE_INSTALL_PREFIX during last run
-_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/GUI
+_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/CUHKSZ_Tycoon
 

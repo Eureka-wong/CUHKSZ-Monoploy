@@ -65,6 +65,13 @@ private slots:
 
     void onrentPaymentRequired(const QString& propertyName, int rent, int fromPlayer, int toPlayer);
 
+    void ontaxPaymentRequired(const QString& taxName,int tax,int fromPlayer);
+    void onLandOnSelfProperty(int playerIndex, const QString& propertyName);
+    void onOpenChanceCard(int playerIndex,const QString& cardDiscription);
+    void onOpenCommunityCard(int playerIndex,const QString& cardDiscription);
+    void onLandOnFreeParking(int playerIndex, int type);
+
+
     void onForceRaiseMoney(int payerIndex, int amountDue);
 
 
@@ -105,5 +112,11 @@ private:
 
     void showPropertiesDialog();
     void refreshPropertiesDialog();
+
+
+    void showJailChoiceDialog(int playerIndex);
+    void showJailLastChoiceDialog(int playerIndex);
+    void handleAfterFailedRoll(int playerIndex);
+
 };
 #endif // MAINWINDOW_H

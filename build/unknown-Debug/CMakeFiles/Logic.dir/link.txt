@@ -1,1 +1,0 @@
-/usr/bin/clang++ -DQT_QML_DEBUG -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/Logic.dir/src/main.cpp.o CMakeFiles/Logic.dir/src/Game.cpp.o CMakeFiles/Logic.dir/src/Board.cpp.o CMakeFiles/Logic.dir/src/Tile.cpp.o CMakeFiles/Logic.dir/src/Player.cpp.o -o Logic

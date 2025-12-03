@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: GUI
+# Project: CUHKSZ_Tycoon
 # Configurations: Debug
 # =============================================================================
 
@@ -41,153 +41,152 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target GUI
+# Object build statements for EXECUTABLE target CUHKSZ_Tycoon
 
 
 #############################################
-# Order-only phony target for GUI
+# Order-only phony target for CUHKSZ_Tycoon
 
-build cmake_object_order_depends_target_GUI: phony || GUI_autogen GUI_autogen/EWIEGA46WW/qrc_resources.cpp GUI_autogen/mocs_compilation.cpp GUI_autogen/timestamp GUI_autogen_timestamp_deps
+build cmake_object_order_depends_target_CUHKSZ_Tycoon: phony || CUHKSZ_Tycoon_autogen CUHKSZ_Tycoon_autogen/EWIEGA46WW/qrc_resources.cpp CUHKSZ_Tycoon_autogen/mocs_compilation.cpp CUHKSZ_Tycoon_autogen/timestamp CUHKSZ_Tycoon_autogen_timestamp_deps
 
-build CMakeFiles/GUI.dir/GUI_autogen/mocs_compilation.cpp.obj: CXX_COMPILER__GUI_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_GUI
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\GUI.dir\GUI_autogen\mocs_compilation.cpp.obj.d
+build CMakeFiles/CUHKSZ_Tycoon.dir/CUHKSZ_Tycoon_autogen/mocs_compilation.cpp.obj: CXX_COMPILER__CUHKSZ_Tycoon_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_CUHKSZ_Tycoon
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\CUHKSZ_Tycoon.dir\CUHKSZ_Tycoon_autogen\mocs_compilation.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
-  OBJECT_DIR = CMakeFiles\GUI.dir
-  OBJECT_FILE_DIR = CMakeFiles\GUI.dir\GUI_autogen
-  TARGET_COMPILE_PDB = CMakeFiles\GUI.dir\
-  TARGET_PDB = GUI.pdb
+  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
+  OBJECT_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  OBJECT_FILE_DIR = CMakeFiles\CUHKSZ_Tycoon.dir\CUHKSZ_Tycoon_autogen
+  TARGET_COMPILE_PDB = CMakeFiles\CUHKSZ_Tycoon.dir\
+  TARGET_PDB = CUHKSZ_Tycoon.pdb
 
-build CMakeFiles/GUI.dir/main.cpp.obj: CXX_COMPILER__GUI_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/main.cpp || cmake_object_order_depends_target_GUI
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\GUI.dir\main.cpp.obj.d
+build CMakeFiles/CUHKSZ_Tycoon.dir/main.cpp.obj: CXX_COMPILER__CUHKSZ_Tycoon_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/main.cpp || cmake_object_order_depends_target_CUHKSZ_Tycoon
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\CUHKSZ_Tycoon.dir\main.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
-  OBJECT_DIR = CMakeFiles\GUI.dir
-  OBJECT_FILE_DIR = CMakeFiles\GUI.dir
-  TARGET_COMPILE_PDB = CMakeFiles\GUI.dir\
-  TARGET_PDB = GUI.pdb
+  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
+  OBJECT_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  OBJECT_FILE_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  TARGET_COMPILE_PDB = CMakeFiles\CUHKSZ_Tycoon.dir\
+  TARGET_PDB = CUHKSZ_Tycoon.pdb
 
-build CMakeFiles/GUI.dir/mainwindow.cpp.obj: CXX_COMPILER__GUI_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/mainwindow.cpp || cmake_object_order_depends_target_GUI
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\GUI.dir\mainwindow.cpp.obj.d
+build CMakeFiles/CUHKSZ_Tycoon.dir/mainwindow.cpp.obj: CXX_COMPILER__CUHKSZ_Tycoon_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/mainwindow.cpp || cmake_object_order_depends_target_CUHKSZ_Tycoon
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\CUHKSZ_Tycoon.dir\mainwindow.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
-  OBJECT_DIR = CMakeFiles\GUI.dir
-  OBJECT_FILE_DIR = CMakeFiles\GUI.dir
-  TARGET_COMPILE_PDB = CMakeFiles\GUI.dir\
-  TARGET_PDB = GUI.pdb
+  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
+  OBJECT_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  OBJECT_FILE_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  TARGET_COMPILE_PDB = CMakeFiles\CUHKSZ_Tycoon.dir\
+  TARGET_PDB = CUHKSZ_Tycoon.pdb
 
-build CMakeFiles/GUI.dir/Game.cpp.obj: CXX_COMPILER__GUI_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/Game.cpp || cmake_object_order_depends_target_GUI
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\GUI.dir\Game.cpp.obj.d
+build CMakeFiles/CUHKSZ_Tycoon.dir/Board.cpp.obj: CXX_COMPILER__CUHKSZ_Tycoon_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/Board.cpp || cmake_object_order_depends_target_CUHKSZ_Tycoon
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\CUHKSZ_Tycoon.dir\Board.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
-  OBJECT_DIR = CMakeFiles\GUI.dir
-  OBJECT_FILE_DIR = CMakeFiles\GUI.dir
-  TARGET_COMPILE_PDB = CMakeFiles\GUI.dir\
-  TARGET_PDB = GUI.pdb
+  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
+  OBJECT_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  OBJECT_FILE_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  TARGET_COMPILE_PDB = CMakeFiles\CUHKSZ_Tycoon.dir\
+  TARGET_PDB = CUHKSZ_Tycoon.pdb
 
-build CMakeFiles/GUI.dir/Board.cpp.obj: CXX_COMPILER__GUI_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/Board.cpp || cmake_object_order_depends_target_GUI
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\GUI.dir\Board.cpp.obj.d
+build CMakeFiles/CUHKSZ_Tycoon.dir/Game.cpp.obj: CXX_COMPILER__CUHKSZ_Tycoon_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/Game.cpp || cmake_object_order_depends_target_CUHKSZ_Tycoon
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\CUHKSZ_Tycoon.dir\Game.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
-  OBJECT_DIR = CMakeFiles\GUI.dir
-  OBJECT_FILE_DIR = CMakeFiles\GUI.dir
-  TARGET_COMPILE_PDB = CMakeFiles\GUI.dir\
-  TARGET_PDB = GUI.pdb
+  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
+  OBJECT_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  OBJECT_FILE_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  TARGET_COMPILE_PDB = CMakeFiles\CUHKSZ_Tycoon.dir\
+  TARGET_PDB = CUHKSZ_Tycoon.pdb
 
-build CMakeFiles/GUI.dir/BoardWidget.cpp.obj: CXX_COMPILER__GUI_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/BoardWidget.cpp || cmake_object_order_depends_target_GUI
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\GUI.dir\BoardWidget.cpp.obj.d
+build CMakeFiles/CUHKSZ_Tycoon.dir/Player.cpp.obj: CXX_COMPILER__CUHKSZ_Tycoon_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/Player.cpp || cmake_object_order_depends_target_CUHKSZ_Tycoon
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\CUHKSZ_Tycoon.dir\Player.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
-  OBJECT_DIR = CMakeFiles\GUI.dir
-  OBJECT_FILE_DIR = CMakeFiles\GUI.dir
-  TARGET_COMPILE_PDB = CMakeFiles\GUI.dir\
-  TARGET_PDB = GUI.pdb
+  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
+  OBJECT_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  OBJECT_FILE_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  TARGET_COMPILE_PDB = CMakeFiles\CUHKSZ_Tycoon.dir\
+  TARGET_PDB = CUHKSZ_Tycoon.pdb
 
-build CMakeFiles/GUI.dir/Player.cpp.obj: CXX_COMPILER__GUI_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/Player.cpp || cmake_object_order_depends_target_GUI
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\GUI.dir\Player.cpp.obj.d
+build CMakeFiles/CUHKSZ_Tycoon.dir/Tile.cpp.obj: CXX_COMPILER__CUHKSZ_Tycoon_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/Tile.cpp || cmake_object_order_depends_target_CUHKSZ_Tycoon
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\CUHKSZ_Tycoon.dir\Tile.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
-  OBJECT_DIR = CMakeFiles\GUI.dir
-  OBJECT_FILE_DIR = CMakeFiles\GUI.dir
-  TARGET_COMPILE_PDB = CMakeFiles\GUI.dir\
-  TARGET_PDB = GUI.pdb
+  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
+  OBJECT_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  OBJECT_FILE_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  TARGET_COMPILE_PDB = CMakeFiles\CUHKSZ_Tycoon.dir\
+  TARGET_PDB = CUHKSZ_Tycoon.pdb
 
-build CMakeFiles/GUI.dir/CardDeck.cpp.obj: CXX_COMPILER__GUI_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/CardDeck.cpp || cmake_object_order_depends_target_GUI
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\GUI.dir\CardDeck.cpp.obj.d
+build CMakeFiles/CUHKSZ_Tycoon.dir/BoardWidget.cpp.obj: CXX_COMPILER__CUHKSZ_Tycoon_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/BoardWidget.cpp || cmake_object_order_depends_target_CUHKSZ_Tycoon
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\CUHKSZ_Tycoon.dir\BoardWidget.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
-  OBJECT_DIR = CMakeFiles\GUI.dir
-  OBJECT_FILE_DIR = CMakeFiles\GUI.dir
-  TARGET_COMPILE_PDB = CMakeFiles\GUI.dir\
-  TARGET_PDB = GUI.pdb
+  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
+  OBJECT_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  OBJECT_FILE_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  TARGET_COMPILE_PDB = CMakeFiles\CUHKSZ_Tycoon.dir\
+  TARGET_PDB = CUHKSZ_Tycoon.pdb
 
-build CMakeFiles/GUI.dir/Tile.cpp.obj: CXX_COMPILER__GUI_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/Tile.cpp || cmake_object_order_depends_target_GUI
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\GUI.dir\Tile.cpp.obj.d
+build CMakeFiles/CUHKSZ_Tycoon.dir/StrategyEngine.cpp.obj: CXX_COMPILER__CUHKSZ_Tycoon_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/StrategyEngine.cpp || cmake_object_order_depends_target_CUHKSZ_Tycoon
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\CUHKSZ_Tycoon.dir\StrategyEngine.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
-  OBJECT_DIR = CMakeFiles\GUI.dir
-  OBJECT_FILE_DIR = CMakeFiles\GUI.dir
-  TARGET_COMPILE_PDB = CMakeFiles\GUI.dir\
-  TARGET_PDB = GUI.pdb
+  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
+  OBJECT_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  OBJECT_FILE_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  TARGET_COMPILE_PDB = CMakeFiles\CUHKSZ_Tycoon.dir\
+  TARGET_PDB = CUHKSZ_Tycoon.pdb
 
-build CMakeFiles/GUI.dir/StrategyEngine.cpp.obj: CXX_COMPILER__GUI_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/StrategyEngine.cpp || cmake_object_order_depends_target_GUI
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\GUI.dir\StrategyEngine.cpp.obj.d
+build CMakeFiles/CUHKSZ_Tycoon.dir/action_weights.cpp.obj: CXX_COMPILER__CUHKSZ_Tycoon_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/action_weights.cpp || cmake_object_order_depends_target_CUHKSZ_Tycoon
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\CUHKSZ_Tycoon.dir\action_weights.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
-  OBJECT_DIR = CMakeFiles\GUI.dir
-  OBJECT_FILE_DIR = CMakeFiles\GUI.dir
-  TARGET_COMPILE_PDB = CMakeFiles\GUI.dir\
-  TARGET_PDB = GUI.pdb
+  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
+  OBJECT_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  OBJECT_FILE_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  TARGET_COMPILE_PDB = CMakeFiles\CUHKSZ_Tycoon.dir\
+  TARGET_PDB = CUHKSZ_Tycoon.pdb
 
-build CMakeFiles/GUI.dir/action_weights.cpp.obj: CXX_COMPILER__GUI_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/action_weights.cpp || cmake_object_order_depends_target_GUI
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\GUI.dir\action_weights.cpp.obj.d
+build CMakeFiles/CUHKSZ_Tycoon.dir/CardDeck.cpp.obj: CXX_COMPILER__CUHKSZ_Tycoon_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/CardDeck.cpp || cmake_object_order_depends_target_CUHKSZ_Tycoon
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\CUHKSZ_Tycoon.dir\CardDeck.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
-  OBJECT_DIR = CMakeFiles\GUI.dir
-  OBJECT_FILE_DIR = CMakeFiles\GUI.dir
-  TARGET_COMPILE_PDB = CMakeFiles\GUI.dir\
-  TARGET_PDB = GUI.pdb
+  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
+  OBJECT_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  OBJECT_FILE_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  TARGET_COMPILE_PDB = CMakeFiles\CUHKSZ_Tycoon.dir\
+  TARGET_PDB = CUHKSZ_Tycoon.pdb
 
-build CMakeFiles/GUI.dir/GUI_autogen/EWIEGA46WW/qrc_resources.cpp.obj: CXX_COMPILER__GUI_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/EWIEGA46WW/qrc_resources.cpp || cmake_object_order_depends_target_GUI
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\GUI.dir\GUI_autogen\EWIEGA46WW\qrc_resources.cpp.obj.d
+build CMakeFiles/CUHKSZ_Tycoon.dir/CUHKSZ_Tycoon_autogen/EWIEGA46WW/qrc_resources.cpp.obj: CXX_COMPILER__CUHKSZ_Tycoon_unscanned_Debug E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/EWIEGA46WW/qrc_resources.cpp || cmake_object_order_depends_target_CUHKSZ_Tycoon
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\CUHKSZ_Tycoon.dir\CUHKSZ_Tycoon_autogen\EWIEGA46WW\qrc_resources.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
-  OBJECT_DIR = CMakeFiles\GUI.dir
-  OBJECT_FILE_DIR = CMakeFiles\GUI.dir\GUI_autogen\EWIEGA46WW
-  TARGET_COMPILE_PDB = CMakeFiles\GUI.dir\
-  TARGET_PDB = GUI.pdb
+  INCLUDES = -I"E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/include" -isystem E:/Qt/6.10.0/mingw_64/include/QtCore -isystem E:/Qt/6.10.0/mingw_64/include -isystem E:/Qt/6.10.0/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.10.0/mingw_64/include/QtWidgets -isystem E:/Qt/6.10.0/mingw_64/include/QtGui
+  OBJECT_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
+  OBJECT_FILE_DIR = CMakeFiles\CUHKSZ_Tycoon.dir\CUHKSZ_Tycoon_autogen\EWIEGA46WW
+  TARGET_COMPILE_PDB = CMakeFiles\CUHKSZ_Tycoon.dir\
+  TARGET_PDB = CUHKSZ_Tycoon.pdb
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target GUI
+# Link build statements for EXECUTABLE target CUHKSZ_Tycoon
 
 
 #############################################
-# Link the executable GUI.exe
+# Link the executable CUHKSZ_Tycoon.exe
 
-build GUI.exe: CXX_EXECUTABLE_LINKER__GUI_Debug CMakeFiles/GUI.dir/GUI_autogen/mocs_compilation.cpp.obj CMakeFiles/GUI.dir/main.cpp.obj CMakeFiles/GUI.dir/mainwindow.cpp.obj CMakeFiles/GUI.dir/Game.cpp.obj CMakeFiles/GUI.dir/Board.cpp.obj CMakeFiles/GUI.dir/BoardWidget.cpp.obj CMakeFiles/GUI.dir/Player.cpp.obj CMakeFiles/GUI.dir/CardDeck.cpp.obj CMakeFiles/GUI.dir/Tile.cpp.obj CMakeFiles/GUI.dir/StrategyEngine.cpp.obj CMakeFiles/GUI.dir/action_weights.cpp.obj CMakeFiles/GUI.dir/GUI_autogen/EWIEGA46WW/qrc_resources.cpp.obj | E$:/Qt/6.10.0/mingw_64/lib/libQt6Widgets.a E$:/Qt/6.10.0/mingw_64/lib/libQt6Gui.a E$:/Qt/6.10.0/mingw_64/lib/libQt6Core.a E$:/Qt/6.10.0/mingw_64/lib/libQt6EntryPoint.a || GUI_autogen GUI_autogen_timestamp_deps
+build CUHKSZ_Tycoon.exe: CXX_EXECUTABLE_LINKER__CUHKSZ_Tycoon_Debug CMakeFiles/CUHKSZ_Tycoon.dir/CUHKSZ_Tycoon_autogen/mocs_compilation.cpp.obj CMakeFiles/CUHKSZ_Tycoon.dir/main.cpp.obj CMakeFiles/CUHKSZ_Tycoon.dir/mainwindow.cpp.obj CMakeFiles/CUHKSZ_Tycoon.dir/Board.cpp.obj CMakeFiles/CUHKSZ_Tycoon.dir/Game.cpp.obj CMakeFiles/CUHKSZ_Tycoon.dir/Player.cpp.obj CMakeFiles/CUHKSZ_Tycoon.dir/Tile.cpp.obj CMakeFiles/CUHKSZ_Tycoon.dir/BoardWidget.cpp.obj CMakeFiles/CUHKSZ_Tycoon.dir/StrategyEngine.cpp.obj CMakeFiles/CUHKSZ_Tycoon.dir/action_weights.cpp.obj CMakeFiles/CUHKSZ_Tycoon.dir/CardDeck.cpp.obj CMakeFiles/CUHKSZ_Tycoon.dir/CUHKSZ_Tycoon_autogen/EWIEGA46WW/qrc_resources.cpp.obj | E$:/Qt/6.10.0/mingw_64/lib/libQt6Widgets.a E$:/Qt/6.10.0/mingw_64/lib/libQt6Gui.a E$:/Qt/6.10.0/mingw_64/lib/libQt6Core.a || CUHKSZ_Tycoon_autogen CUHKSZ_Tycoon_autogen_timestamp_deps
   FLAGS = -DQT_QML_DEBUG -g
-  LINK_FLAGS = -mwindows
-  LINK_LIBRARIES = E:/Qt/6.10.0/mingw_64/lib/libQt6Widgets.a  E:/Qt/6.10.0/mingw_64/lib/libQt6Gui.a  E:/Qt/6.10.0/mingw_64/lib/libQt6Core.a  -lmpr  -luserenv  -lmingw32  E:/Qt/6.10.0/mingw_64/lib/libQt6EntryPoint.a  -lshell32  -ld3d11  -ldxgi  -ldxguid  -ld3d12  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\GUI.dir
+  LINK_LIBRARIES = E:/Qt/6.10.0/mingw_64/lib/libQt6Widgets.a  E:/Qt/6.10.0/mingw_64/lib/libQt6Gui.a  E:/Qt/6.10.0/mingw_64/lib/libQt6Core.a  -lmpr  -luserenv  -ld3d11  -ldxgi  -ldxguid  -ld3d12  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\CUHKSZ_Tycoon.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\GUI.dir\
-  TARGET_FILE = GUI.exe
-  TARGET_IMPLIB = libGUI.dll.a
-  TARGET_PDB = GUI.pdb
+  TARGET_COMPILE_PDB = CMakeFiles\CUHKSZ_Tycoon.dir\
+  TARGET_FILE = CUHKSZ_Tycoon.exe
+  TARGET_IMPLIB = libCUHKSZ_Tycoon.dll.a
+  TARGET_PDB = CUHKSZ_Tycoon.pdb
 
 
 #############################################
@@ -215,88 +214,46 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 
 #############################################
-# Utility command for list_install_components
+# Utility command for CUHKSZ_Tycoon_autogen_timestamp_deps
 
-build list_install_components: phony
-
-
-#############################################
-# Utility command for install
-
-build CMakeFiles/install.util: CUSTOM_COMMAND all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D "E:\CSC3002\CUHKSZ Tycoon\CUHKSZ_Tycoon\build\Desktop_Qt_6_10_0_MinGW_64_bit-Debug" && E:\Qt\Tools\CMake_64\bin\cmake.exe -P cmake_install.cmake"
-  DESC = Install the project...
-  pool = console
-  restat = 1
-
-build install: phony CMakeFiles/install.util
+build CUHKSZ_Tycoon_autogen_timestamp_deps: phony
 
 
 #############################################
-# Utility command for install/local
+# Utility command for CUHKSZ_Tycoon_autogen
 
-build CMakeFiles/install/local.util: CUSTOM_COMMAND all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D "E:\CSC3002\CUHKSZ Tycoon\CUHKSZ_Tycoon\build\Desktop_Qt_6_10_0_MinGW_64_bit-Debug" && E:\Qt\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
-  DESC = Installing only the local directory...
-  pool = console
-  restat = 1
-
-build install/local: phony CMakeFiles/install/local.util
+build CUHKSZ_Tycoon_autogen: phony CMakeFiles/CUHKSZ_Tycoon_autogen CUHKSZ_Tycoon_autogen/include/ui_mainwindow.h CUHKSZ_Tycoon_autogen/timestamp CUHKSZ_Tycoon_autogen/mocs_compilation.cpp CUHKSZ_Tycoon_autogen_timestamp_deps
 
 
 #############################################
-# Utility command for install/strip
+# Custom command for CUHKSZ_Tycoon_autogen\timestamp
 
-build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D "E:\CSC3002\CUHKSZ Tycoon\CUHKSZ_Tycoon\build\Desktop_Qt_6_10_0_MinGW_64_bit-Debug" && E:\Qt\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
-  DESC = Installing the project stripped...
-  pool = console
-  restat = 1
-
-build install/strip: phony CMakeFiles/install/strip.util
-
-
-#############################################
-# Utility command for GUI_autogen_timestamp_deps
-
-build GUI_autogen_timestamp_deps: phony
-
-
-#############################################
-# Utility command for GUI_autogen
-
-build GUI_autogen: phony CMakeFiles/GUI_autogen GUI_autogen/include/ui_mainwindow.h GUI_autogen/timestamp GUI_autogen/mocs_compilation.cpp GUI_autogen_timestamp_deps
-
-
-#############################################
-# Custom command for GUI_autogen\timestamp
-
-build GUI_autogen/timestamp GUI_autogen/mocs_compilation.cpp | ${cmake_ninja_workdir}GUI_autogen/timestamp ${cmake_ninja_workdir}GUI_autogen/mocs_compilation.cpp: CUSTOM_COMMAND E$:/Qt/6.10.0/mingw_64/bin/moc.exe E$:/Qt/6.10.0/mingw_64/bin/uic.exe || GUI_autogen_timestamp_deps
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D "E:\CSC3002\CUHKSZ Tycoon\CUHKSZ_Tycoon\build\Desktop_Qt_6_10_0_MinGW_64_bit-Debug" && E:\Qt\Tools\CMake_64\bin\cmake.exe -E cmake_autogen "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CMakeFiles/GUI_autogen.dir/AutogenInfo.json" Debug && E:\Qt\Tools\CMake_64\bin\cmake.exe -E touch "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/timestamp" && E:\Qt\Tools\CMake_64\bin\cmake.exe -E cmake_transform_depfile Ninja gccdepfile "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon" "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon" "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug" "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug" "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/GUI_autogen/deps" "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CMakeFiles/d/8860bcc2346a02974474d85fc5d44f38fb0eff37563946edeb09b88447b6477d.d""
-  DESC = Automatic MOC and UIC for target GUI
-  depfile = CMakeFiles\d\8860bcc2346a02974474d85fc5d44f38fb0eff37563946edeb09b88447b6477d.d
+build CUHKSZ_Tycoon_autogen/timestamp CUHKSZ_Tycoon_autogen/mocs_compilation.cpp | ${cmake_ninja_workdir}CUHKSZ_Tycoon_autogen/timestamp ${cmake_ninja_workdir}CUHKSZ_Tycoon_autogen/mocs_compilation.cpp: CUSTOM_COMMAND E$:/Qt/6.10.0/mingw_64/bin/moc.exe E$:/Qt/6.10.0/mingw_64/bin/uic.exe || CUHKSZ_Tycoon_autogen_timestamp_deps
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D "E:\CSC3002\CUHKSZ Tycoon\CUHKSZ_Tycoon\build\Desktop_Qt_6_10_0_MinGW_64_bit-Debug" && E:\Qt\Tools\CMake_64\bin\cmake.exe -E cmake_autogen "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CMakeFiles/CUHKSZ_Tycoon_autogen.dir/AutogenInfo.json" Debug && E:\Qt\Tools\CMake_64\bin\cmake.exe -E touch "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/timestamp" && E:\Qt\Tools\CMake_64\bin\cmake.exe -E cmake_transform_depfile Ninja gccdepfile "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon" "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon" "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug" "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug" "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CUHKSZ_Tycoon_autogen/deps" "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CMakeFiles/d/b8fd3e1f93d61fbab5d1c85dd58d3759023a82635c0ed148e31c1826055a43ea.d""
+  DESC = Automatic MOC and UIC for target CUHKSZ_Tycoon
+  depfile = CMakeFiles\d\b8fd3e1f93d61fbab5d1c85dd58d3759023a82635c0ed148e31c1826055a43ea.d
   deps = gcc
   restat = 1
 
 
 #############################################
-# Custom command for GUI_autogen\EWIEGA46WW\qrc_resources.cpp
+# Custom command for CUHKSZ_Tycoon_autogen\EWIEGA46WW\qrc_resources.cpp
 
-build GUI_autogen/EWIEGA46WW/qrc_resources.cpp | ${cmake_ninja_workdir}GUI_autogen/EWIEGA46WW/qrc_resources.cpp: CUSTOM_COMMAND E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/resources.qrc CMakeFiles/GUI_autogen.dir/AutoRcc_resources_EWIEGA46WW_Info.json E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/images/board.png E$:/Qt/6.10.0/mingw_64/bin/rcc.exe E$:/Qt/6.10.0/mingw_64/bin/rcc.exe || GUI_autogen GUI_autogen_timestamp_deps
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D "E:\CSC3002\CUHKSZ Tycoon\CUHKSZ_Tycoon\build\Desktop_Qt_6_10_0_MinGW_64_bit-Debug" && E:\Qt\Tools\CMake_64\bin\cmake.exe -E cmake_autorcc "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CMakeFiles/GUI_autogen.dir/AutoRcc_resources_EWIEGA46WW_Info.json" Debug"
+build CUHKSZ_Tycoon_autogen/EWIEGA46WW/qrc_resources.cpp | ${cmake_ninja_workdir}CUHKSZ_Tycoon_autogen/EWIEGA46WW/qrc_resources.cpp: CUSTOM_COMMAND E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/resources.qrc CMakeFiles/CUHKSZ_Tycoon_autogen.dir/AutoRcc_resources_EWIEGA46WW_Info.json E$:/CSC3002/CUHKSZ$ Tycoon/CUHKSZ_Tycoon/images/board.png E$:/Qt/6.10.0/mingw_64/bin/rcc.exe E$:/Qt/6.10.0/mingw_64/bin/rcc.exe || CUHKSZ_Tycoon_autogen CUHKSZ_Tycoon_autogen_timestamp_deps
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D "E:\CSC3002\CUHKSZ Tycoon\CUHKSZ_Tycoon\build\Desktop_Qt_6_10_0_MinGW_64_bit-Debug" && E:\Qt\Tools\CMake_64\bin\cmake.exe -E cmake_autorcc "E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug/CMakeFiles/CUHKSZ_Tycoon_autogen.dir/AutoRcc_resources_EWIEGA46WW_Info.json" Debug"
   DESC = Automatic RCC for resources.qrc
   restat = 1
 
 
 #############################################
-# Phony custom command for CMakeFiles\GUI_autogen
+# Phony custom command for CMakeFiles\CUHKSZ_Tycoon_autogen
 
-build CMakeFiles/GUI_autogen GUI_autogen/include/ui_mainwindow.h | ${cmake_ninja_workdir}CMakeFiles/GUI_autogen ${cmake_ninja_workdir}GUI_autogen/include/ui_mainwindow.h: phony GUI_autogen/timestamp || GUI_autogen_timestamp_deps
+build CMakeFiles/CUHKSZ_Tycoon_autogen CUHKSZ_Tycoon_autogen/include/ui_mainwindow.h | ${cmake_ninja_workdir}CMakeFiles/CUHKSZ_Tycoon_autogen ${cmake_ninja_workdir}CUHKSZ_Tycoon_autogen/include/ui_mainwindow.h: phony CUHKSZ_Tycoon_autogen/timestamp || CUHKSZ_Tycoon_autogen_timestamp_deps
 
 # =============================================================================
 # Target aliases.
 
-build GUI: phony GUI.exe
+build CUHKSZ_Tycoon: phony CUHKSZ_Tycoon.exe
 
 # =============================================================================
 # Folder targets.
@@ -306,7 +263,7 @@ build GUI: phony GUI.exe
 #############################################
 # Folder: E:/CSC3002/CUHKSZ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Debug
 
-build all: phony GUI.exe
+build all: phony CUHKSZ_Tycoon.exe
 
 # =============================================================================
 # Built-in targets

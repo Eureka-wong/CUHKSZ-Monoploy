@@ -10,6 +10,7 @@
 #include <QDialog>
 #include <QFrame>
 #include <QDialogButtonBox>
+#include <QStackedWidget>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -38,6 +39,8 @@ void MainWindow::setupGameConnections(){
     //connect(m_game, &Game::gameStateChanged, this, &MainWindow::onGameStateChanged);
 
     //gameOver signal connects to onGameOver slot
+    //connect(m_game, &Game::gameStarted,this, &MainWindow::onGameStarted);
+    //connect(m_game, &Game::gameStateChanged, this, &MainWindow::onGameStateChanged);
     //connect(m_game, &Game::gameOver,this,&MainWindow::onGameOver);
 
     connect(m_game, &Game::playerTurnStarted, this, &MainWindow::onPlayerTurnStarted);
@@ -56,23 +59,72 @@ void MainWindow::setupGameConnections(){
     // 经济信号
     //connect(m_game, &Game::moneyChanged, this, &MainWindow::onMoneyChanged);
     //connect(m_game, &Game::propertyPurchased,this,&MainWindow::onPropertyPurchased);
+    connect(m_game, &Game::landOnSelfProperty,this,&MainWindow::onLandOnSelfProperty);
+    connect(m_game,&Game::openChanceCard,this,&MainWindow::onOpenChanceCard);
+    connect(m_game,&Game::openCommunityCard,this,&MainWindow::onOpenCommunityCard);
+
+    // 经济信号
+    //connect(m_game, &Game::moneyChanged, this, &MainWindow::onMoneyChanged);
 
     // 游戏日志
     connect(m_game, &Game::gameLogMessage, this, &MainWindow::onGameLogMessage);
     connect(m_game, &Game::playerBankrupt, this, &MainWindow::onPlayerBankrupt);
     connect(m_game, &Game::rentPaymentRequired, this, &MainWindow::onrentPaymentRequired);
-
+    connect(m_game, &Game::taxPaymentRequired, this, &MainWindow::ontaxPaymentRequired);
     connect(m_game, &Game::forceRaiseMoney, this, &MainWindow::onForceRaiseMoney);
-
     connect(m_game, &Game::warningSignal, this, &MainWindow::showWarning);
 }
+
+void MainWindow::ontaxPaymentRequired(const QString& taxName, int tax, int fromPlayer){
+    // 创建消息框
+    QMessageBox msgBox(this);
+    msgBox.setWindowTitle("Tax Payment Required");
+    msgBox.setText(QString("Player %1 need to pay %2 for $%3").arg(fromPlayer+1).arg(taxName).arg(tax));
+
+    // 设置为应用模态，必须处理
+    msgBox.setWindowModality(Qt::ApplicationModal);
+    // 移除关闭按钮
+    msgBox.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint);
+
+    QPushButton *payButton = msgBox.addButton("Pay Now", QMessageBox::AcceptRole);
+    msgBox.setDefaultButton(payButton);
+
+    msgBox.exec();  // 强制用户点击按钮
+    Player& currentPlayer = m_game->getPlayer(fromPlayer);
+    currentPlayer.deductMoney(tax);
+}
+
+void MainWindow::onLandOnSelfProperty(int playerIndex, const QString& propertyName){
+    QMessageBox::information(this, "Your Property",QString("Player %1 landed on its own property:\n%2")
+                                 .arg(playerIndex+1)
+                                 .arg(propertyName));
+}
+
+void MainWindow::onOpenChanceCard(int playerIndex, const QString& cardDescription) {
+    QMessageBox::information(this,"Chance Card",QString("Player: %1\nChance Card:\n%2")
+                                 .arg(playerIndex+1).arg(cardDescription));
+}
+
+void MainWindow::onOpenCommunityCard(int playerIndex, const QString& cardDescription) {
+    QMessageBox::information(this,"Community Chest Card",QString("Player: %1\nCommunity Chest Card:\n%2").arg(playerIndex+1).arg(cardDescription));
+}
+
+void MainWindow::onLandOnFreeParking(int playerIndex, int type){
+    if(type==10){
+        QMessageBox::information(this,"Just Visiting",QString("Player %1 is Just Visiting the Predisent's office.").arg(playerIndex+1));
+    }else if(type==20){
+        QMessageBox::information(this,"Free Meal", QString("Player %1 landed on Canteen!").arg(playerIndex+1));
+    }
+}
+
 
 void MainWindow::onrentPaymentRequired(const QString& property, int rent, int fromPlayer, int toPlayer){
     // 创建消息框
     QMessageBox msgBox(this);
     msgBox.setWindowTitle("Rent Payment Required");
     msgBox.setText(QString("You need to pay rent for %1").arg(property));
-    msgBox.setInformativeText(QString("You must pay $%1 to Player %2?").arg(rent).arg(toPlayer));
+    msgBox.setInformativeText(QString("You must pay $%1 to Player %2?").arg(rent).arg(toPlayer+1));
+
 
     // 设置为应用模态，必须处理
     msgBox.setWindowModality(Qt::ApplicationModal);
@@ -158,6 +210,193 @@ void MainWindow::onPlayerTurnStarted(int playerIndex) {
     // 更新按钮状态
     m_rollButton->setEnabled(m_game->canRollDice());
     m_endTurnButton->setEnabled(false);
+
+    int jailStatus = player.getJailStatus();
+    if(jailStatus != -1){
+        // current player is in the jail
+        if(jailStatus == 2){
+            // last chance
+            showJailLastChoiceDialog(playerIndex);
+        }else if(jailStatus == 0 || jailStatus == 1){
+            showJailChoiceDialog(playerIndex);
+        }
+    }else{
+        // current player can play its turn normally
+        // 更新按钮状态
+        m_rollButton->setEnabled(m_game->canRollDice());
+        m_endTurnButton->setEnabled(false);
+    }
+}
+
+
+void MainWindow::showJailLastChoiceDialog(int playerIndex) {
+/*  • On the 3rd turn (jailStatus == 2):
+        - The player is required to try and roll a 12.
+        - If they succeed, they are freed and move a 12.
+        - If they fail, they must pay $50 or use a "Get out of Jail for Free" card to get out, and continue with a normal turn.
+        - If they don't have enough money, they'll be forced to raise money by selling or mortgaging property.
+        - If they cannot do so, they are considered bankrupt.
+*/
+    Player& player = m_game->getPlayer(playerIndex);
+    bool jailChoiceMade = false;
+
+    // 第一步：必须先尝试掷骰子
+    bool diceRolled = false;
+    bool diceSuccess = false;
+
+    while (!diceRolled) {
+        QMessageBox msgBox(this);
+        msgBox.setWindowTitle("Last Chance in Jail - Must Roll Dice");
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText(QString("Player %1 is in jail (3rd and final turn)\n\nYou MUST try to roll doubles to get out!")
+                           .arg(playerIndex+1));
+
+        QPushButton* rollButton = nullptr;
+        QPushButton* manageButton = nullptr;
+
+        // 总是可以掷骰子和管理地产
+        rollButton = msgBox.addButton("Roll Dice (Try for Doubles)", QMessageBox::ActionRole);
+        manageButton = msgBox.addButton("Manage Properties First", QMessageBox::ActionRole);
+
+        msgBox.setWindowFlags(msgBox.windowFlags() & ~Qt::WindowCloseButtonHint);
+
+        msgBox.exec();
+
+        QAbstractButton* clickedButton = msgBox.clickedButton();
+
+        if (clickedButton == rollButton) {
+            // 执行掷骰子
+            diceRolled = true;
+            m_game->processJailAction(JailAction::RollForFreedom);
+
+            // 检查结果
+            diceSuccess = (player.getJailStatus() == -1);
+
+            if (!diceSuccess) {
+                // 掷骰失败，进入第二步：支付或使用卡片
+                handleAfterFailedRoll(playerIndex);
+            }
+            // 如果成功，流程结束
+
+        } else if (clickedButton == manageButton) {
+            // 先管理财产
+            this->onPropertiesClicked();
+            // 循环继续，必须回到掷骰子选择
+        }
+    }
+}
+
+void MainWindow::handleAfterFailedRoll(int playerIndex) {
+    Player& player = m_game->getPlayer(playerIndex);
+
+    // 掷骰失败后，必须支付或使用卡片
+    bool choiceMade = false;
+
+    while (!choiceMade) {
+        QMessageBox msgBox(this);
+        msgBox.setWindowTitle("Roll Failed - Must Pay or Use Card");
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setText(QString("Player %1 failed to roll doubles!\n\nYou MUST now pay $50 or use a Get Out of Jail Free card.")
+                           .arg(playerIndex+1));
+
+        QHash<QAbstractButton*, JailAction> buttonActions;
+        QPushButton* manageButton = msgBox.addButton("Manage Properties", QMessageBox::ActionRole);
+
+        QString infoText;
+
+        // 根据玩家能力提供选项
+        if (player.hasGetOutOfJailCard()) {
+            QPushButton* cardButton = msgBox.addButton("Use Jail Card", QMessageBox::ActionRole);
+            buttonActions[cardButton] = JailAction::UseCard;
+            infoText = "You have a Get Out of Jail Free card.";
+        }
+
+        if (player.getCash() >= 50) {
+            QPushButton* payButton = msgBox.addButton("Pay $50 Bail", QMessageBox::ActionRole);
+            buttonActions[payButton] = JailAction::PayBail;
+            infoText += infoText.isEmpty() ? "You have enough cash to pay bail." : "\nYou also have enough cash to pay bail.";
+        }
+
+        msgBox.setInformativeText(infoText);
+        msgBox.setWindowFlags(msgBox.windowFlags() & ~Qt::WindowCloseButtonHint);
+
+        msgBox.exec();
+
+        QAbstractButton* clickedButton = msgBox.clickedButton();
+
+        if (buttonActions.contains(clickedButton)) {
+            // 支付或使用卡片
+            m_game->processJailAction(buttonActions[clickedButton]);
+            choiceMade = true;
+
+        } else if (clickedButton == manageButton) {
+            // 管理财产筹集资金
+            this->onPropertiesClicked();
+        }
+    }
+}
+
+void MainWindow::showJailChoiceDialog(int playerIndex) {
+/*
+    • On the 1st and 2nd turns (jailStatus < 2):
+        - The player chooses between:
+            'C' → Use a "Get out of Jail for Free" card if they have one.
+            'P' → Pay $50 immediately to get out and get to roll the dice.
+            'T' → Try to roll a 12 (double six). If successful, they are freed and move 12 on that turn, without additional dice rolls.
+                  If not, they stay in jail until their next turn.
+            'S' → Stay in jail.
+            'M' → Allow player to raise money to get out of jail.
+*/
+    Player& player = m_game->getPlayer(playerIndex);
+    bool jailChoiceMade = 0;
+    while(!jailChoiceMade){
+        QMessageBox msgBox(this);
+        msgBox.setWindowTitle("In Jail");
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setText(QString("Player %1 is in jail (turn %2/3)")
+                           .arg(playerIndex+1)
+                           .arg(player.getJailStatus() + 1));
+
+        QString infoText = "Choose an action:";
+        msgBox.setInformativeText(infoText);
+
+        // 创建按钮并记录对应的JailAction
+        QHash<QAbstractButton*, JailAction> buttonActions;
+
+        QPushButton* rollButton = msgBox.addButton("Try Rolling a 12", QMessageBox::ActionRole);
+        buttonActions[rollButton] = JailAction::RollForFreedom;
+
+        QPushButton* stayButton = msgBox.addButton("Stay in Jail", QMessageBox::ActionRole);
+        buttonActions[stayButton] = JailAction::StayInJail;
+
+        if (player.hasGetOutOfJailCard()) {
+            QPushButton* cardButton = msgBox.addButton("Use Jail Card", QMessageBox::ActionRole);
+            buttonActions[cardButton] = JailAction::UseCard;
+        }
+        if (player.getCash() >= 50) {
+            QPushButton* payButton = msgBox.addButton("Pay $50 Bail", QMessageBox::ActionRole);
+            buttonActions[payButton] = JailAction::PayBail;
+        }
+
+        QPushButton* manageButton = msgBox.addButton("Manage Properties", QMessageBox::ActionRole);
+
+        msgBox.setWindowFlags(msgBox.windowFlags() & ~Qt::WindowCloseButtonHint);
+
+        msgBox.exec();
+
+        QAbstractButton* clickedButton = msgBox.clickedButton();
+
+        if (buttonActions.contains(clickedButton)) {
+            // 直接调用Game的处理函数
+            m_game->processJailAction(buttonActions[clickedButton]);
+            jailChoiceMade=1;
+        } else if (clickedButton == manageButton) {
+            // 打开财产管理界面
+            this->onPropertiesClicked();
+            //玩家已经筹到钱了，所以要更新引用
+            player = m_game->getPlayer(playerIndex);
+        }
+    }
 }
 
 void MainWindow::onPlayerTurnEnded(int playerIndex){
@@ -215,7 +454,7 @@ void MainWindow::setupUI()
     controlLayout->addWidget(m_roundLabel);
 
     // 2. My balance
-    m_cashLabel = new QLabel("My cash: $1000");
+    m_cashLabel = new QLabel("My cash: $0");
     m_cashLabel->setStyleSheet("margin-left: 10px;");
     controlLayout->addWidget(m_cashLabel);
 
@@ -566,7 +805,6 @@ void MainWindow::onHintClicked(int playerIndex){
 
 
     }
-
 }
 
 void MainWindow::onChatroomClicked(){

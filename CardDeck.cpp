@@ -26,11 +26,16 @@ void Card::execute(Player& player, Game& game) {
             step = 40 - player.getPosition() + targetTile;
         }
         game.movePlayer(game.getCurrentPlayerIndex(), step);
+
+        Tile& currentTile = game.getBoard().getTile(player.getPosition());
+        currentTile.onLand(player,game,step);
         break;
     }
 
     case CardType::MOVE: {
         game.movePlayer(game.getCurrentPlayerIndex(), step);
+        Tile& currentTile = game.getBoard().getTile(player.getPosition());
+        currentTile.onLand(player,game,step);
         break;
     }
 
@@ -41,6 +46,8 @@ void Card::execute(Player& player, Game& game) {
                 if (pos > player.getPosition()) {
                     int step = pos - player.getPosition();
                     game.movePlayer(game.getCurrentPlayerIndex(), step);
+                    Tile& currentTile = game.getBoard().getTile(player.getPosition());
+                    currentTile.onLand(player,game,step);
                     break;
                 }
             }
@@ -50,6 +57,8 @@ void Card::execute(Player& player, Game& game) {
                 if (pos > player.getPosition()) {
                     int step = pos - player.getPosition();
                     game.movePlayer(game.getCurrentPlayerIndex(), step);
+                    Tile& currentTile = game.getBoard().getTile(player.getPosition());
+                    currentTile.onLand(player,game,step);
                     break;
                 }
             }

@@ -75,10 +75,11 @@ public:
     Player& getPlayer(int index) { return players[index]; }
     const Player& getPlayer(int index) const { return players[index]; }
     int getCurrentPlayerIndex() const { return currentPlayerIndex; }
-
     int getCurrentRound() const { return round; }
     GameState getCurrentState() const { return currentState; }
-    Board& getBoard();
+    Board& getBoard() { return board; }
+    const Board& getBoard() const { return board; }
+
 
     // 状态检查
     bool canRollDice() const;
@@ -97,17 +98,15 @@ public:
     void receiveFromPlayers(int receiverIndex, int amount);
 
     // 卡片相关
-
     void drawChanceCard(int playerIndex);
     void drawCommunityChestCard(int playerIndex);
-    // void useGetOutOfJailCard(int playerIndex);
+    void useGetOutOfJailCard(int playerIndex);
 
     // 交易相关（需要大幅修改）
     /*
     void proposeTrade(int fromPlayer, int toPlayer, int propertyIndex, int amount);
     void acceptTrade(int tradeId);
     void rejectTrade(int tradeId);*/
-
     // 购买回调
 
     /*
@@ -119,7 +118,6 @@ public:
         }
         return false;
     }*/
-
 signals:
     // 游戏状态信号
     void gameStarted();
@@ -140,7 +138,11 @@ signals:
     void tileEventTriggered(int tileIndex, const QString& eventMessage);
     void purchaseOpportunity(const QString& propertyName, int price, int playerIndex);
     void rentPaymentRequired(const QString& propertyName, int rent, int fromPlayer, int toPlayer);
-    //void cardDrawn(const QString& cardMessage);
+    void taxPaymentRequired(const QString& taxName, int tax,int fromPlayer);
+    void landOnSelfProperty(int playerIndex, const QString& propertyName);
+    void openChanceCard(int playerIndex,const QString& cardDiscription);
+    void openCommunityCard(int playerIndex,const QString& cardDiscription);
+    void landOnFreeParking(int playerIndex, int type);
 
     // 经济信号
     void rentPaid(const QString& fromPlayer, int rentAmount, const QString& toPlayer);

@@ -44,7 +44,11 @@ void PropertyTile::onLand(Player& player, Game& game, int step) {
     if (owner == nullptr) {
         // This property is unowned. Emit purchaseOpportunity signal to UI to prompt user for purchase decision
         emit game.purchaseOpportunity(QString::fromStdString(name), price, game.getPlayerIndex(player));
-    }else if (owner != &player && !mortgaged){
+    }else if (owner == &player) {
+        // Player landed on their own property
+        emit game.landOnSelfProperty(game.getCurrentPlayerIndex(),QString::fromStdString(name));
+    }
+    else if (owner != &player && !mortgaged){
         // This property is owned by someone else, and it isn't motaged, so pay rent to the owner
         int rentAmount = calculateRent(step);
         if (game.playerCanPay(game.getCurrentPlayerIndex(),rentAmount)){
@@ -52,8 +56,9 @@ void PropertyTile::onLand(Player& player, Game& game, int step) {
         } else{
             emit game.playerBankrupt(game.getCurrentPlayerIndex());
         }
-    }
-    else if (mortgaged) {
+
+    }else if (mortgaged) {
+
         emit game.gameLogMessage(QString::fromStdString("%1 is owned by %2").arg(name).arg(owner->getName()));
         emit game.gameLogMessage(QString::fromStdString("This property is mortaged, no rent is due."));
     }
@@ -511,14 +516,13 @@ FreeParkingTile::FreeParkingTile(TileInfo const& info,QObject* parent) :
 
 void FreeParkingTile::onLand(Player &player, Game &game, int step) {
     if (index == 10) {
-        cout << player.getName() << " landed on " << name << " (Just Visiting)" << endl << endl;
+        emit game.landOnFreeParking(game.getCurrentPlayerIndex(),10);
+        emit game.gameLogMessage(QString::fromStdString("Player %1 landed on %2 (just visiting)").arg(player.getName()).arg(name));
     }
     else {
-        cout << player.getName() << " landed on " << name << " (Free Parking)" << endl;
-        cout << "Nothing happens. Enjoy your free parking!" << endl << endl;
+        emit game.landOnFreeParking(game.getCurrentPlayerIndex(),20);
+        emit game.gameLogMessage(QString::fromStdString("Player %1 landed on %2 (free meal)").arg(player.getName()).arg(name));
     }
-    /*game.showPlayers();
-    game.showBoard();*/
 }
 
 
@@ -530,6 +534,11 @@ void TaxTile::onLand(Player &player, Game &game, int step) {
     cout << player.getName() << " must pay $" << tax << " in taxes." << endl << endl;
     if (game.playerCanPay(game.getCurrentPlayerIndex(), tax)) {
         player.deductMoney(tax);
+        emit game.taxPaymentRequired(QString::fromStdString(name),tax,game.getCurrentPlayerIndex());
+        emit game.gameLogMessage(QString("Player %1 pays $%2 in taxes for landing on %3")
+                                     .arg(game.getCurrentPlayerIndex() + 1)
+                                     .arg(tax)
+                                     .arg(QString::fromStdString(name)));
     }
 }
 

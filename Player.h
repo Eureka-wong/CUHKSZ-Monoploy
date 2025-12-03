@@ -30,7 +30,6 @@ public:
     int getJailStatus() const;
     int isBankrupt() const ;
     int getSE() const;
-
     // Helpers
     void showPlayer() const;
     void setPosition(int newPosition);
