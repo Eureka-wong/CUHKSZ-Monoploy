@@ -1,0 +1,3 @@
+[submodule "CUHKSZ-Monoploy-online/server/vcpkg"]
+	path = CUHKSZ-Monoploy-online/server/vcpkg
+	url = https://github.com/microsoft/vcpkg.git
