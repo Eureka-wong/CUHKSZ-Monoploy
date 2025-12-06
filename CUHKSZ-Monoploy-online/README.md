@@ -1,7 +1,11 @@
 # CUHKSZ Monopoly Online - 多人联机大富翁
-
+ ```powershell
+   cd CUHKSZ-Monoploy-online
+   ```
 ## run client
-   CUHKSZ-Monoploy-online\Client_Portable\CUHKSZ_Monopoly_Online.exe
+   ```powershell
+   .\Client_Portable\CUHKSZ_Monopoly_Online.exe
+   ```
    - default: `ws://10.30.198.46:9002`
    If you run your iwn server, you have to change the path.
 
