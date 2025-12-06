@@ -7,7 +7,7 @@
    .\Client_Portable\CUHKSZ_Monopoly_Online.exe
    ```
    - default: `ws://10.30.198.46:9002`
-   If you run your iwn server, you have to change the path.
+   If you run your own server, you have to change the path.
 
 
 ## Rebuild client and run client
