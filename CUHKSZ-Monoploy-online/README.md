@@ -2,12 +2,12 @@
  ```powershell
    cd CUHKSZ-Monoploy-online
    ```
-## run client
+## Run client (If you only want to play this game, you only need Client_Portable)
    packaged
    ```powershell
    .\Client_Portable\CUHKSZ_Monopoly_Online.exe
    ```
-   or (if you have build from .\run.ps1 )
+   or (if you have built from .\run.ps1 )
    ```powershell
    .\build\Windows-Release\Release\CUHKSZ_Monopoly_Online.exe
    ```
@@ -21,7 +21,7 @@
    git submodule init 
    git submodule update
    ```
-   ### rebuild
+   ### build/rebuild
    ```powershell
    .\run.ps1
    ```
