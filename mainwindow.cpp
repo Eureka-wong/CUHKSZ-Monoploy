@@ -11,6 +11,10 @@
 #include <QFrame>
 #include <QDialogButtonBox>
 #include <QStackedWidget>
+#include <QAbstractAnimation>
+#include <QPropertyAnimation>
+#include <QComboBox>
+#include <QLineEdit>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent)
     setupUI();
     //在这个函数里面，把游戏里面的信号和ui里面的槽联系起来
     setupGameConnections();
-    m_statusLabel->setText("Game is initialized. Ready to start!!!");
     m_game->startGame();
 }
 
@@ -45,9 +48,7 @@ void MainWindow::setupGameConnections(){
 
     connect(m_game, &Game::playerTurnStarted, this, &MainWindow::onPlayerTurnStarted);
     connect(m_game, &Game::playerTurnEnded, this, &MainWindow::onPlayerTurnEnded);
-
-    // //playerTurnEnded connects to onPlayerTurnEnded
-    // connect(m_game, &Game::playerTurnEnded,this,&MainWindow::onEndTurnClicked);
+    connect(m_game, &Game::roundLabelChanged,this,&MainWindow::onRoundLabelChanged);
 
     // 玩家行动信号
     connect(m_game, &Game::diceRolled, this, &MainWindow::onDiceRolled);
@@ -55,6 +56,8 @@ void MainWindow::setupGameConnections(){
 
     // 格子事件信号
     connect(m_game, &Game::purchaseOpportunity, this, &MainWindow::onPurchaseOpportunity);
+    connect(m_game, &Game::landOnGoTile,this,&MainWindow::onLandOnGoTile);
+    connect(m_game, &Game::landOnGoToJailTile,this,&MainWindow::onLandOnGoToJailTile);
 
     // 经济信号
     //connect(m_game, &Game::moneyChanged, this, &MainWindow::onMoneyChanged);
@@ -73,6 +76,32 @@ void MainWindow::setupGameConnections(){
     connect(m_game, &Game::taxPaymentRequired, this, &MainWindow::ontaxPaymentRequired);
     connect(m_game, &Game::forceRaiseMoney, this, &MainWindow::onForceRaiseMoney);
     connect(m_game, &Game::warningSignal, this, &MainWindow::showWarning);
+
+    //按钮信号
+    connect(m_game,&Game::enableEndTurnAndDisableRoll,this,&MainWindow::onEnableEndTurnAndDisableRoll);
+}
+
+void MainWindow::onRoundLabelChanged(){
+    m_roundLabel->setText(QString::fromStdString("Current Round: %1").arg(m_game->getRoundNum()));
+}
+
+void MainWindow::onMoneyChanged(){
+    Player& currentPlayer = m_game->getPlayer(m_game->getCurrentPlayerIndex());
+    m_cashLabel->setText(QString::fromStdString("My cash: %1").arg(currentPlayer.getCash()));
+}
+
+void MainWindow::onEnableEndTurnAndDisableRoll(){
+    // 更新按钮状态
+    m_endTurnButton->setEnabled(m_game->canEndTurn());
+    m_rollButton->setEnabled(false);
+
+    // 更新按钮外观
+    if (m_game->canEndTurn()) {
+        setButtonEnabledStyle(m_endTurnButton, "End Turn");
+    } else {
+        setButtonDisabledStyle(m_endTurnButton, "End Turn");
+    }
+    setButtonDisabledStyle(m_rollButton, "Roll Dice");
 }
 
 void MainWindow::ontaxPaymentRequired(const QString& taxName, int tax, int fromPlayer){
@@ -115,6 +144,14 @@ void MainWindow::onLandOnFreeParking(int playerIndex, int type){
     }else if(type==20){
         QMessageBox::information(this,"Free Meal", QString("Player %1 landed on Canteen!").arg(playerIndex+1));
     }
+}
+
+void MainWindow::onLandOnGoTile(int playerIndex){
+    QMessageBox::information(this,"GO Tile",QString("Player: %1\nCollect $200!!!").arg(playerIndex+1));
+}
+
+void MainWindow::onLandOnGoToJailTile(int playerIndex){
+    QMessageBox::information(this,"GO to President's Office Tile",QString("Player %1\nHere's a invitation from our president").arg(playerIndex+1));
 }
 
 
@@ -190,26 +227,16 @@ void MainWindow::onPurchaseOpportunity(const QString& propertyName, int price, i
         // 用户选择购买
         m_game->purchaseCurrentProperty();
         // 购买成功
-        m_statusLabel->setText(QString("%1 purchased %2 for $%3")
-                                   .arg(playerIndex+1).arg(propertyName).arg(price));
         m_gameLog->append(QString("[PURCHASE] Player %1 bought %2 for $%3")
                               .arg(playerIndex+1).arg(propertyName).arg(price));
     } else {
         // 用户选择不购买
-        m_statusLabel->setText(QString("%1 decided not to buy %2").arg(playerIndex+1).arg(propertyName));
         m_gameLog->append(QString("[PASS] Player %1 passed on buying %2").arg(playerIndex+1).arg(propertyName));
     }
 }
 
 void MainWindow::onPlayerTurnStarted(int playerIndex) {
     const Player& player = m_game->getPlayer(playerIndex);
-
-    // update status label
-    m_statusLabel->setText(QString("Player %1's turn").arg(QString::fromStdString(player.getName())));
-
-    // 更新按钮状态
-    m_rollButton->setEnabled(m_game->canRollDice());
-    m_endTurnButton->setEnabled(false);
 
     int jailStatus = player.getJailStatus();
     if(jailStatus != -1){
@@ -224,8 +251,54 @@ void MainWindow::onPlayerTurnStarted(int playerIndex) {
         // current player can play its turn normally
         // 更新按钮状态
         m_rollButton->setEnabled(m_game->canRollDice());
+        if (m_game->canRollDice()) {
+            setButtonEnabledStyle(m_rollButton, "Roll Dice");
+        } else {
+            setButtonDisabledStyle(m_rollButton, "Cannot Roll");
+        }
         m_endTurnButton->setEnabled(false);
+        setButtonDisabledStyle(m_endTurnButton, "End Turn");
     }
+}
+
+void MainWindow::setButtonEnabledStyle(QPushButton* button, const QString& text) {
+    button->setText(text);
+    button->setStyleSheet(
+        "QPushButton {"
+        "   background-color: #E4A823;"      // 指定的橙色
+        "   color: white;"
+        "   font-weight: bold;"
+        "   border: 2px solid #D49A1F;"
+        "   border-radius: 6px;"
+        "   padding: 10px 20px;"
+        "   font-size: 14px;"
+        "   min-height: 40px;"
+        "}"
+        "QPushButton:hover {"
+        "   background-color: #D49A1F;"      // 悬停时稍深
+        "   border: 2px solid #C48A1B;"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: #C48A1B;"      // 按下时更深
+        "   border: 2px solid #B47A17;"
+        "}"
+        );
+}
+
+// 禁用按钮样式
+void MainWindow::setButtonDisabledStyle(QPushButton* button, const QString& text) {
+    button->setText(text);
+    button->setStyleSheet(
+        "QPushButton {"
+        "   background-color: #BDBDBD;"      // 灰色
+        "   color: #757575;"
+        "   border: 2px solid #9E9E9E;"
+        "   border-radius: 6px;"
+        "   padding: 10px 20px;"
+        "   font-size: 14px;"
+        "   min-height: 40px;"
+        "}"
+        );
 }
 
 
@@ -401,18 +474,23 @@ void MainWindow::showJailChoiceDialog(int playerIndex) {
 
 void MainWindow::onPlayerTurnEnded(int playerIndex){
     const Player& player = m_game->getPlayer(playerIndex);
-    // update status label
-    m_statusLabel->setText(QString("Player %1's turn ends").arg(QString::fromStdString(player.getName())));
-
     // 更新按钮状态
     m_endTurnButton->setEnabled(m_game->canEndTurn());
     m_rollButton->setEnabled(false);
+
+    // 更新按钮外观
+    if (m_game->canEndTurn()) {
+        setButtonEnabledStyle(m_endTurnButton, "End Turn");
+    } else {
+        setButtonDisabledStyle(m_endTurnButton, "End Turn");
+    }
+    setButtonDisabledStyle(m_rollButton, "Roll Dice");
+
 }
 
 void MainWindow::onDiceRolled(int playerIndex, int diceValue) {
     const Player& player = m_game->getPlayer(playerIndex);
     //after the logic part rolls the dice, the ui part needs to display the value of dice on the status label
-    m_statusLabel->setText(QString("%1 rolled %2").arg(QString::fromStdString(player.getName())).arg(diceValue));
 }
 
 void MainWindow::onPlayerMoved(int playerIndex, int oldPosition, int newPosition) {
@@ -460,49 +538,89 @@ void MainWindow::setupUI()
 
     // 3. Game Event
     m_gameLogTitle = new QLabel("Game Events:");
-    m_gameLogTitle->setStyleSheet("font-weight: bold; margin-top: 10px; color: #2c3e50;");
+    m_gameLogTitle->setStyleSheet("font-weight: bold; font-size: 16px; color: #2c3e50; margin-top: 10px;");
     controlLayout->addWidget(m_gameLogTitle);
     m_gameLog = new QTextEdit();
     m_gameLog->setMaximumHeight(150);
     m_gameLog->setReadOnly(true);
-    m_gameLog->setStyleSheet("QTextEdit { border: 1px solid #bdc3c7; border-radius: 3px; background-color: #f8f9fa; }");
-    m_gameLog->setStyleSheet("QTextEdit { color: white; background-color: black; }");
+    m_gameLog->setStyleSheet(
+        "QTextEdit {"
+        "   color: white;"
+        "   background-color: black;"
+        "   border: 1px solid #bdc3c7;"
+        "   border-radius: 5px;"
+        "   padding: 5px;"
+        "   font-size: 12px;"
+        "}"
+        );
     controlLayout->addWidget(m_gameLog);
+
+    // 统一的按钮样式字符串
+    QString buttonStyle = QString(
+        "QPushButton {"
+        "   background-color: #E4A823;"
+        "   color: white;"
+        "   font-weight: bold;"
+        "   border: 2px solid #D49A1F;"
+        "   border-radius: 6px;"
+        "   padding: 10px 20px;"
+        "   font-size: 14px;"
+        "   min-height: 40px;"
+        "   min-width: 180px;"  // 统一最小宽度
+        "}"
+        "QPushButton:hover {"
+        "   background-color: #D49A1F;"
+        "   border: 2px solid #C48A1B;"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: #C48A1B;"
+        "   border: 2px solid #B47A17;"
+        "}"
+        "QPushButton:disabled {"
+        "   background-color: #BDBDBD;"
+        "   color: #757575;"
+        "   border: 2px solid #9E9E9E;"
+        "}"
+        );
 
     // 4. My properties Button
     m_propertiesButton = new QPushButton("View My Properties");
-    m_propertiesButton->setStyleSheet("QPushButton {background-color: #E4A823;color: white;border: none;padding: 8px;border-radius: 4px;margin: 5px 10px;}");
+    m_propertiesButton->setStyleSheet(buttonStyle);
     connect(m_propertiesButton, &QPushButton::clicked, this, [this]() {
-        onPropertiesClicked(); // To use defaults;
+        onPropertiesClicked();
     });
     controlLayout->addWidget(m_propertiesButton);
 
+    m_tradeButton = new QPushButton("Trade Assets");
+    m_tradeButton->setStyleSheet(buttonStyle);
+    connect(m_tradeButton, &QPushButton::clicked, this, [this]() {
+        onTradeClicked(); // To use defaults;
+    });
+    controlLayout->addWidget(m_tradeButton);
+
     // 5. Chatroom Button
     m_chatroomButton = new QPushButton("Chatroom");
-    m_chatroomButton->setStyleSheet("QPushButton { background-color: #E4A823; color: white; border: none; padding: 8px; border-radius: 4px; margin: 5px 10px; }");
+    m_chatroomButton->setStyleSheet(buttonStyle);
     connect(m_chatroomButton, &QPushButton::clicked, this, &MainWindow::onChatroomClicked);
     controlLayout->addWidget(m_chatroomButton);
 
     // 6. AI Hint Button
     m_hintButton = new QPushButton("Get AI Hint");
-    m_hintButton->setStyleSheet("QPushButton { background-color: #E4A823; color: white; border: none; padding: 8px; border-radius: 4px; margin: 5px 10px; }");
+    m_hintButton->setStyleSheet(buttonStyle);
     connect(m_hintButton, &QPushButton::clicked, this, &MainWindow::onHintClicked);
     controlLayout->addWidget(m_hintButton);
 
     // 7. Roll Dice Button
-    m_rollButton = new QPushButton("Roll the dices");
-    m_rollButton->setStyleSheet("QPushButton { background-color: #E4A823; color: white; border: none; padding: 10px; border-radius: 4px; margin: 5px 10px; font-weight: bold; }");
+    m_rollButton = new QPushButton("Roll the Dice");
+    m_rollButton->setStyleSheet(buttonStyle);
     connect(m_rollButton, &QPushButton::clicked, this, &MainWindow::onRollDiceClicked);
     controlLayout->addWidget(m_rollButton);
 
     // 8. End Turn Button
     m_endTurnButton = new QPushButton("End Turn");
-    m_endTurnButton->setStyleSheet("QPushButton { background-color: #E4A823; color: white; border: none; padding: 8px; border-radius: 4px; margin: 5px 10px; }");
+    m_endTurnButton->setStyleSheet(buttonStyle);
     connect(m_endTurnButton, &QPushButton::clicked, this, &MainWindow::onEndTurnClicked);
     controlLayout->addWidget(m_endTurnButton);
-
-    // 9. Game Status Lable
-    m_statusLabel = new QLabel();
 
     // 添加拉伸空间
     controlLayout->addStretch();
@@ -608,6 +726,9 @@ void MainWindow::onPropertiesClicked(int playerIndex, bool forced, int amountDue
 
             QPushButton *buyBuildingButton = new QPushButton("Buy Building");
             QPushButton *sellBuildingButton = new QPushButton("Sell Building");
+            if (property->getHouses() == 0) {
+                sellBuildingButton->setText("Sell Property");
+            }
             QPushButton *mortgageButton = new QPushButton(property->isMortgaged() ? "Lift Mortgage" : "Mortgage");
 
             // Style buttons
@@ -617,14 +738,15 @@ void MainWindow::onPropertiesClicked(int playerIndex, bool forced, int amountDue
             mortgageButton->setStyleSheet(buttonStyle + "QPushButton { background-color: #2196F3; color: white; }");
 
             // Connect functions to slots (you'll need to implement these)
-            connect(buyBuildingButton, &QPushButton::clicked, [this, property, currentPlayerIndex, &propertiesDialog, playerInfo, propertyInfo]() {
+            connect(buyBuildingButton, &QPushButton::clicked, [this, property, currentPlayerIndex, &propertiesDialog, playerInfo, propertyInfo, sellBuildingButton]() {
                 if (property->buyBuilding(m_game->getPlayer(currentPlayerIndex), *m_game)) {
                     updatePropertyDisplay(playerInfo, propertyInfo, property, currentPlayerIndex);
+                    sellBuildingButton->setText("Sell Building");
                 }
             });
 
             connect(sellBuildingButton, &QPushButton::clicked, [this, property, currentPlayerIndex, &propertiesDialog, playerInfo, propertyInfo,
-                                                                propertyFrame, forced, amountDue]() {
+                                                                propertyFrame, forced, amountDue, sellBuildingButton]() {
                 if (property->getHouses() == 0) {
                     if (property->sellProperty(m_game->getPlayer(currentPlayerIndex), *m_game)) {
                         propertyFrame->setVisible(false);
@@ -633,6 +755,9 @@ void MainWindow::onPropertiesClicked(int playerIndex, bool forced, int amountDue
                 }
                 else if (property->sellBuilding(m_game->getPlayer(currentPlayerIndex), *m_game)) {
                     updatePropertyDisplay(playerInfo, propertyInfo, property, currentPlayerIndex);
+                    if (property->getHouses() == 0) {
+                        sellBuildingButton->setText("Sell Property");
+                    }
                 }
 
                 if (forced) {
@@ -722,8 +847,8 @@ void MainWindow::onPropertiesClicked(int playerIndex, bool forced, int amountDue
 
 void MainWindow::updatePropertyDisplay(QLabel* playerInfo, QLabel* propertyInfo, PropertyTile* property, int currentPlayerIndex) {
     playerInfo->setText(QString("Player %1 - Cash: $%2")
-                                 .arg(currentPlayerIndex + 1)
-                                 .arg(m_game->getPlayer(currentPlayerIndex).getCash()));
+                            .arg(currentPlayerIndex + 1)
+                            .arg(m_game->getPlayer(currentPlayerIndex).getCash()));
 
     QString propertyText = QString("Tile %1: %2\nPrice: $%3 | Houses: %4")
                                .arg(property->getIndex())
@@ -747,6 +872,694 @@ void MainWindow::showWarning(const QString& message) {
     QMessageBox::warning(this, "Warning", message);
 }
 
+void MainWindow::onTradeClicked() {
+    QDialog tradeDialog(this);
+    tradeDialog.setWindowTitle("Trade Options");
+    tradeDialog.setFixedSize(250, 150); // Increased size slightly
+
+    // Set white background
+    tradeDialog.setStyleSheet("QDialog { background-color: white; }");
+
+    QVBoxLayout *layout = new QVBoxLayout(&tradeDialog);
+    layout->setSpacing(8); // Reduced spacing
+    layout->setContentsMargins(20, 20, 20, 20);
+
+    // Title
+    QLabel *titleLabel = new QLabel("Select Trade Option:", &tradeDialog);
+    titleLabel->setAlignment(Qt::AlignCenter);
+    QFont titleFont = titleLabel->font();
+    titleFont.setBold(true);
+    titleLabel->setFont(titleFont);
+    titleLabel->setStyleSheet("margin-bottom: 10px; color: black;");
+
+    // Create buttons with simple styling
+    QPushButton *buyButton = new QPushButton("Buy from Players", &tradeDialog);
+    QPushButton *sellButton = new QPushButton("Sell to Players", &tradeDialog);
+    QPushButton *cancelButton = new QPushButton("Cancel", &tradeDialog);
+
+    // Base button style with reasonable sizing
+    QString buttonStyle = "QPushButton { "
+                          "font-size: 12px; "
+                          "padding: 2px; "
+                          "border-radius: 5px; "
+                          "font-weight: bold; "
+                          "border: 1px solid #ddd; "
+                          "max-height: 40px; "  // Fixed height
+                          "margin-bottom: 10px; "  // Small margin between buttons
+                          "}";
+
+    // Apply colors
+    buyButton->setStyleSheet(buttonStyle +
+                             "QPushButton { background-color: #4CAF50; color: white; border: none; }"
+                             "QPushButton:hover { background-color: #45a049; }");
+
+    sellButton->setStyleSheet(buttonStyle +
+                              "QPushButton { background-color: #FF9800; color: white; border: none; }"
+                              "QPushButton:hover { background-color: #e68900; }");
+
+    cancelButton->setStyleSheet(buttonStyle +
+                                "QPushButton { background-color: #9E9E9E; color: white; border: none; }"
+                                "QPushButton:hover { background-color: #757575; }");
+
+    // Add stretch at top and bottom to center buttons
+    layout->addStretch(1);
+    layout->addWidget(titleLabel);
+    layout->addWidget(buyButton);
+    layout->addWidget(sellButton);
+    layout->addWidget(cancelButton);
+    layout->addStretch(1);
+
+    // Connect signals
+    connect(buyButton, &QPushButton::clicked, &tradeDialog, [&]() {
+        tradeDialog.accept();
+        qDebug() << "Buy from players selected";
+        onBuyTrade();
+        // TODO: Implement buy logic
+    });
+
+    connect(sellButton, &QPushButton::clicked, &tradeDialog, [&]() {
+        tradeDialog.accept();
+        onSellTrade();
+        qDebug() << "Sell to players selected";
+        // TODO: Implement sell logic
+    });
+
+    connect(cancelButton, &QPushButton::clicked, &tradeDialog, &QDialog::reject);
+
+    if (tradeDialog.exec() == QDialog::Accepted) {
+        // Already handled in lambdas
+    } else {
+        qDebug() << "Trade cancelled";
+    }
+}
+
+void MainWindow::onSellTrade() {
+    int currentPlayerIndex = m_game->getCurrentPlayerIndex();
+    Player& currentPlayer = m_game->getPlayer(currentPlayerIndex);
+
+    QDialog dialog(this);
+    dialog.setWindowTitle("Sell Properties");
+    dialog.setMinimumSize(500, 400);
+    dialog.setStyleSheet("QDialog { background-color: white; }"
+                         "QMessageBox QLabel { color: black; }"
+                         "QMessageBox QPushButton { color: black; }");
+
+    QVBoxLayout *layout = new QVBoxLayout(&dialog);
+    layout->setContentsMargins(10, 10, 10, 10);
+    layout->setSpacing(5);
+
+    // Get current player's properties
+    std::vector<PropertyTile*> myProperties = currentPlayer.getProperties();
+
+    if (myProperties.empty()) {
+        QLabel *noPropertiesLabel = new QLabel("You don't own any properties to sell");
+        noPropertiesLabel->setStyleSheet("QLabel { color: gray; padding: 20px; font-weight: bold; }");
+        noPropertiesLabel->setAlignment(Qt::AlignCenter);
+        layout->addWidget(noPropertiesLabel);
+
+        QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close);
+        connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+        layout->addWidget(buttonBox);
+
+        dialog.exec();
+        return;
+    }
+
+    // Property selection
+    QLabel *propLabel = new QLabel("Select Property to Sell:");
+    propLabel->setStyleSheet("QLabel { font-weight: bold; margin-top: 10px; color: black;}");
+    layout->addWidget(propLabel);
+
+    // Scroll area for properties
+    QScrollArea *scrollArea = new QScrollArea();
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setStyleSheet("QScrollArea { border: 1px solid #ccc; background-color: white; }");
+    scrollArea->setMinimumHeight(150);
+
+    QWidget *propertiesContainer = new QWidget();
+    QVBoxLayout *propertiesLayout = new QVBoxLayout(propertiesContainer);
+    propertiesLayout->setContentsMargins(5, 5, 5, 5);
+    propertiesLayout->setSpacing(8);
+
+    modifyTradeSelectionWidget(currentPlayer, myProperties, dialog, propertiesContainer, propertiesLayout);
+
+    propertiesLayout->addStretch();
+    scrollArea->setWidget(propertiesContainer);
+    layout->addWidget(scrollArea);
+
+    // Buyer label with better contrast
+    QLabel *buyerLabel = new QLabel("Sell to:");
+    buyerLabel->setStyleSheet("QLabel { font-weight: bold; margin-top: 10px; color: #222;}");  // Darker color
+    layout->addWidget(buyerLabel);
+
+    QComboBox *playerCombo = new QComboBox(&dialog);
+    playerCombo->setStyleSheet("QComboBox { "
+                               "border: 2px solid #888; "
+                               "border-radius: 4px; "
+                               "padding: 6px; "
+                               "min-width: 200px; "
+                               "}");
+
+    // Add all players except current player
+    for (int i = 0; i < 3; i++) {
+        if (i != currentPlayerIndex) {
+            const Player& otherPlayer = m_game->getPlayer(i);
+            if (!otherPlayer.isBankrupt()) {
+                playerCombo->addItem(QString("Player %1 (Cash: $%2)").arg(i + 1).arg(otherPlayer.getCash()), i);
+            }
+        }
+    }
+    layout->addWidget(playerCombo);
+
+    // Amount section with better contrast
+    QLabel *amountLabel = new QLabel("Asking Price:");
+    amountLabel->setStyleSheet("QLabel { font-weight: bold; margin-top: 10px; color: #222; }");  // Darker color
+    layout->addWidget(amountLabel);
+
+    QHBoxLayout *amountLayout = new QHBoxLayout();
+    QLabel *dollarLabel = new QLabel("$");
+    dollarLabel->setStyleSheet("QLabel { font-weight: bold; color: #222; }");  // Darker color
+    QLineEdit *amountEdit = new QLineEdit(&dialog);
+    amountEdit->setPlaceholderText("Enter asking price...");
+    amountEdit->setValidator(new QIntValidator(1, 1000000, this));
+    amountEdit->setStyleSheet("QLineEdit { padding: 6px; border: 1px solid #999; border-radius: 3px; }");  // Better border
+
+    amountLayout->addWidget(dollarLabel);
+    amountLayout->addWidget(amountEdit);
+    layout->addLayout(amountLayout);
+
+    // Buttons with better contrast
+    QHBoxLayout *btnLayout = new QHBoxLayout();
+    btnLayout->setSpacing(10);  // More spacing
+
+    QPushButton *makeOfferButton = new QPushButton("Make Offer");
+    QPushButton *cancelButton = new QPushButton("Cancel");
+
+    // Style buttons with better contrast
+    QString buttonStyle = "QPushButton { ""font-size: 12px;" "padding: 8px 16px;" "border-radius: 3px;"
+                          "font-weight: bold;" "border: 1px solid;" "color: black;" "}";
+
+    makeOfferButton->setStyleSheet(buttonStyle + "background-color: #FF9800;" "color: white;" "border-color: #E68900;");  // Darker border for contrast
+
+    cancelButton->setStyleSheet(buttonStyle + "background-color: #757575;" "color: white;" "border-color: #616161;");  // Darker border
+
+    makeOfferButton->setMinimumWidth(120);
+    cancelButton->setMinimumWidth(120);
+
+    btnLayout->addStretch();
+    btnLayout->addWidget(makeOfferButton);
+    btnLayout->addWidget(cancelButton);
+    layout->addLayout(btnLayout);
+
+    // Connect signals
+    connect(makeOfferButton, &QPushButton::clicked, &dialog, [&]() {
+        bool isJailCard = dialog.property("isJailCard").toBool();
+
+        if (!isJailCard) {
+            // Check if property is selected
+            if (!dialog.property("selectedProperty").value<PropertyTile*>()) {
+                QMessageBox::warning(&dialog, "No Property Selected", "Please select a property to sell.");
+                return;
+            }
+        }
+
+        // Check if amount is entered
+        if (amountEdit->text().isEmpty()) {
+            QMessageBox::warning(&dialog, "No Amount",
+                                 "Please enter an asking price.");
+            return;
+        }
+
+        int buyerIndex = playerCombo->currentData().toInt();
+        Player& buyer = m_game->getPlayer(buyerIndex);
+        int amount = amountEdit->text().toInt();
+
+        QString buyerName = QString("Player %1").arg(buyerIndex + 1);
+
+        dialog.accept();
+
+        if (isJailCard) {
+            // Check if property is selected
+            if (buyer.getCash() < amount) {
+                QMessageBox::warning(&dialog, "Invalid Price",
+                                     QString("Player %1 does not have the proposed amount of money. Please enter a lower price to proceed").arg(buyerIndex));
+                return;
+            }
+            QMessageBox::information(&dialog, "Offer Sent",
+                                     QString("Your offer to sell 🎫 Get Out of Jail Free Card to %2 for $%3 has been sent!").arg(buyerName).arg(amount));
+            askTradeDecision(&currentPlayer, &buyer, amount, true, nullptr, false);
+        }
+        else {
+            PropertyTile* selectedProperty = dialog.property("selectedProperty").value<PropertyTile*>();
+            if (!selectedProperty) {
+                QMessageBox::warning(&dialog, "No Property Selected",
+                                     "Please select a property to sell.");
+                return;
+            }
+            amount += selectedProperty->isMortgaged() ? static_cast<int>((selectedProperty->getPrice() / 2) * 0.1) : 0;
+            if (buyer.getCash() < amount) {
+                QMessageBox::warning(&dialog, "Invalid Price",
+                                     QString("Player %1 does not have the proposed amount of money. Please enter a lower price to proceed").arg(buyerIndex));
+                return;
+            }
+            QMessageBox::information(&dialog, "Offer Sent",
+                                     QString("Your offer to sell %1 to %2 for $%3 has been sent!")
+                                         .arg(QString::fromStdString(selectedProperty->getName())).arg(buyerName).arg(amount));
+            askTradeDecision(&currentPlayer, &buyer, amount, false, selectedProperty, false);
+        }
+    });
+
+    connect(cancelButton, &QPushButton::clicked, &dialog, &QDialog::reject);
+
+    dialog.exec();
+}
+
+void MainWindow::onBuyTrade() {
+    int currentPlayerIndex = m_game->getCurrentPlayerIndex();
+    Player& currentPlayer = m_game->getPlayer(currentPlayerIndex);
+
+    QDialog dialog(this);
+    dialog.setWindowTitle("Buy Properties");
+    dialog.setMinimumSize(500, 400);
+    dialog.setStyleSheet("QDialog { background-color: white; }"
+                         "QMessageBox QLabel { color: black; }"
+                         "QMessageBox QPushButton { color: black; }");
+
+    QVBoxLayout *layout = new QVBoxLayout(&dialog);
+    layout->setContentsMargins(10, 10, 10, 10);
+    layout->setSpacing(5);
+
+    // Seller selection
+    QLabel *sellerLabel = new QLabel("Buy from:");
+    sellerLabel->setStyleSheet("QLabel { font-weight: bold; margin-top: 10px; color: black; }");
+    layout->addWidget(sellerLabel);
+
+    QComboBox *playerCombo = new QComboBox(&dialog);
+    playerCombo->setStyleSheet("QComboBox { "
+                               "border: 2px solid #888; "
+                               "border-radius: 4px; "
+                               "padding: 6px; "
+                               "min-width: 200px; "
+                               "}");
+
+    // Store available sellers
+    QVector<Player*> availableSellers;
+    for (int i = 0; i < 3; i++) {
+        if (i != currentPlayerIndex) {
+            Player& otherPlayer = m_game->getPlayer(i);
+            if (!otherPlayer.isBankrupt()) {
+                playerCombo->addItem(QString("Player %1 (Cash: $%2)").arg(i + 1).arg(otherPlayer.getCash()), i);
+                availableSellers.append(&otherPlayer);
+            }
+        }
+    }
+
+    if (availableSellers.isEmpty()) {
+        QLabel *noSellersLabel = new QLabel("No other players available");
+        noSellersLabel->setStyleSheet("QLabel { color: gray; padding: 20px; font-weight: bold; }");
+        noSellersLabel->setAlignment(Qt::AlignCenter);
+        layout->addWidget(noSellersLabel);
+
+        QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close);
+        connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+        layout->addWidget(buttonBox);
+
+        dialog.exec();
+        return;
+    }
+
+    layout->addWidget(playerCombo);
+
+    // Property selection
+    QLabel *propLabel = new QLabel("Select Property to Buy:");
+    propLabel->setStyleSheet("QLabel { font-weight: bold; margin-top: 10px; color: black; }");
+    layout->addWidget(propLabel);
+
+    // Scroll area for properties
+    QScrollArea *scrollArea = new QScrollArea();
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setStyleSheet("QScrollArea { border: 1px solid #ccc; background-color: white; }");
+    scrollArea->setMinimumHeight(150);
+
+    QWidget *propertiesContainer = new QWidget();
+    QVBoxLayout *propertiesLayout = new QVBoxLayout(propertiesContainer);
+    propertiesLayout->setContentsMargins(5, 5, 5, 5);
+    propertiesLayout->setSpacing(8);
+
+    // Function to update properties when seller changes
+    auto updateProperties = [&]() {
+        // Clear previous properties
+        QLayoutItem* item;
+        while ((item = propertiesLayout->takeAt(0)) != nullptr) {
+            delete item->widget();
+            delete item;
+        }
+
+        int sellerIndex = playerCombo->currentIndex();
+        if (sellerIndex < 0 || sellerIndex >= availableSellers.size()) return;
+
+        Player* seller = availableSellers[sellerIndex];
+        std::vector<PropertyTile*> sellerProperties = seller->getProperties();
+
+        if (sellerProperties.empty()) {
+            QLabel *noPropsLabel = new QLabel("This player has no properties to sell");
+            noPropsLabel->setStyleSheet("QLabel { color: gray; padding: 20px; }");
+            noPropsLabel->setAlignment(Qt::AlignCenter);
+            propertiesLayout->addWidget(noPropsLabel);
+        } else {
+            modifyTradeSelectionWidget(*seller, sellerProperties, dialog, propertiesContainer, propertiesLayout);
+        }
+
+        // Reset selection
+        dialog.setProperty("selectedProperty", QVariant());
+        dialog.setProperty("isJailCard", false);
+    };
+
+    // Initial property display
+    updateProperties();
+
+    propertiesLayout->addStretch();
+    scrollArea->setWidget(propertiesContainer);
+    layout->addWidget(scrollArea);
+
+    // Connect seller combo change
+    connect(playerCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            [updateProperties](int index) { updateProperties(); });
+
+    // Amount section
+    QLabel *amountLabel = new QLabel("Your Offer:");
+    amountLabel->setStyleSheet("QLabel { font-weight: bold; margin-top: 10px; color: #222; }");
+    layout->addWidget(amountLabel);
+
+    QHBoxLayout *amountLayout = new QHBoxLayout();
+    QLabel *dollarLabel = new QLabel("$");
+    dollarLabel->setStyleSheet("QLabel { font-weight: bold; color: #222; }");
+    QLineEdit *amountEdit = new QLineEdit(&dialog);
+    amountEdit->setPlaceholderText("Enter offer price...");
+    amountEdit->setValidator(new QIntValidator(1, 1000000, this));
+    amountEdit->setStyleSheet("QLineEdit { padding: 6px; border: 1px solid #999; border-radius: 3px; }");
+
+    amountLayout->addWidget(dollarLabel);
+    amountLayout->addWidget(amountEdit);
+    layout->addLayout(amountLayout);
+
+    // Buttons
+    QHBoxLayout *btnLayout = new QHBoxLayout();
+    btnLayout->setSpacing(10);
+
+    QPushButton *makeOfferButton = new QPushButton("Make Offer");
+    QPushButton *cancelButton = new QPushButton("Cancel");
+
+    QString buttonStyle = "QPushButton { "
+                          "font-size: 12px; "
+                          "padding: 8px 16px; "
+                          "border-radius: 3px; "
+                          "font-weight: bold; "
+                          "border: 1px solid; "
+                          "color: black;"
+                          "}";
+
+    makeOfferButton->setStyleSheet(buttonStyle +
+                                   "background-color: #4CAF50; "
+                                   "color: white; "
+                                   "border-color: #388E3C;");
+
+    cancelButton->setStyleSheet(buttonStyle +
+                                "background-color: #757575; "
+                                "color: white; "
+                                "border-color: #616161;");
+
+    makeOfferButton->setMinimumWidth(120);
+    cancelButton->setMinimumWidth(120);
+
+    btnLayout->addStretch();
+    btnLayout->addWidget(makeOfferButton);
+    btnLayout->addWidget(cancelButton);
+    layout->addLayout(btnLayout);
+
+    // Connect signals
+    connect(makeOfferButton, &QPushButton::clicked, &dialog, [&]() {
+        bool isJailCard = dialog.property("isJailCard").toBool();
+
+        if (!isJailCard) {
+            // Check if property is selected
+            if (!dialog.property("selectedProperty").value<PropertyTile*>()) {
+                QMessageBox::warning(&dialog, "No Property Selected",
+                                     "Please select a property to buy.");
+                return;
+            }
+        }
+
+        // Check if amount is entered
+        if (amountEdit->text().isEmpty()) {
+            QMessageBox::warning(&dialog, "No Amount",
+                                 "Please enter an offer price.");
+            return;
+        }
+
+        int sellerIndex = playerCombo->currentData().toInt();
+        Player& seller = m_game->getPlayer(sellerIndex);
+        int amount = amountEdit->text().toInt();
+
+        QString sellerName = QString("Player %1").arg(sellerIndex + 1);
+
+        dialog.accept();
+
+        if (isJailCard) {
+            // Check if player has enough cash
+            if (currentPlayer.getCash() < amount) {
+                QMessageBox::warning(&dialog, "Invalid Price",
+                                     "You do not have the proposed amount of money. Please enter a lower price to proceed");
+                return;
+            }
+            QMessageBox::information(this, "Offer Sent",
+                                     QString("Your offer to buy 🎫 Get Out of Jail Free Card from %2 for $%3 has been sent!")
+                                         .arg(sellerName)
+                                         .arg(amount));
+            askTradeDecision(&currentPlayer, &seller, amount, true, nullptr, true);
+        } else {
+            PropertyTile* selectedProperty = dialog.property("selectedProperty").value<PropertyTile*>();
+            if (!selectedProperty) {
+                QMessageBox::warning(&dialog, "No Property Selected",
+                                     "Please select a property to buy.");
+                return;
+            }
+
+            // Add mortgage fee if property is mortgaged
+            amount += selectedProperty->isMortgaged() ? static_cast<int>((selectedProperty->getPrice() / 2) * 0.1) : 0;
+
+            // Check if player has enough cash
+            if (currentPlayer.getCash() < amount) {
+                QMessageBox::warning(&dialog, "Invalid Price",
+                                     "You do not have the proposed amount of money. Please enter a lower price to proceed");
+                return;
+            }
+
+            amount -= selectedProperty->isMortgaged() ? static_cast<int>((selectedProperty->getPrice() / 2) * 0.1) : 0;
+
+            QMessageBox::information(this, "Offer Sent",
+                                     QString("Your offer to buy %1 from %2 for $%3 has been sent!")
+                                         .arg(QString::fromStdString(selectedProperty->getName()))
+                                         .arg(sellerName)
+                                         .arg(amount));
+            askTradeDecision(&currentPlayer, &seller, amount, false, selectedProperty, true);
+        }
+    });
+
+    connect(cancelButton, &QPushButton::clicked, &dialog, &QDialog::reject);
+
+    dialog.exec();
+}
+
+void MainWindow::modifyTradeSelectionWidget(const Player& currentPlayer,
+                                            const std::vector<PropertyTile*>& myProperties,
+                                            QDialog& dialog,
+                                            QWidget* propertiesContainer,
+                                            QVBoxLayout* propertiesLayout) {
+    // Jail card if player has one
+    if (currentPlayer.hasGetOutOfJailCard()) {
+        QFrame *cardFrame = new QFrame();
+        cardFrame->setFrameStyle(QFrame::Box);
+        cardFrame->setStyleSheet("QFrame { border: 1px solid #ddd; border-radius: 4px; padding: 8px; background-color: #e3f2fd; }"); // Light blue background
+
+        QVBoxLayout *cardLayout = new QVBoxLayout(cardFrame);
+        cardLayout->setSpacing(4);
+
+        // Card information
+        QString cardText = QString("🎫 Get Out of Jail Free Card");
+        QLabel *cardInfo = new QLabel(cardText);
+        cardInfo->setTextFormat(Qt::PlainText);
+        cardInfo->setStyleSheet("QLabel { font-size: 12px; margin: 0px; color: #1565C0; font-weight: bold; }");
+        cardLayout->addWidget(cardInfo);
+
+        // Select button for card
+        QPushButton *selectCardButton = new QPushButton("Select This Card");
+        selectCardButton->setStyleSheet("QPushButton { font-size: 11px; padding: 4px 8px; border-radius: 3px; background-color: #9C27B0; color: white; }");
+
+        // Store special identifier for card
+        selectCardButton->setProperty("isJailCard", true);
+
+        connect(selectCardButton, &QPushButton::clicked,
+                [&dialog, selectCardButton, propertiesContainer]() {
+                    // Highlight selected button
+                    QList<QPushButton*> allButtons = propertiesContainer->findChildren<QPushButton*>();
+                    for (QPushButton* btn : allButtons) {
+                        if (btn->property("isJailCard").toBool()) {
+                            btn->setStyleSheet("QPushButton { font-size: 11px; padding: 4px 8px; border-radius: 3px; background-color: #9C27B0; color: white; }");
+                        } else {
+                            btn->setStyleSheet("QPushButton { font-size: 11px; padding: 4px 8px; border-radius: 3px; background-color: #2196F3; color: white; }");
+                        }
+                    }
+                    selectCardButton->setStyleSheet("QPushButton { font-size: 11px; padding: 4px 8px; border-radius: 3px; background-color: #FF5722; color: white; }");
+
+                    // Store selected card (use nullptr for property to indicate it's a card)
+                    dialog.setProperty("selectedProperty", QVariant::fromValue<PropertyTile*>(nullptr));
+                    dialog.setProperty("isJailCard", true);
+
+                    // Update info label
+                    QString info = QString("<b>Selected: Get Out of Jail Free Card</b><br>"
+                                           "This card can be traded to other players.");
+                });
+
+        cardLayout->addWidget(selectCardButton);
+        propertiesLayout->addWidget(cardFrame);
+    }
+
+    // Now the property loop
+    for (PropertyTile* property : myProperties) {
+        if (!property->allPropertyInGroupHasNoHouses()) {
+            continue;
+        }
+        QFrame *propertyFrame = new QFrame();
+        propertyFrame->setFrameStyle(QFrame::Box);
+        propertyFrame->setStyleSheet("QFrame { border: 1px solid #ddd; border-radius: 4px; padding: 8px; background-color: #f9f9f9; }");
+
+        QVBoxLayout *propertyLayout = new QVBoxLayout(propertyFrame);
+        propertyLayout->setSpacing(4);
+
+        // Property information
+        QString propertyText = QString("Tile %1: %2\nPrice: $%3 | Houses: %4")
+                                   .arg(property->getIndex())
+                                   .arg(property->getName())
+                                   .arg(property->getPrice())
+                                   .arg(property->getHouses());
+
+        if (property->isMortgaged()) {
+            propertyText += " <span style='color: red;'>[MORTGAGED]</span>";
+        }
+
+        QLabel *propertyInfo = new QLabel(propertyText);
+        propertyInfo->setTextFormat(Qt::RichText);
+        propertyInfo->setStyleSheet("QLabel { font-size: 12px; margin: 0px; color: black; }");
+        propertyLayout->addWidget(propertyInfo);
+
+        // Select button
+        QPushButton *selectButton = new QPushButton("Select This Property");
+        selectButton->setStyleSheet("QPushButton { font-size: 11px; padding: 4px 8px; border-radius: 3px; background-color: #2196F3; color: white; }");
+
+        // Store property pointer as property data
+        selectButton->setProperty("propertyPtr", QVariant::fromValue<PropertyTile*>(property));
+
+        // FIXED: Proper lambda capture - capture all needed variables
+        connect(selectButton, &QPushButton::clicked,
+                [&dialog, property, selectButton, propertiesContainer]() {
+                    // Highlight selected property
+                    QList<QPushButton*> allButtons = propertiesContainer->findChildren<QPushButton*>();
+                    for (QPushButton* btn : allButtons) {
+                        if (btn->property("isJailCard").toBool()) {
+                            btn->setStyleSheet("QPushButton { font-size: 11px; padding: 4px 8px; border-radius: 3px; background-color: #9C27B0; color: white; }");
+                        } else {
+                            btn->setStyleSheet("QPushButton { font-size: 11px; padding: 4px 8px; border-radius: 3px; background-color: #2196F3; color: white; }");
+                        }
+                    }
+                    selectButton->setStyleSheet("QPushButton { font-size: 11px; padding: 4px 8px; border-radius: 3px; background-color: #FF5722; color: white; }");
+
+                    // Store selected property
+                    dialog.setProperty("selectedProperty", QVariant::fromValue<PropertyTile*>(property));
+
+                    // Update info label
+                    QString info = QString("<b>Selected: %1</b><br>"
+                                           "Price: $%2 | Houses: %3")
+                                       .arg(QString::fromStdString(property->getName()))
+                                       .arg(property->getPrice())
+                                       .arg(property->getHouses());
+
+                    if (property->isMortgaged()) {
+                        info += "<br><span style='color: red;'>This property is mortgaged</span>";
+                    }
+                });
+
+        propertyLayout->addWidget(selectButton);
+        propertiesLayout->addWidget(propertyFrame);
+    }
+}
+
+void MainWindow::askTradeDecision(Player* offeringPlayer, Player* targetPlayer,
+                                  int amount, bool card, PropertyTile* property, bool offerBuy) {
+
+    QString title = QString("Trade Offer");
+    QString message;
+
+    QString action = offerBuy ? "buy from you" : "sell to you";
+
+
+    message = QString("<b>Player %1's Screen</b><br><br>").arg(targetPlayer->getName());
+    if (card) {
+        message.append(QString("Player %1 offers to %2 <b>Get Out of Jail Free</b> card<br>for <b>$%3</b>.")
+                           .arg(QString::fromStdString(offeringPlayer->getName()))
+                           .arg(action)
+                           .arg(amount));
+    } else {
+        QString mortgageNote = property->isMortgaged() ? "<br><i>(Mortgaged - fee included)</i>" : "";
+        message.append(QString("Player %1 offers to %2 <b>%3</b>%4<br>for <b>$%5</b>.")
+                           .arg(QString::fromStdString(offeringPlayer->getName()))
+                           .arg(action)
+                           .arg(QString::fromStdString(property->getName()))
+                           .arg(mortgageNote)
+                           .arg(amount));
+    }
+
+    QMessageBox tradeBox(this);
+    tradeBox.setWindowTitle(title);
+    tradeBox.setText(message);
+
+    tradeBox.setIcon(QMessageBox::NoIcon);
+
+    // Cleaner minimal styling
+    tradeBox.setStyleSheet(
+        "QMessageBox { background-color: white; }"
+        "QLabel { color: black; font-size: 14px; padding: 4px; }"
+        );
+
+    // Buttons
+    QPushButton *acceptButton = tradeBox.addButton("Accept", QMessageBox::AcceptRole);
+    QPushButton *declineButton = tradeBox.addButton("Decline", QMessageBox::RejectRole);
+
+    acceptButton->setStyleSheet(
+        "QPushButton { padding: 8px 24px; background-color: green; color: white; border-radius: 4px; }"
+        );
+    declineButton->setStyleSheet(
+        "QPushButton { padding: 8px 24px; background-color: red; color: white; border-radius: 4px; }"
+        );
+
+    // Ensure the button box behaves normally
+    if (auto *buttonBox = tradeBox.findChild<QDialogButtonBox*>()) {
+        buttonBox->setCenterButtons(false);
+    }
+
+    tradeBox.exec();
+
+    if (tradeBox.clickedButton() == acceptButton) {
+        if (offerBuy) {
+            m_game->executeTrade(offeringPlayer, targetPlayer, amount, card, property);
+        } else {
+            m_game->executeTrade(targetPlayer, offeringPlayer, amount, card, property);
+        }
+        QMessageBox::information(&tradeBox, "", "✓ Trade Accepted!");
+    } else if (tradeBox.clickedButton() == declineButton) {
+        QMessageBox::information(&tradeBox, "", "Trade Declineds!");
+    }
+}
 
 void MainWindow::onHintClicked(int playerIndex){
     int currentPlayerIndex = m_game->getCurrentPlayerIndex();
@@ -789,8 +1602,6 @@ void MainWindow::onHintClicked(int playerIndex){
         // 用户选择使用SE
         currentPlayer.deductSE();
         // 购买成功
-        m_statusLabel->setText(QString("%1 purchased a Strategy Engine for $50")
-                                   .arg(currentPlayerIndex+1));
         m_gameLog->append(QString("[PURCHASE] Player %1 bought a Strategy Engine for $50")
                               .arg(currentPlayerIndex+1));
         //获得SE预测结果，该结果仅展示给用户，不在日志中显示

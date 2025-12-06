@@ -31,9 +31,10 @@ GoTile::GoTile(QObject* parent) :
     Tile("Go", 0, parent) {}
 
 void GoTile::onLand(Player& player, Game& game, int step) {
-    cout << player.getName() << " landed on " << name << " (Go)" << endl;
-    cout << player.getName() << " collects $200 for passing Go!" << endl << endl;
+    //cout << player.getName() << " landed on " << name << " (Go)" << endl;
+    //cout << player.getName() << " collects $200 for passing Go!" << endl << endl;
     player.addMoney(200);
+    emit game.landOnGoTile(game.getCurrentPlayerIndex());
 }
 
 
@@ -51,14 +52,12 @@ void PropertyTile::onLand(Player& player, Game& game, int step) {
     else if (owner != &player && !mortgaged){
         // This property is owned by someone else, and it isn't motaged, so pay rent to the owner
         int rentAmount = calculateRent(step);
-        if (game.playerCanPay(game.getCurrentPlayerIndex(),rentAmount)){
+        if (game.playerCanPay(game.getCurrentPlayerIndex(), rentAmount, game.getPlayerIndex(*owner))){
             emit game.rentPaymentRequired(QString::fromStdString(name),rentAmount,game.getCurrentPlayerIndex(),game.getPlayerIndex(*owner));
         } else{
             emit game.playerBankrupt(game.getCurrentPlayerIndex());
         }
-
     }else if (mortgaged) {
-
         emit game.gameLogMessage(QString::fromStdString("%1 is owned by %2").arg(name).arg(owner->getName()));
         emit game.gameLogMessage(QString::fromStdString("This property is mortaged, no rent is due."));
     }
@@ -367,23 +366,6 @@ void PropertyTile::transferOwnership(Player& previousOwner, Player* newOwner, Ga
         newOwner->addProperty(this);
         owner = newOwner;
         cout << newOwner->getName() << " acquired " << name << " from " << previousOwner.getName() << endl;
-        if (this->mortgaged) {
-            int unmortgageCost = static_cast<int>((price / 2) * 1.1);
-            cout << name << " is mortgaged. Do you want to unmortgage it for $" << unmortgageCost << "? (Y/N): ";
-            char choice;
-            while (true) {
-                cin >> choice;
-                cin.ignore(10000, '\n');
-                if (choice == 'Y' || choice == 'N') {
-                    break;
-                }
-                cout << "Invalid input. Please enter Y or N: ";
-                cin.clear();
-            }
-            if (choice == 'Y') {
-                mortgageProperty(*newOwner, game);
-            }
-        }
         cout << endl;
     }
     else {
@@ -530,10 +512,7 @@ TaxTile::TaxTile(const TileInfo& info, QObject* parent) :
     Tile(info.name, info.index, parent), tax(info.price) {}
 
 void TaxTile::onLand(Player &player, Game &game, int step) {
-    cout << player.getName() << " landed on " << name << " (Tax)" << endl;
-    cout << player.getName() << " must pay $" << tax << " in taxes." << endl << endl;
     if (game.playerCanPay(game.getCurrentPlayerIndex(), tax)) {
-        player.deductMoney(tax);
         emit game.taxPaymentRequired(QString::fromStdString(name),tax,game.getCurrentPlayerIndex());
         emit game.gameLogMessage(QString("Player %1 pays $%2 in taxes for landing on %3")
                                      .arg(game.getCurrentPlayerIndex() + 1)
@@ -546,10 +525,11 @@ GoToJailTile::GoToJailTile(const TileInfo& info,QObject* parent) :
     Tile(info.name, info.index,parent) {}
 
 void GoToJailTile::onLand(Player &player, Game &game, int step) {
-    cout << player.getName() << " landed on " << name << " (Go to Jail)." << endl;
-    cout << player.getName() << " goes to jail." << endl << endl;
+    //cout << player.getName() << " landed on " << name << " (Go to Jail)." << endl;
+    //cout << player.getName() << " goes to jail." << endl << endl;
     player.setJailStatus(0);
     player.setPosition(10);
+    emit game.landOnGoToJailTile(game.getCurrentPlayerIndex());
 }
 
 ChanceTile::ChanceTile(const TileInfo& info,QObject* parent) :

@@ -86,24 +86,9 @@ void BoardWidget::paintEvent(QPaintEvent* event)
             painter.drawText(center + offset - QPoint(3, -3), QString::number(i + 1));
         }
     }
-
     // 显示调试信息
     painter.setPen(Qt::black);
     painter.setFont(QFont("Arial", 12));
-
-    if (!m_game) {
-        painter.drawText(10, 30, "Game: nullptr");
-    } else {
-        painter.drawText(10, 30, QString("玩家数量: %1").arg(m_game->getPlayerCount()));
-
-        // 显示当前玩家信息
-        if (m_game->getPlayerCount() > 0) {
-            const Player& currentPlayer = m_game->getPlayer(m_game->getCurrentPlayerIndex());
-            painter.drawText(10, 50, QString("当前玩家: %1").arg(QString::fromStdString(currentPlayer.getName())));
-            painter.drawText(10, 70, QString("位置: %1  现金: $%2").arg(currentPlayer.getPosition()).arg(currentPlayer.getCash()));
-        }
-    }
-
     qDebug() << "<<< paintEvent完成";
 }
 
@@ -167,13 +152,4 @@ void BoardWidget::setupTilePositions()
         int y = CORNER_SIZE + ((i-30) * VERTICAL_SPACING) - VERTICAL_SPACING/2;
         m_tilePositions[i] = QPoint(x, y);
     }
-
-    // 调试输出前几个位置
-    qDebug() << "格子位置设置完成:";
-    for (int i = 0; i < 5; ++i) {
-        qDebug() << "位置" << i << ":" << m_tilePositions[i];
-    }
-    qDebug() << "位置 10:" << m_tilePositions[10];
-    qDebug() << "位置 20:" << m_tilePositions[20];
-    qDebug() << "位置 30:" << m_tilePositions[30];
 }

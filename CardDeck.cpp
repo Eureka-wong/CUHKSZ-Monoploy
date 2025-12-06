@@ -26,7 +26,6 @@ void Card::execute(Player& player, Game& game) {
             step = 40 - player.getPosition() + targetTile;
         }
         game.movePlayer(game.getCurrentPlayerIndex(), step);
-
         Tile& currentTile = game.getBoard().getTile(player.getPosition());
         currentTile.onLand(player,game,step);
         break;
@@ -68,6 +67,7 @@ void Card::execute(Player& player, Game& game) {
 
     case CardType::COLLECT_MONEY: {
         player.addMoney(amount);
+        emit game.moneyChanged();
         cout << player.getName() << " collects $" << amount << "." << endl << endl;
         break;
     }
@@ -75,6 +75,7 @@ void Card::execute(Player& player, Game& game) {
     case CardType::PAY_MONEY: {
         if (game.playerCanPay(game.getCurrentPlayerIndex(), amount)) {
             player.deductMoney(amount);
+            emit game.moneyChanged();
             cout << player.getName() << " pays $" << amount << "." << endl << endl;
         }
         break;
@@ -104,6 +105,7 @@ void Card::execute(Player& player, Game& game) {
         int totalCost = (totalHouses * houseCost) + (totalHotels * hotelCost);
         if (game.playerCanPay(game.getCurrentPlayerIndex(), totalCost)) {
             player.deductMoney(totalCost);
+            emit game.moneyChanged();
             cout << player.getName() << " pays $" << totalCost << " for repairs." << endl << endl;
         }
         break;

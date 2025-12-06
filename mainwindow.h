@@ -7,8 +7,10 @@
 #include <QListWidget>
 #include <QTextEdit>
 #include <QDialog>
+#include <QVBoxLayout>
 
 class Game;
+class Player;
 class BoardWidget;
 class PropertyTile;
 
@@ -27,12 +29,26 @@ public:
     ~MainWindow();
 
 private slots:
+    void onRoundLabelChanged();
+    void onMoneyChanged();
+
     void onRollDiceClicked();
 
     void onPropertiesClicked(int playerIndex = -1, bool forced = false, int amountDue = 0);
-
+    void onForceRaiseMoney(int payerIndex, int amountDue);
     void updatePropertyDisplay(QLabel* playerInfo, QLabel* propertyInfo, PropertyTile* property, int currentPlayerIndex);
     void showWarning(const QString& message);
+
+    void onTradeClicked();
+    void onSellTrade();
+    void onBuyTrade();
+    void modifyTradeSelectionWidget(const Player& currentPlayer,
+                                    const std::vector<PropertyTile*>& myProperties,
+                                    QDialog& dialog,
+                                    QWidget* propertiesContainer,
+                                    QVBoxLayout* propertiesLayout);
+    void askTradeDecision(Player* offeringPlayer, Player* targetPlayer, int amount, bool card, PropertyTile* property, bool offerBuy);
+
 
     void onHintClicked(int playerIndex);
 
@@ -70,9 +86,10 @@ private slots:
     void onOpenChanceCard(int playerIndex,const QString& cardDiscription);
     void onOpenCommunityCard(int playerIndex,const QString& cardDiscription);
     void onLandOnFreeParking(int playerIndex, int type);
+    void onLandOnGoTile(int playerIndex);
+    void onLandOnGoToJailTile(int playerIndex);
 
-
-    void onForceRaiseMoney(int payerIndex, int amountDue);
+    void onEnableEndTurnAndDisableRoll();
 
 
 private:
@@ -83,6 +100,7 @@ private:
 
     QPushButton* m_rollButton;
     QPushButton* m_propertiesButton;
+    QPushButton* m_tradeButton;
     QPushButton* m_endTurnButton;
     QPushButton* m_chatroomButton;
     QPushButton* m_hintButton;
@@ -117,6 +135,10 @@ private:
     void showJailChoiceDialog(int playerIndex);
     void showJailLastChoiceDialog(int playerIndex);
     void handleAfterFailedRoll(int playerIndex);
+
+    void setButtonEnabledStyle(QPushButton* button, const QString& text);
+    void setButtonDisabledStyle(QPushButton* button, const QString& text);
+
 
 };
 #endif // MAINWINDOW_H

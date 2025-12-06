@@ -17,8 +17,8 @@ private:
     bool bankrupt = false;
     std::vector<Card*> getOutOfJailCard;
     int  availableSE = 3;
-
     std::vector<PropertyTile*> properties;
+    int rolledtwelve = 0;
 public:
     Player(const std::string& name, int position, int balance);
 
@@ -54,6 +54,10 @@ public:
 
     void getTradeDetails(int& amount, int& playerIndex, bool buyProperty = false);
     void deductSE();
+
+    int getRolledTwelve(){return rolledtwelve;}
+    int increaseRolledTwelve(){return ++rolledtwelve;}
+    void resetRolledTwelve(){rolledtwelve=0;}
 };
 
 #endif

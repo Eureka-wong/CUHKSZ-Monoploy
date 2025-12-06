@@ -172,15 +172,20 @@ E:/CSC3002/CUHKSZ\ Tycoon/CUHKSZ_Tycoon/build/Desktop_Qt_6_10_0_MinGW_64_bit-Deb
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/QMainWindow \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/QPushButton \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/QTextEdit \
+  E:/Qt/6.10.0/mingw_64/include/QtWidgets/QVBoxLayout \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qabstractbutton.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qabstractitemdelegate.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qabstractitemview.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qabstractslider.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qabstractspinbox.h \
+  E:/Qt/6.10.0/mingw_64/include/QtWidgets/qboxlayout.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qdialog.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qframe.h \
+  E:/Qt/6.10.0/mingw_64/include/QtWidgets/qgridlayout.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qlabel.h \
+  E:/Qt/6.10.0/mingw_64/include/QtWidgets/qlayout.h \
+  E:/Qt/6.10.0/mingw_64/include/QtWidgets/qlayoutitem.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qlistview.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qlistwidget.h \
   E:/Qt/6.10.0/mingw_64/include/QtWidgets/qmainwindow.h \

@@ -26,10 +26,22 @@ Game::Game(QObject* parent)
             property->buyProperty(players[2]);
         }
     }
+    for (int pos : positions_2) {
+        Tile& tile = board.getTile(pos);
+        if (auto* property = dynamic_cast<PropertyTile*>(&tile)) {
+            property->buyBuilding(players[2], *this);
+        }
+    }
+    for (int pos : positions_2) {
+        Tile& tile = board.getTile(pos);
+        if (auto* property = dynamic_cast<PropertyTile*>(&tile)) {
+            property->buyBuilding(players[2], *this);
+        }
+    }
     Card additionalOutOfJailCard = Card("Get Out of Jail Free. This card may be kept until needed or sold.", CardType::GET_OUT_OF_JAIL, 0, -1, 0, "", 0, 0, "Community Chest");
     players[2].addGetOutOfJailCard(&additionalOutOfJailCard);
     //testing on jailturn functionality
-    players[2].setJailStatus(2);
+    //players[2].setJailStatus(0);
     int positions_0[] = {1, 3};
     for (int pos : positions_0) {
         Tile& tile = board.getTile(pos);
@@ -37,7 +49,6 @@ Game::Game(QObject* parent)
             property->buyProperty(players[0]);
         }
     }
-    players[0].deductMoney(1500 - 120);
     numPlayers = players.size();
 }
 
@@ -54,6 +65,7 @@ void Game::startGame() {
     emit gameLogMessage("Game started!");
     // start first player's turn
     startPlayerTurn();
+    emit roundLabelChanged();
 }
 
 void Game::startPlayerTurn() {
@@ -81,28 +93,46 @@ void Game::startPlayerTurn() {
 
 void Game::rollDiceAndMoveAndProcessEvent() {
     if (currentState != GameState::PlayerTurn){};
-
     Player& currentPlayer = players[currentPlayerIndex];
 
     // First of all, roll the dice
-    int diceValue = rollDice();
-    // update the status label in ui
-    emit diceRolled(currentPlayerIndex, diceValue);
-    // update the gamelog
-    emit gameLogMessage(QString("%1 rolled %2")
-                            .arg(QString::fromStdString(currentPlayer.getName()))
-                            .arg(diceValue));
+    int diceValue = 8;
 
-    // Secondly, move the player
-    movePlayer(currentPlayerIndex, diceValue);
+    if(diceValue == 12 && currentPlayer.getRolledTwelve()==2){
+        int fromIndex = currentPlayer.getPosition();
+        currentPlayer.setJailStatus(0);
+        currentPlayer.setPosition(10);
+        currentPlayer.resetRolledTwelve();
+        emit playerMoved(currentPlayerIndex,fromIndex,10);
+        emit enableEndTurnAndDisableRoll();
+        emit playerTurnEnded(currentPlayerIndex);
+        //
+    }else{
+        // update the gamelog
+        emit gameLogMessage(QString("%1 rolled %2")
+                                .arg(QString::fromStdString(currentPlayer.getName()))
+                                .arg(diceValue));
 
-    // Thirdly, trigger the onLand event for the tile the player landed on
-    Tile& currentTile = board.getTile(currentPlayer.getPosition());
-    currentTile.onLand(currentPlayer, *this, diceValue);
-    // from onLand in tile.cpp, we connect to the slots in ui part
-    currentState = GameState::PlayerTurn;
-    // next player's turn
-    emit playerTurnEnded(currentPlayerIndex);
+        // Secondly, move the player
+        movePlayer(currentPlayerIndex, diceValue);
+
+        // Thirdly, trigger the onLand event for the tile the player landed on
+        Tile& currentTile = board.getTile(currentPlayer.getPosition());
+        currentTile.onLand(currentPlayer, *this, diceValue);
+        // from onLand in tile.cpp, we connect to the slots in ui part
+        currentState = GameState::PlayerTurn;
+
+        if (diceValue == 12){
+            currentPlayer.increaseRolledTwelve();
+            //下一轮还是这个玩家
+            emit playerTurnStarted(currentPlayerIndex);
+        }else if (diceValue != 12){
+            //清空这个玩家的12值
+            currentPlayer.resetRolledTwelve();
+            // next player's turn
+            emit playerTurnEnded(currentPlayerIndex);
+        }
+    }
 }
 
 /*void Game::movePlayer(Player& currentPlayer, int step) {
@@ -147,6 +177,7 @@ void Game::payRent(int fromPlayer, int toPlayer, int rent){
     Player& from = players[fromPlayer];
     Player& to = players[toPlayer];
     from.deductMoney(rent);
+    emit moneyChanged();
     to.addMoney(rent);
     emit gameLogMessage(QString::fromStdString("Player %1 pays %2 to player %3").arg(fromPlayer+1).arg(rent).arg(toPlayer+1));
 }
@@ -158,6 +189,7 @@ void Game::endTurn() {
     // 如果一轮结束
     if (currentPlayerIndex == 0) {
         round++;
+        emit roundLabelChanged();
         // 检查游戏是否结束
         // 后续要检查这里检查的逻辑
         if (round > 50 || bankruptcyCount >= numPlayers - 1) {
@@ -202,6 +234,7 @@ void Game::processJailAction(JailAction action) {
 
     case JailAction::PayBail:
         currentPlayer.deductMoney(50);
+        emit moneyChanged();
         currentPlayer.setJailStatus(-1);
         emit gameLogMessage(QString("Player %1 paid $50 to get out of jail").arg(currentPlayerIndex+1));
         //玩家可以继续正常掷色子
@@ -209,9 +242,7 @@ void Game::processJailAction(JailAction action) {
         break;
 
     case JailAction::RollForFreedom: {
-        // testing purpose
         int roll = rollDice();
-        //int roll = rollDice();
 
         if (roll == 12) {
             currentPlayer.setJailStatus(-1);
@@ -626,8 +657,9 @@ void Game::payToPlayers(int payerIndex, int amount) {
         if (i != payerIndex && !players[i].isBankrupt()) {
             if (playerCanPay(payerIndex, amount, i)) {
                 payer.deductMoney(amount);
+                emit moneyChanged();
                 players[i].addMoney(amount);
-
+                emit moneyChanged();
                 QString message = QString("%1 pays $%2 to %3")
                                       .arg(QString::fromStdString(payer.getName()))
                                       .arg(amount)
@@ -648,7 +680,7 @@ void Game::receiveFromPlayers(int receiverIndex, int amount) {
             if (playerCanPay(i, amount, receiverIndex)) {
                 players[i].deductMoney(amount);
                 receiver.addMoney(amount);
-
+                emit moneyChanged();
                 QString message = QString("Player %1 receives $%2 from %3")
                                       .arg(QString::fromStdString(receiver.getName()))
                                       .arg(amount)
@@ -940,6 +972,26 @@ void Game::drawCommunityChestCard(int playerIndex) {
     }
 }
 */
+
+void Game::executeTrade(Player* buyingPlayer, Player* sellingPlayer, int amount, bool card, PropertyTile* property) {
+    buyingPlayer->deductMoney(amount);
+    sellingPlayer->addMoney(amount);
+    if (card) {
+        Card* card = sellingPlayer->takeOutGetOutOfJailCard();
+        buyingPlayer->addGetOutOfJailCard(card);
+        QString message = QString("Trade completed! Player %1 acquired a <b>Get Out of Jail for Free</b> card from %2 for $%3.")
+                              .arg(buyingPlayer->getName()).arg(sellingPlayer->getName()).arg(amount);
+
+        emit gameLogMessage(message);
+    }
+    else {
+        property->transferOwnership(*sellingPlayer, buyingPlayer, *this);
+        QString message = QString("Trade completed! Player %1 acquired a %2 from %2 for $%3.")
+                              .arg(buyingPlayer->getName()).arg(property->getName()).arg(sellingPlayer->getName()).arg(amount);
+
+        emit gameLogMessage(message);
+    }
+}
 
 int Game::rollDice() {
     // For randomness in dice rolls
