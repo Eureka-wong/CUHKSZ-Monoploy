@@ -3,8 +3,13 @@
    cd CUHKSZ-Monoploy-online
    ```
 ## run client
+   packaged
    ```powershell
    .\Client_Portable\CUHKSZ_Monopoly_Online.exe
+   ```
+   or 
+   ```powershell
+   .\build\Windows-Release\Release\CUHKSZ_Monopoly_Online.exe
    ```
    - default: `ws://10.30.198.46:9002`
    If you run your own server, you have to change the path.
