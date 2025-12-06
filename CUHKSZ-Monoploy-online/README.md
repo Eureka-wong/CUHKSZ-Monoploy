@@ -7,7 +7,7 @@
    ```powershell
    .\Client_Portable\CUHKSZ_Monopoly_Online.exe
    ```
-   or 
+   or (if you have build from .\run.ps1 )
    ```powershell
    .\build\Windows-Release\Release\CUHKSZ_Monopoly_Online.exe
    ```
@@ -15,7 +15,7 @@
    If you run your own server, you have to change the path.
 
 
-## Rebuild client and run client
+## Build(rebuild) client and run client
    ### clone submodule
    ```powershell
    git submodule init 
