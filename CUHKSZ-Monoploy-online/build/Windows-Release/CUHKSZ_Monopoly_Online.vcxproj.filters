@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\build\Windows-Release\CUHKSZ_Monopoly_Online_autogen\mocs_compilation_Debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\online_client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\online_mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\Board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\BoardWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\CardDeck.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\Tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\StrategyEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\action_weights.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\build\Windows-Release\CUHKSZ_Monopoly_Online_autogen\EWIEGA46WW_Debug\qrc_resources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\build\Windows-Release\CUHKSZ_Monopoly_Online_autogen\mocs_compilation_Release.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\build\Windows-Release\CUHKSZ_Monopoly_Online_autogen\EWIEGA46WW_Release\qrc_resources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\build\Windows-Release\CUHKSZ_Monopoly_Online_autogen\mocs_compilation_MinSizeRel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\build\Windows-Release\CUHKSZ_Monopoly_Online_autogen\EWIEGA46WW_MinSizeRel\qrc_resources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\build\Windows-Release\CUHKSZ_Monopoly_Online_autogen\mocs_compilation_RelWithDebInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\build\Windows-Release\CUHKSZ_Monopoly_Online_autogen\EWIEGA46WW_RelWithDebInfo\qrc_resources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\online_mainwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\Board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\BoardWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\CardDeck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\Tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\StrategyEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\action_weights.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\include\monopoly\online_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\include\monopoly\core_types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\build\Windows-Release\CMakeFiles\99b7b73a649abb584d86fd3e9f8aaea8\qrc_resources.cpp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\resources.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{19C6A727-5B27-32B8-B8EE-3FB1E240A84B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{BA0A63FB-40A4-3D08-A0B4-0F86AA1A28A8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{526704B8-B58C-36C3-8A96-FD1E70678881}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

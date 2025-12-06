@@ -1,0 +1,10 @@
+^D:\CICILI\CSC3002\CUHKSZ-MONOPLOY-ONLINE\SERVER\CMAKELISTS.TXT
+setlocal
+"D:\Program Files\Microsoft\VisualStudio\18\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/CICILI/CSC3002/CUHKSZ-Monoploy-online/server -BD:/CICILI/CSC3002/CUHKSZ-Monoploy-online/server/build --check-stamp-file D:/CICILI/CSC3002/CUHKSZ-Monoploy-online/server/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

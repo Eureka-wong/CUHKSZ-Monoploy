@@ -1,0 +1,10 @@
+^D:\CICILI\CSC3002\CUHKSZ-MONOPLOY-ONLINE\SERVER\BUILD\CMAKEFILES\982F10080A9EC2218998BEC8E570C6C3\GENERATE.STAMP.RULE
+setlocal
+"D:\Program Files\Microsoft\VisualStudio\18\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/CICILI/CSC3002/CUHKSZ-Monoploy-online/server -BD:/CICILI/CSC3002/CUHKSZ-Monoploy-online/server/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/CICILI/CSC3002/CUHKSZ-Monoploy-online/server/build/MonopolyOnlineServer.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
