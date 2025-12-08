@@ -81,6 +81,8 @@ public:
     GameState getCurrentState() const { return currentState; }
     Board& getBoard() { return board; }
     const Board& getBoard() const { return board; }
+    std::vector<PropertyTile*> getPropertiesByGroup(const std::string& group);
+    const std::vector<Player>& getplayerlist() const {return players;}
 
 
     // 状态检查

@@ -42,7 +42,7 @@ Game::Game(QObject* parent)
     players[2].addGetOutOfJailCard(&additionalOutOfJailCard);
     //testing on jailturn functionality
     //players[2].setJailStatus(0);
-    int positions_0[] = {1, 3};
+    int positions_0[] = {1};
     for (int pos : positions_0) {
         Tile& tile = board.getTile(pos);
         if (auto* property = dynamic_cast<PropertyTile*>(&tile)) {
@@ -300,6 +300,31 @@ int Game::getPlayerIndex(const Player& player) const {
     }
     return -1;
 }
+
+
+std::vector<PropertyTile*> Game::getPropertiesByGroup(const std::string& group) {
+    std::vector<PropertyTile*> result;
+
+    Board& board = getBoard();
+    int totalTiles = board.getSize();   // 40
+
+    for (int i = 0; i < totalTiles; i++) {
+
+        Tile& tile = board.getTile(i);
+
+        // 检查 tile 是否为 PropertyTile
+        PropertyTile* prop = dynamic_cast<PropertyTile*>(&tile);
+        if (!prop) continue;
+
+        // 匹配颜色组
+        if (prop->getGroup() == group) {
+            result.push_back(prop);
+        }
+    }
+
+    return result;
+}
+
 
 
 

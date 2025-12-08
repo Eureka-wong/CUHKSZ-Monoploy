@@ -469,7 +469,7 @@ int PropertyTile::calculateRent(int step) const {
     return rentDue;
 }
 
-bool PropertyTile::ownedByPlayer(Player& player) const {
+bool PropertyTile::ownedByPlayer(const Player& player) const {
     if (owner != &player) {
         cout << "You do not own " << name << "." << endl;
         return false;

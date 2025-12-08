@@ -23,6 +23,14 @@ struct playerstate{
     std::vector<PropertyTile*> playerprops;
 };
 
+struct MonopolyStatus {
+    const Player* player;   // 改成指针
+    std::string group;
+    int owned;
+    int groupSize;
+    bool hasMonopoly;
+    std::vector<PropertyTile*> missingProperties;
+};
 
 class StrategyEngine{
 private:
@@ -41,6 +49,8 @@ public:
     int scoreMortgageAction(const possibleActions& action, playerstate* state);
     int scoreUpgradeAction(const possibleActions& action, playerstate* state);
     int scoreBuyAction(const possibleActions& action, playerstate* state);
+    vector<MonopolyStatus> opponentReminder(const Player& currentPlayer);
+    vector<MonopolyStatus> playerMonopolyReminder(const Player& currentPlayer);
     void getHintResult(const Player& player);
     QString getHintResultforQt(const Player& player);
 };

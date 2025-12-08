@@ -384,13 +384,169 @@ void StrategyEngine::getHintResult(const Player& player){
     cout << "Best action other than 'buy' is: " << best_action << " " << prop_name << " with score " << best_score << endl;
 }
 
+vector<MonopolyStatus> StrategyEngine::opponentReminder(const Player& currentPlayer){
+    const std::vector<Player>& playerlist = game->getplayerlist();
+    std::vector<MonopolyStatus> monopolyList;
+    playerstate* currentPlayerinfo = playerGameinfo(currentPlayer);
+
+    for (const Player& player : playerlist){
+        if (player.getName() == currentPlayer.getName())
+            continue;
+
+        playerstate* info = playerGameinfo(player);
+
+        std::unordered_map<std::string, std::vector<PropertyTile*>> groupMap;
+        for (PropertyTile* prop : info->playerprops){
+            groupMap[prop->getGroup()].push_back(prop);
+        }
+
+        for (auto& entry : groupMap){
+            const std::string& group = entry.first;
+            const auto& ownedProps = entry.second;
+
+            int owned = ownedProps.size();
+            int groupSize = (group == "Brown" || group == "Dark Blue") ? 2 : 3;
+
+            if (groupSize == 0) continue;
+
+            if (owned == groupSize || owned == groupSize - 1){
+                MonopolyStatus status;
+                status.player = &player;
+                status.group = group;
+                status.owned = owned;
+                status.groupSize = groupSize;
+                status.hasMonopoly = (owned == groupSize);
+
+                if (!status.hasMonopoly){
+                    std::vector<PropertyTile*> missing;
+                    auto groupTiles = game->getPropertiesByGroup(group);
+
+                    for (auto* tile : groupTiles){
+                        if (!tile->ownedByPlayer(player)){
+                            missing.push_back(tile);
+                        }
+                    }
+
+                    status.missingProperties = missing;
+                }
+
+                monopolyList.push_back(status);
+            }
+        }
+    }
+
+    return monopolyList;
+}
+
+vector<MonopolyStatus> StrategyEngine::playerMonopolyReminder(const Player& currentPlayer){
+    std::vector<MonopolyStatus> monopolyList;
+    playerstate* info = playerGameinfo(currentPlayer);
+
+    std::unordered_map<std::string, std::vector<PropertyTile*>> groupMap;
+    for (auto* prop : info->playerprops){
+        groupMap[prop->getGroup()].push_back(prop);
+    }
+
+    for (auto& entry : groupMap){
+        const string& group = entry.first;
+        const auto& ownedProps = entry.second;
+
+        int owned = ownedProps.size();
+        int groupSize = (group == "Brown" || group == "Dark Blue") ? 2 : 3;
+
+        if (groupSize == 0) continue;
+
+        if (owned == groupSize || owned == groupSize - 1){
+            MonopolyStatus status;
+            status.player = &currentPlayer;
+            status.group = group;
+            status.owned = owned;
+            status.groupSize = groupSize;
+            status.hasMonopoly = (owned == groupSize);
+
+            if (!status.hasMonopoly){
+                std::vector<PropertyTile*> missing;
+                auto groupTiles = game->getPropertiesByGroup(group);
+
+                for (auto* tile : groupTiles){
+                    if (!tile->ownedByPlayer(currentPlayer)){
+                        missing.push_back(tile);
+                    }
+                }
+
+                status.missingProperties = missing;
+            }
+
+            monopolyList.push_back(status);
+        }
+    }
+
+    return monopolyList;
+}
+
+QString formatMissingProperties(const std::vector<PropertyTile*>& missing){
+    if (missing.empty()) return "None";
+    QStringList list;
+    for (auto* tile : missing){
+        list << QString::fromStdString(tile->getName());
+    }
+    return list.join(", ");
+}
+
 QString scoreToHint(int score){
     if (score >= 80) return "Highly recommended";
     if (score >= 60) return "Recommended";
-    if (score >= 40) return "Consider if no risk";
+    if (score >= 40) return "Consider it carefully";
     if (score >= 20) return "Risky";
     return "Not recommended";
 }
+
+QString getTradeRecommendation(const std::vector<PropertyTile*>& missing){
+    QStringList output;
+    if (missing.empty()) output << "None\n";
+
+    for (auto* tile : missing){
+        Player* owner = tile->getOwner();
+
+        QString tileName = QString::fromStdString(tile->getName());
+        QString group = QString::fromStdString(tile->getGroup());
+
+        if (!owner){
+            output << QString("%1 (unowned). Consider purchasing it to complete Monopoly on %2!")
+            .arg(tileName).arg(group);
+        } else {
+            QString ownerName = QString::fromStdString(owner->getName());
+            output << QString("Consider trading %1 with %2 to complete Monopoly on %3!")
+                          .arg(tileName).arg(ownerName).arg(group);
+        }
+    }
+
+    return output.join("\n");
+}
+
+QString DenyGetTradeRecommendation(const std::vector<PropertyTile*>& missing, QString opponent){
+    QStringList output;
+    if (missing.empty()) output << "None\n";
+
+    for (auto* tile : missing){
+        Player* owner = tile->getOwner();
+
+        QString tileName = QString::fromStdString(tile->getName());
+        QString group = QString::fromStdString(tile->getGroup());
+
+        if (!owner){
+            output << QString("%1 (unowned). Consider buying it to stop %2 from completing a Monopoly on %3!")
+            .arg(tileName).arg(opponent).arg(group);
+        } else {
+            QString ownerName = QString::fromStdString(owner->getName());
+            output << QString("Watch out for possible trade: %1 → %2. %3 may complete a Monopoly on %4!")
+                          .arg(tileName).arg(ownerName).arg(opponent).arg(group);
+        }
+    }
+
+    return output.join("\n");
+}
+/*
 QString StrategyEngine::getHintResultforQt(const Player& player){
     QString results;
     playerstate* playerinfo = playerGameinfo(player);
@@ -450,3 +606,195 @@ QString StrategyEngine::getHintResultforQt(const Player& player){
 
     return results;
 }
+*/
+QString StrategyEngine::getHintResultforQt(const Player& player){
+    QString results;
+
+    // ======= Section Title Template =======
+    auto sectionTitle = [&](QString title){
+        results += QString(
+                       "<p style='font-size:16px; font-weight:bold; color:#7EC8FF; "
+                       "margin-top:10px;'>%1</p>").arg(title);
+    };
+
+    auto bullet = [&](QString text){
+        results += QString("<p style='margin-left:15px; color:#FFFFFF;'>• %1</p>").arg(text);
+    };
+
+    auto subBullet = [&](QString text){
+        results += QString("<p style='margin-left:35px; color:#CCCCCC;'>%1</p>").arg(text);
+    };
+
+    // ===========================================================
+    // 1. Property Purchase Suggestions
+    // ===========================================================
+    sectionTitle("Property Purchase Suggestions");
+
+    playerstate* playerinfo = playerGameinfo(player);
+    auto actions = getActions(player, playerinfo);
+    auto scored = scoreActions(actions, playerinfo);
+
+    for (auto item : scored){
+        if (item->action == "buy" && item->property != nullptr){
+
+            int idx = item->property->getIndex();
+            int currentIdx = player.getPosition();
+            int step = (idx - currentIdx + 40) % 40;
+
+            QString propName = QString::fromStdString(item->property->getName());
+            QString hint = scoreToHint(item->score);
+
+            QString color =
+                (item->score >= 80 ? "#00FF7F" :      // 明亮绿色
+                     item->score >= 60 ? "#32CD32" :      // LimeGreen
+                     item->score >= 40 ? "#FFB84D" :      // 浅橙色
+                     "#FF4040");       // 亮红
+
+            bullet(QString("<b>Roll %1</b>: Buy <b>%2</b> "
+                           "<span style='color:%3;'>→ %4</span>")
+                       .arg(step).arg(propName).arg(color).arg(hint));
+        }
+    }
+
+    // ===========================================================
+    // 2. Best Alternative Actions
+    // ===========================================================
+    sectionTitle("Best Alternative Actions");
+
+    std::vector<possibleActions*> nonBuy;
+    for (auto item : scored){
+        if (item->action != "buy") nonBuy.push_back(item);
+    }
+
+    if (nonBuy.empty()){
+        bullet("<span style='color:#888888;'>No property to manage.</span>");
+    } else {
+        std::sort(nonBuy.begin(), nonBuy.end(), [](auto* a, auto* b){
+            return a->score > b->score;
+        });
+
+        int limit = std::min(2, (int)nonBuy.size());
+        bool allRisky = true;
+        for (int i = 0; i < limit; i++){
+            if (nonBuy[i]->score > 20){
+                allRisky = false;
+                break;
+            }
+        }
+
+        if (allRisky){
+            subBullet("<span style='font-size:12px; color:#999999;'>"
+                      "All available alternative actions are not recommended, but you may still consider them strategically."
+                      "</span>");
+
+            for (int i = 0; i < limit; i++){
+                auto* item = nonBuy[i];
+
+                QString actionName = QString::fromStdString(item->action);
+                QString propName = item->property ?
+                                       QString::fromStdString(item->property->getName()) :
+                                       "N/A";
+                QString hint = scoreToHint(item->score);
+
+                QString color =
+                    (item->score >= 80 ? "#00FF7F" :
+                         item->score >= 60 ? "#32CD32" :
+                         item->score >= 40 ? "#FFB84D" :
+                         "#FF4040");
+
+                bullet(QString("<b>%1 %2</b> → <span style='color:%3;'>%4</span>")
+                           .arg(actionName)
+                           .arg(propName)
+                           .arg(color)
+                           .arg(hint));
+            }
+        }
+        else{
+            for (int i = 0; i < limit; i++){
+                auto* item = nonBuy[i];
+                if (item->score <= 20) continue;
+
+                QString actionName = QString::fromStdString(item->action);
+                QString propName = item->property ?
+                                       QString::fromStdString(item->property->getName()) :
+                                       "N/A";
+                QString hint = scoreToHint(item->score);
+
+                QString color =
+                    (item->score >= 80 ? "#00FF7F" :
+                         item->score >= 60 ? "#32CD32" :
+                         item->score >= 40 ? "#FFB84D" :
+                         "#FF4040");
+
+                bullet(QString("<b>%1 %2</b> → <span style='color:%3;'>%4</span>")
+                           .arg(actionName)
+                           .arg(propName)
+                           .arg(color)
+                           .arg(hint));
+            }
+        }
+    }
+
+    // ===========================================================
+    // 3. Opponent Monopoly Reminder
+    // ===========================================================
+    sectionTitle("Opponent Monopoly Threats");
+
+    auto opponents = opponentReminder(player);
+
+    if (opponents.empty()) {
+        bullet("<span style='color:#888888;'>No opponent is close to forming a Monopoly.</span>");
+    } else {
+        for (auto& item : opponents){
+
+            QString opponent = QString::fromStdString(item.player->getName());
+            QString group = QString::fromStdString(item.group);
+
+            if (item.hasMonopoly){
+                bullet(QString("<span style='color:#FF4040; font-weight:bold;'>"
+                               "Player %1 already owns a Monopoly on %2!</span>")
+                           .arg(opponent).arg(group));
+            }
+            else {
+                QString missing = formatMissingProperties(item.missingProperties);
+                QString deny = DenyGetTradeRecommendation(item.missingProperties, opponent);
+
+                bullet(QString("<span style='color:#FFB84D; font-weight:bold;'>"
+                               "Player %1 is one step away from a Monopoly on %2.</span>")
+                           .arg(opponent).arg(group));
+
+                subBullet(QString("Missing property: <b>%1</b>").arg(missing));
+                subBullet(QString("<span style='color:#CCCCCC;'><i>%1</i></span>").arg(deny));
+            }
+        }
+    }
+
+    // ===========================================================
+    // 4. Your Monopoly Status
+    // ===========================================================
+    sectionTitle("Your Monopoly Status");
+
+    auto mine = playerMonopolyReminder(player);
+
+    if (mine.empty()) {
+        bullet("<span style='color:#888888;'>You are not close to any Monopoly.</span>");
+    } else {
+        for (auto& item : mine){
+            QString group = QString::fromStdString(item.group);
+
+            if (item.hasMonopoly){
+                bullet(QString("<span style='color:#00FF7F; font-weight:bold;'>"
+                               "You already own a Monopoly on %1.</span>").arg(group));
+            } else {
+                QString trade = getTradeRecommendation(item.missingProperties);
+
+                bullet(QString("<b>You are close to a Monopoly on %1.</b>").arg(group));
+                subBullet(QString("<span style='color:#7EC8FF;'>Trading suggestion:</span> %1")
+                              .arg(trade));
+            }
+        }
+    }
+
+    return results;
+}
+

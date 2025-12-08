@@ -94,7 +94,7 @@ public:
     bool allPropertyInGroupHasNoHouses() const;
 
     int calculateRent(int step) const;
-    bool ownedByPlayer(Player& player) const;
+    bool ownedByPlayer(const Player& player) const;
     bool isStationOrUtility() const;
     int calculateValue() const;
 
