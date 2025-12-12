@@ -1,0 +1,3 @@
+@echo off
+echo Starting CUHKSZ Monopoly Online Client...
+start "" "CUHKSZ_Monopoly_Online.exe"
