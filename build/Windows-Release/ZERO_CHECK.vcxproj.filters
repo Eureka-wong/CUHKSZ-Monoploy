@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\build\Windows-Release\CMakeFiles\04849340a885a4c6f1cbb8fdf076cc3d\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{19C6A727-5B27-32B8-B8EE-3FB1E240A84B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

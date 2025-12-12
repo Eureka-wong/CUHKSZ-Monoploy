@@ -1,0 +1,24 @@
+^D:\CICILI\CSC3002\CUHKSZ-MONOPLOY-ONLINE\BUILD\WINDOWS-RELEASE\CMAKEFILES\99B7B73A649ABB584D86FD3E9F8AAEA8\QRC_RESOURCES.CPP.RULE
+setlocal
+cd D:\CICILI\CSC3002\CUHKSZ-Monoploy-online\build\Windows-Release
+if %errorlevel% neq 0 goto :cmEnd
+D:
+if %errorlevel% neq 0 goto :cmEnd
+D:\msys64\ucrt64\bin\cmake.exe -E cmake_autorcc D:/CICILI/CSC3002/CUHKSZ-Monoploy-online/build/Windows-Release/CMakeFiles/CUHKSZ_Monopoly_Online_autogen.dir/AutoRcc_resources_EWIEGA46WW_Info.json Release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\CICILI\CSC3002\CUHKSZ-MONOPLOY-ONLINE\CMAKELISTS.TXT
+setlocal
+D:\msys64\ucrt64\bin\cmake.exe -SD:/CICILI/CSC3002/CUHKSZ-Monoploy-online -BD:/CICILI/CSC3002/CUHKSZ-Monoploy-online/build/Windows-Release --check-stamp-file D:/CICILI/CSC3002/CUHKSZ-Monoploy-online/build/Windows-Release/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
