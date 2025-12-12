@@ -625,9 +625,7 @@ QString StrategyEngine::getHintResultforQt(const Player& player){
         results += QString("<p style='margin-left:35px; color:#CCCCCC;'>%1</p>").arg(text);
     };
 
-    // ===========================================================
-    // 1. Property Purchase Suggestions
-    // ===========================================================
+
     sectionTitle("Property Purchase Suggestions");
 
     playerstate* playerinfo = playerGameinfo(player);
@@ -645,10 +643,10 @@ QString StrategyEngine::getHintResultforQt(const Player& player){
             QString hint = scoreToHint(item->score);
 
             QString color =
-                (item->score >= 80 ? "#00FF7F" :      // 明亮绿色
-                     item->score >= 60 ? "#32CD32" :      // LimeGreen
-                     item->score >= 40 ? "#FFB84D" :      // 浅橙色
-                     "#FF4040");       // 亮红
+                (item->score >= 80 ? "#00FF7F" :
+                     item->score >= 60 ? "#32CD32" :
+                     item->score >= 40 ? "#FFB84D" :
+                     "#FF4040");
 
             bullet(QString("<b>Roll %1</b>: Buy <b>%2</b> "
                            "<span style='color:%3;'>→ %4</span>")
@@ -656,9 +654,6 @@ QString StrategyEngine::getHintResultforQt(const Player& player){
         }
     }
 
-    // ===========================================================
-    // 2. Best Alternative Actions
-    // ===========================================================
     sectionTitle("Best Alternative Actions");
 
     std::vector<possibleActions*> nonBuy;
@@ -735,9 +730,6 @@ QString StrategyEngine::getHintResultforQt(const Player& player){
         }
     }
 
-    // ===========================================================
-    // 3. Opponent Monopoly Reminder
-    // ===========================================================
     sectionTitle("Opponent Monopoly Threats");
 
     auto opponents = opponentReminder(player);
@@ -769,9 +761,6 @@ QString StrategyEngine::getHintResultforQt(const Player& player){
         }
     }
 
-    // ===========================================================
-    // 4. Your Monopoly Status
-    // ===========================================================
     sectionTitle("Your Monopoly Status");
 
     auto mine = playerMonopolyReminder(player);

@@ -67,7 +67,6 @@ void Card::execute(Player& player, Game& game) {
 
     case CardType::COLLECT_MONEY: {
         player.addMoney(amount);
-        emit game.moneyChanged();
         cout << player.getName() << " collects $" << amount << "." << endl << endl;
         break;
     }
@@ -75,7 +74,6 @@ void Card::execute(Player& player, Game& game) {
     case CardType::PAY_MONEY: {
         if (game.playerCanPay(game.getCurrentPlayerIndex(), amount)) {
             player.deductMoney(amount);
-            emit game.moneyChanged();
             cout << player.getName() << " pays $" << amount << "." << endl << endl;
         }
         break;
@@ -105,7 +103,6 @@ void Card::execute(Player& player, Game& game) {
         int totalCost = (totalHouses * houseCost) + (totalHotels * hotelCost);
         if (game.playerCanPay(game.getCurrentPlayerIndex(), totalCost)) {
             player.deductMoney(totalCost);
-            emit game.moneyChanged();
             cout << player.getName() << " pays $" << totalCost << " for repairs." << endl << endl;
         }
         break;
@@ -138,8 +135,8 @@ CardDeck::CardDeck(string deckType) {
             Card("Bank error in your favor. Collect $200.", CardType::COLLECT_MONEY, 200),
             Card("Doctor's fees. Pay $50.", CardType::PAY_MONEY, 50),
             Card("Get $50 from sale of stock", CardType::COLLECT_MONEY, 50),
-            Card("Get Out of Jail Free. This card may be kept until needed or sold.", CardType::GET_OUT_OF_JAIL, 0, -1, 0, "", 0, 0, "Community Chest"),
-            Card("Go to Jail. Go directly to Jail. Do not pass Go, do not collect $200.", CardType::GO_TO_JAIL),
+            Card("Get Out of Office Free. This card may be kept until needed or sold.", CardType::GET_OUT_OF_JAIL, 0, -1, 0, "", 0, 0, "Community Chest"),
+            Card("Go to Presidential's Office. Go directly to Presidential's Office. Do not pass Go, do not collect $200.", CardType::GO_TO_JAIL),
             Card("Grand Opera Night. Collect $50 from every player for opening night seats.", CardType::COLLECT_FROM_PLAYERS, 50),
             Card("Holiday Fund matures. Receive $100.", CardType::COLLECT_MONEY, 100),
             Card("Income tax refund. Collect $20.", CardType::COLLECT_MONEY, 20),
@@ -162,13 +159,13 @@ CardDeck::CardDeck(string deckType) {
             Card("Advance to 39.", CardType::MOVE_TO, 0, 39),
             Card("Advance to 5. If you pass Go, collect $200.", CardType::MOVE_TO, 0, 5),
             Card("Bank pays you dividend of $50.", CardType::COLLECT_MONEY, 50),
-            Card("Get Out of Jail Free. This card may be kept until needed or sold.", CardType::GET_OUT_OF_JAIL, 0, -1, 0, "", 0, 0, "Chance"),
+            Card("Get Out of Presidential's Office Free. This card may be kept until needed or sold.", CardType::GET_OUT_OF_JAIL, 0, -1, 0, "", 0, 0, "Chance"),
             Card("Go Back 3 Spaces.", CardType::MOVE, 0, -1, -3),
-            Card("Go to Jail. Go directly to Jail. Do not pass Go, do not collect $200.", CardType::GO_TO_JAIL),
+            Card("Go to  Presidential's Office. Go directly to  Presidential's Office. Do not pass Go, do not collect $200.", CardType::GO_TO_JAIL),
             Card("Pay poor tax of $15.", CardType::PAY_MONEY, 15),
-            Card("Take a trip to Reading Railroad. If you pass Go, collect $200.", CardType::MOVE_TO, 0, 5),
-            Card("Take a walk on the Boardwalk. Advance to Boardwalk.", CardType::MOVE_TO, 0, 39),
-            Card("You have been elected Chairman of the Board. Pay each player $50.", CardType::PAY_TO_PLAYERS, 50),
+            Card("Take a trip to Bus Stop 1. If you pass Go, collect $200.", CardType::MOVE_TO, 0, 5),
+            Card("Take a walk on Liwen Hall. Advance to Boardwalk.", CardType::MOVE_TO, 0, 39),
+            Card("You have been elected Chairman of the Student Organization. Pay each player $50.", CardType::PAY_TO_PLAYERS, 50),
             Card("Your building loan matures. Collect $150.", CardType::COLLECT_MONEY, 150),
         };
         deck = std::deque<Card>(chanceCards.begin(), chanceCards.end());

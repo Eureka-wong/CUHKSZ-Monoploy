@@ -35,17 +35,6 @@ MainWindow::~MainWindow()
 
 // 在这个函数里我们要建立游戏信号和主窗口里面接收槽的联系
 void MainWindow::setupGameConnections(){
-    //gameStarted信号和onGameStarted槽
-    //connect(m_game, &Game::gameStarted,this, &MainWindow::onGameStarted);
-
-    //gameStateChanged signal connects to onGameStateChanged slot
-    //connect(m_game, &Game::gameStateChanged, this, &MainWindow::onGameStateChanged);
-
-    //gameOver signal connects to onGameOver slot
-    //connect(m_game, &Game::gameStarted,this, &MainWindow::onGameStarted);
-    //connect(m_game, &Game::gameStateChanged, this, &MainWindow::onGameStateChanged);
-    //connect(m_game, &Game::gameOver,this,&MainWindow::onGameOver);
-
     connect(m_game, &Game::playerTurnStarted, this, &MainWindow::onPlayerTurnStarted);
     connect(m_game, &Game::playerTurnEnded, this, &MainWindow::onPlayerTurnEnded);
     connect(m_game, &Game::roundLabelChanged,this,&MainWindow::onRoundLabelChanged);
@@ -60,14 +49,9 @@ void MainWindow::setupGameConnections(){
     connect(m_game, &Game::landOnGoToJailTile,this,&MainWindow::onLandOnGoToJailTile);
 
     // 经济信号
-    //connect(m_game, &Game::moneyChanged, this, &MainWindow::onMoneyChanged);
-    //connect(m_game, &Game::propertyPurchased,this,&MainWindow::onPropertyPurchased);
     connect(m_game, &Game::landOnSelfProperty,this,&MainWindow::onLandOnSelfProperty);
     connect(m_game,&Game::openChanceCard,this,&MainWindow::onOpenChanceCard);
     connect(m_game,&Game::openCommunityCard,this,&MainWindow::onOpenCommunityCard);
-
-    // 经济信号
-    //connect(m_game, &Game::moneyChanged, this, &MainWindow::onMoneyChanged);
 
     // 游戏日志
     connect(m_game, &Game::gameLogMessage, this, &MainWindow::onGameLogMessage);
@@ -85,10 +69,6 @@ void MainWindow::onRoundLabelChanged(){
     m_roundLabel->setText(QString::fromStdString("Current Round: %1").arg(m_game->getRoundNum()));
 }
 
-void MainWindow::onMoneyChanged(){
-    Player& currentPlayer = m_game->getPlayer(m_game->getCurrentPlayerIndex());
-    m_cashLabel->setText(QString::fromStdString("My cash: %1").arg(currentPlayer.getCash()));
-}
 
 void MainWindow::onEnableEndTurnAndDisableRoll(){
     // 更新按钮状态
@@ -531,10 +511,6 @@ void MainWindow::setupUI()
     m_roundLabel->setStyleSheet("font-weight: bold; margin: 10px; color: #e74c3c;");
     controlLayout->addWidget(m_roundLabel);
 
-    // 2. My balance
-    m_cashLabel = new QLabel("My cash: $0");
-    m_cashLabel->setStyleSheet("margin-left: 10px;");
-    controlLayout->addWidget(m_cashLabel);
 
     // 3. Game Event
     m_gameLogTitle = new QLabel("Game Events:");
@@ -1642,9 +1618,6 @@ void MainWindow::updatePlayerInfo()
     m_playerInfoLabel->setText(QString("Player: %1")
                                    .arg(QString::fromStdString(currentPlayer.getName())));
 
-    // 更新现金显示
-    m_cashLabel->setText(QString("Cash: $%1")
-                             .arg(currentPlayer.getCash()));
 
     std::vector<PropertyTile*> properties = currentPlayer.getProperties();
 

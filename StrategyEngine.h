@@ -24,7 +24,7 @@ struct playerstate{
 };
 
 struct MonopolyStatus {
-    const Player* player;   // 改成指针
+    const Player* player;
     std::string group;
     int owned;
     int groupSize;

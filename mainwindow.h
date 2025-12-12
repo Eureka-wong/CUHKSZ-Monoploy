@@ -30,7 +30,6 @@ public:
 
 private slots:
     void onRoundLabelChanged();
-    void onMoneyChanged();
 
     void onRollDiceClicked();
 
@@ -106,7 +105,6 @@ private:
     QPushButton* m_hintButton;
 
     QLabel* m_roundLabel;
-    QLabel* m_cashLabel;
     QLabel* m_gameLogTitle;
     QLabel* m_statusLabel;
 

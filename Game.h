@@ -114,7 +114,6 @@ signals:
     void gameStateChanged(GameState newState);
     void gameOver(int winnerPlayerIndex);
     void roundLabelChanged();
-    void moneyChanged();
 
     // 玩家回合信号
     void playerTurnStarted(int playerIndex);

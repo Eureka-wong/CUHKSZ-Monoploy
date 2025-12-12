@@ -72,6 +72,7 @@ void Player::addMoney(int amount) {
 
 void Player::deductMoney(int amount) {
     balance -= amount;
+
 }
 
 void Player::addProperty(PropertyTile* property) {

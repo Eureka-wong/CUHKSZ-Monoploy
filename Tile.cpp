@@ -69,29 +69,6 @@ void PropertyTile::buyProperty(Player &player) {
     player.addProperty(this);
 }
 
-/*
-void PropertyTile::sellProperty(Player &player) {
-    if (!ownedByPlayer(player)) {
-        return;
-    }
-    if (!allPropertyInGroupHasNoHouses()) {
-        cout << "You cannot sell if any of the property of the same color group has buildings." << endl;
-        return;
-    }
-    if (mortgaged) {
-        cout << "You cannot sell mortgaged property." << endl;
-        return;
-    }
-
-    int sellPrice = price / 2;
-    player.addMoney(sellPrice);
-
-    // Remove ownership
-    owner = nullptr;
-    player.removeProperty(this);
-
-    cout << player.getName() << " sold " << name << " for $" << sellPrice << "." << endl;
-}*/
 
 bool PropertyTile::sellProperty(Player &player, Game& game) {
     if (!ownedByPlayer(player)) {
@@ -115,57 +92,6 @@ bool PropertyTile::sellProperty(Player &player, Game& game) {
     return true;
 }
 
-/*
-void PropertyTile::buyBuilding(Player &player, Game& game) {
-    if (!ownedByPlayer(player) || isStationOrUtility()) {
-        return;
-    }
-    if (player.getCash() < housePrice) {
-        cout << "You do not have enough money to buy a house on " << name << "." << endl;
-        return;
-    }
-    if (!ownColorGroup()) {
-        cout << "You either do not own all properties in the " << group << " group or some of them are mortgaged." << endl;
-        return;
-    }
-    if (mortgaged) {
-        cout << "You cannot buy building on mortgaged property." << endl;
-        return;
-    }
-    if (!allowHouseTransactions(true)) {
-        cout << "You must build houses evenly across the " << group << " group." << endl;
-        return;
-    }
-    if (houses == 5) {
-        cout << name << " already has the maximum number of houses/hotel." << endl;
-        return;
-    }
-
-    if (houses + 1 == 5) {
-        if (game.getAvailableBuildings(false) == 0) {
-            cout << "No hotels are available to build at the moment." << endl;
-            return;
-        }
-
-        houses++;
-        player.deductMoney(housePrice);
-
-        cout << player.getName() << " built a hotel on " << name << "." << endl;
-        game.modifyAvailableBuildings(true, 4);
-        game.modifyAvailableBuildings(false, -1);
-    } else {
-        if (game.getAvailableBuildings(true) == 0) {
-            cout << "No houses are available to build at the moment." << endl;
-            return;
-        }
-
-        houses++;
-        player.deductMoney(housePrice);
-
-        cout << player.getName() << " built a house on " << name << ". Total houses: " << houses << "." << endl;
-        game.modifyAvailableBuildings(true, -1);
-    }
-}*/
 
 bool PropertyTile::buyBuilding(Player &player, Game& game) {
     if (!ownedByPlayer(player)) {
@@ -219,39 +145,6 @@ bool PropertyTile::buyBuilding(Player &player, Game& game) {
     }
     return true;
 }
-
-/*void PropertyTile::sellBuilding(Player &player, Game& game) {
-    if (!ownedByPlayer(player) || isStationOrUtility()) {
-        return;
-    }
-    if (houses == 0) {
-        cout << name << " has no houses to sell." << endl;
-        return;
-    }
-    if (!allowHouseTransactions(false)) {
-        cout << "You must sell houses evenly across the " << group << " group." << endl;
-        return;
-    }
-
-    if (houses - 1 == 4) {
-        houses--;
-
-        int sellPrice = housePrice / 2;
-        player.addMoney(sellPrice);
-
-        cout << player.getName() << " reverted a hotel back to 4 houses on " << name << "." << endl;
-        game.modifyAvailableBuildings(false, 1);
-        game.modifyAvailableBuildings(true, -4);
-    } else {
-        houses--;
-
-        int sellPrice = housePrice / 2;
-        player.addMoney(sellPrice);
-
-        cout << player.getName() << " sold a house on " << name << ". Total houses: " << houses << "." << endl;
-        game.modifyAvailableBuildings(true, 1);
-    }
-}*/
 
 bool PropertyTile::sellBuilding(Player &player, Game& game) {
     if (!ownedByPlayer(player)) {
