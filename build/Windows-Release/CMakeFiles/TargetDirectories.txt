@@ -1,3 +1,0 @@
-D:/CICILI/CSC3002/CUHKSZ-Monoploy-online/build/Windows-Release/CMakeFiles/CUHKSZ_Monopoly_Online.dir
-D:/CICILI/CSC3002/CUHKSZ-Monoploy-online/build/Windows-Release/CMakeFiles/ALL_BUILD.dir
-D:/CICILI/CSC3002/CUHKSZ-Monoploy-online/build/Windows-Release/CMakeFiles/ZERO_CHECK.dir
