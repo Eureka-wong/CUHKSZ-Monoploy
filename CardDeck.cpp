@@ -117,7 +117,13 @@ void Card::execute(Player& player, Game& game) {
     case CardType::GO_TO_JAIL: {
         cout << player.getName() << " goes to Jail." << endl << endl;
         player.setJailStatus(0);
-        player.setPosition(10);
+        int step = 0;
+        if (10 >= player.getPosition()) {
+            step = 10 - player.getPosition();
+        } else {
+            step = 40 - player.getPosition() + 10;
+        }
+        game.movePlayer(game.getCurrentPlayerIndex(), step);
         break;
     }
 

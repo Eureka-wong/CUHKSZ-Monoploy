@@ -618,11 +618,11 @@ QString StrategyEngine::getHintResultforQt(const Player& player){
     };
 
     auto bullet = [&](QString text){
-        results += QString("<p style='margin-left:15px; color:#FFFFFF;'>• %1</p>").arg(text);
+        results += QString("<p style='margin-left:15px; color:#000000;'>• %1</p>").arg(text);
     };
 
     auto subBullet = [&](QString text){
-        results += QString("<p style='margin-left:35px; color:#CCCCCC;'>%1</p>").arg(text);
+        results += QString("<p style='margin-left:35px; color:#000000;'>%1</p>").arg(text);
     };
 
 

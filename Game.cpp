@@ -19,7 +19,6 @@ Game::Game(QObject* parent)
     addPlayer("1");
     addPlayer("2");
     addPlayer("3");
-    addPlayer("4");
     numPlayers = players.size();
 }
 
@@ -84,7 +83,7 @@ void Game::rollDiceAndMoveAndProcessEvent() {
     Player& currentPlayer = players[currentPlayerIndex];
 
     // First of all, roll the dice
-    int diceValue = 8;
+    int diceValue = rollDice();
 
     if(diceValue == 12 && currentPlayer.getRolledTwelve()==2){
         int fromIndex = currentPlayer.getPosition();
@@ -128,6 +127,10 @@ void Game::movePlayer(int playerIndex, int steps) {
     Player& player = players[playerIndex];
     int oldPosition = player.getPosition();
     int newPosition = (oldPosition + steps) % board.getSize();
+
+    if (newPosition < oldPosition && player.getJailStatus() == -1 && newPosition != 0) {
+        emit gameLogMessage(QString("Player %1 passed Go and received $200.").arg(player.getName()));
+    }
 
     player.setPosition(newPosition);
 
